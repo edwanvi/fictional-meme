@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 @Mod(modid = Reference.MODID, version = Reference.VERSION)
-public class ExampleMod {
+public class mod {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         // some example code
