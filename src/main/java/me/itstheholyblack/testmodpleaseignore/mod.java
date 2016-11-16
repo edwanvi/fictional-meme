@@ -20,18 +20,18 @@ public class mod {
     @EventHandler
     public void preInit(FMLPreInitializationEvent e) {
       System.out.println("Entering preInit");
-      this.proxy.preInit(e);
+      proxy.preInit(e);
     }
 
     @EventHandler
     public void init(FMLInitializationEvent e) {
       System.out.println("Entering init");
-      this.proxy.init(e);
+      proxy.init(e);
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent e) {
       System.out.println("Entering postInit");
-      this.proxy.postInit(e);
+      proxy.postInit(e);
     }
 }
