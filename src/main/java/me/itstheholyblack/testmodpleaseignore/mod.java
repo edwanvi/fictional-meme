@@ -14,13 +14,16 @@ public class mod {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent e) {
+      System.out.println("Entering preInit");
     }
 
     @EventHandler
     public void init(FMLInitializationEvent e) {
+      System.out.println("Entering init");
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent e) {
+      System.out.println("Entering postInit");
     }
 }
