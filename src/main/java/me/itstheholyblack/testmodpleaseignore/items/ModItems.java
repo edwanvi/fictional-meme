@@ -5,9 +5,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public final class ModItems {
 	
-	public static BasicItem testingItem;
+	public static AutoItem testingItem;
 	
 	public static void createItems() {
-		testingItem = new BasicItem();
+		testingItem = new AutoItem("firstitem");
 	}
 }
