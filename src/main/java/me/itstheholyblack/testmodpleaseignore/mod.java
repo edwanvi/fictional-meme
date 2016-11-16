@@ -1,8 +1,10 @@
 package me.itstheholyblack.testmodpleaseignore;
 
+import me.itstheholyblack.testmodpleaseignore.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -12,18 +14,24 @@ public class mod {
 	@Instance
     public static mod instance = new mod();
 
+	@SidedProxy(clientSide="me.itstheholyblack.testmodpleaseignore.proxy.ClientProxy", serverSide="me.itstheholyblack.testmodpleaseignore.proxy.ServerProxy")
+	public static CommonProxy proxy;
+	// this.proxy.stage(e) calls the method stage for the client or server proxy depending on what we're running on
     @EventHandler
     public void preInit(FMLPreInitializationEvent e) {
       System.out.println("Entering preInit");
+      this.proxy.preInit(e);
     }
 
     @EventHandler
     public void init(FMLInitializationEvent e) {
       System.out.println("Entering init");
+      this.proxy.init(e);
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent e) {
       System.out.println("Entering postInit");
+      this.proxy.postInit(e);
     }
 }
