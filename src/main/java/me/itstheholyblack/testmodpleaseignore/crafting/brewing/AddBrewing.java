@@ -14,10 +14,8 @@ public class AddBrewing {
 	private static Predicate<ItemStack> WITHER_POWDER;
 
 	public static void initRecipes() {
-		NETHER_WART = new ItemStack(Items.NETHER_WART);
-		//WITHER_POWDER = new ItemStack(ModItems.testingItem);
 		WITHER_POWDER = potionPredicate(new ItemStack(ModItems.testingItem));
-		Brewing.addCompletePotionRecipes(WITHER_POWDER, PotionTypes.AWKWARD, ModEffects.wither, ModEffects.witherLong, ModEffects.witherStrong);
+		Brewing.addCompletePotionRecipes(WITHER_POWDER, PotionTypes.WATER, ModEffects.wither, ModEffects.witherLong, ModEffects.witherStrong);
 	}
 
 	private static Predicate<ItemStack> potionPredicate(ItemStack input) {
