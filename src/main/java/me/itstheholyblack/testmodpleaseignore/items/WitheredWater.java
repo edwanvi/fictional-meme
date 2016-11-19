@@ -12,8 +12,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WitheredWater extends ItemFood {
-	public WitheredWater(String unlocalizedName, int amount, float saturation, boolean isWolfFood) {
-		super(amount, saturation, isWolfFood);
+	public WitheredWater() {
+		super(0, 0, false);
+		String unlocalizedName = "witheredwater";
 		setRegistryName(unlocalizedName);
 		setUnlocalizedName(Reference.MODID + "." + unlocalizedName);
 		setCreativeTab(CreativeTabs.FOOD);

@@ -12,7 +12,7 @@ public final class ModItems {
 	
 	public static void createItems() {
 		testingItem = new AutoItem("firstitem");
-		witheredWater = new WitheredWater("witheredwater", 0, 0, false);
+		witheredWater = new WitheredWater();
 	}
 	@SideOnly(Side.CLIENT)
     public static void initModels() {
