@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "url": "",
+  "modid": "testmodpleaseignore",
+  "name": "Test Mod Please Ignore",
+  "description": "a completely useless mod, and a total waste of disk space",
+  "version": "0.0.1-gamma",
+  "mcversion": "1.10.2",
+  "url": "https://github.com/tkdberger/fictional-meme",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["magi093"],
+  "credits": "wiresegal and Elucent for all their help",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
