@@ -5,8 +5,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class ShapelessRecipies {
-	public static void initRecipies() {
-		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.witheredWater), new Object[] {ModItems.testingItem, new ItemStack(Items.POTIONITEM, 1, 0)});
+public class ShapelessRecipes {
+	public static void initRecipes() {
+		// Use this to declare shapeless crafting recipes
 	}
 }
