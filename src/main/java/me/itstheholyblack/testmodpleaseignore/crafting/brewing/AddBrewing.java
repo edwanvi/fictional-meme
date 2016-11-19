@@ -1,7 +1,7 @@
-package me.itstheholyblack.testmodpleaseignore.crafting;
+package me.itstheholyblack.testmodpleaseignore.crafting.brewing;
 
 import com.google.common.base.Predicate;
-import me.itstheholyblack.testmodpleaseignore.crafting.Brewing;
+
 import me.itstheholyblack.testmodpleaseignore.effect.ModEffects;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import net.minecraft.init.Items;

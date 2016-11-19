@@ -1,4 +1,4 @@
-package me.itstheholyblack.testmodpleaseignore.crafting;
+package me.itstheholyblack.testmodpleaseignore.crafting.brewing;
 
 import java.util.List;
 import javax.annotation.Nullable;
