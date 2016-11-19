@@ -16,4 +16,7 @@ public class LeapingBoots extends ItemArmor {
 		setRegistryName("leapingboots");
 		GameRegistry.register(this);
 	}
+	public int getMaxAllowedJumps() {
+		return 5;
+	}
 }
