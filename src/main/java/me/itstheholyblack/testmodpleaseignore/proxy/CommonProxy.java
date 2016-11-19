@@ -1,9 +1,9 @@
 package me.itstheholyblack.testmodpleaseignore.proxy;
 
 import me.itstheholyblack.testmodpleaseignore.blocks.ModBlocks;
-import me.itstheholyblack.testmodpleaseignore.crafting.AddBrewing;
 import me.itstheholyblack.testmodpleaseignore.crafting.ShapelessRecipies;
 import me.itstheholyblack.testmodpleaseignore.crafting.Smelting;
+import me.itstheholyblack.testmodpleaseignore.crafting.brewing.AddBrewing;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
