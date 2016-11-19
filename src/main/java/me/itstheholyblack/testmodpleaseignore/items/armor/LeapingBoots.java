@@ -8,9 +8,11 @@ import me.itstheholyblack.testmodpleaseignore.network.PacketJump;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -29,8 +31,9 @@ public class LeapingBoots extends ItemArmor {
 		setRegistryName("leapingboots");
 		GameRegistry.register(this);
 	}
-	@SideOnly(Side.CLIENT)
-	public void onArmorTick(ItemStack stack, EntityLivingBase player) {
+	@Override
+	// @SideOnly(Side.CLIENT)
+	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
 		if(player instanceof EntityPlayerSP && player == Minecraft.getMinecraft().thePlayer) {
 			EntityPlayerSP playerSp = (EntityPlayerSP) player;
 			UUID uuid = playerSp.getUniqueID();
@@ -40,6 +43,7 @@ public class LeapingBoots extends ItemArmor {
 			else {
 				if(playerSp.movementInput.jump) {
 					if(!jumpDown && timesJumped < getMaxAllowedJumps()) {
+						System.out.println("Double Jump!");
 						playerSp.jump();
 						PacketHandler.sendToServer(new PacketJump());
 						timesJumped++;
