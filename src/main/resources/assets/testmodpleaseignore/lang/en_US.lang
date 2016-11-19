@@ -1,3 +1,13 @@
 item.testmodpleaseignore.firstitem.name=Withered Powder
 item.testmodpleaseignore.witheredwater.name=Withering Water
 tile.firstblock.name=Ender Glass
+
+potion.effect.wither=Withering Potion
+potion.effect.long_wither=Endless Withering Potion
+potion.effect.strong_wither=Greater Withering Potion
+tipped_arrow.effect.wither=Withering Arrow
+tipped_arrow.effect.long_wither=Endless Withering Arrow
+tipped_arrow.effect.strong_wither=Greater Withering Arrow
+splash_potion.effect.wither=Splash Potion of Withering
+splash_potion.effect.long_wither=Splash Potion of Endless Withering
+splash_potion.effect.strong_wither=Splash Potion of Greater Withering

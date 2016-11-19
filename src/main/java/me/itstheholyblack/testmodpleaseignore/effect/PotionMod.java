@@ -1,4 +1,6 @@
-package me.itstheholyblack.testmodpleaseignore.crafting.brewing;
+package me.itstheholyblack.testmodpleaseignore.effect;
+
+import org.apache.logging.log4j.Level;
 
 import me.itstheholyblack.testmodpleaseignore.Reference;
 import net.minecraft.client.Minecraft;
@@ -6,6 +8,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -14,12 +17,13 @@ public class PotionMod extends Potion {
 	int iconX;
 	int iconY;
 	ResourceLocation resource;
-	PotionMod(String name, boolean badEffect, int color, int iconIndex){
+	public PotionMod(String name, boolean badEffect, int color, int iconIndex) {
 		super(badEffect, color);
+		FMLLog.info("", "Registering potion " + name);
+		GameRegistry.register(this, new ResourceLocation(Reference.MODID, name));
 		iconX = iconIndex % 8;
 		iconY = iconIndex / 8;
 		resource = new ResourceLocation(Reference.MODID, "textures/gui/potions.png");
-		GameRegistry.register(this, new ResourceLocation(Reference.MODID, name));
 		setPotionName("${Reference.MODID}.potion." + name);
 		if (!badEffect)
 			setBeneficial();

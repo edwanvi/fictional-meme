@@ -10,9 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class AddBrewing {
-	private static ItemStack NETHER_WART;
 	private static Predicate<ItemStack> WITHER_POWDER;
-
 	public static void initRecipes() {
 		WITHER_POWDER = potionPredicate(new ItemStack(ModItems.testingItem));
 		Brewing.addCompletePotionRecipes(WITHER_POWDER, PotionTypes.WATER, ModEffects.wither, ModEffects.witherLong, ModEffects.witherStrong);
