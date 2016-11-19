@@ -18,7 +18,8 @@ public final class ModItems {
 	}
 	@SideOnly(Side.CLIENT)
     public static void initModels() {
-		System.out.println("Loading model for item firstitem");
+		System.out.println("Loading item models");
         testingItem.initModel();
+        leapingboots.initModel();
     }
 }
