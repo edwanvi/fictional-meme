@@ -1,12 +1,25 @@
 package me.itstheholyblack.testmodpleaseignore.items.armor;
 
+import java.util.UUID;
+
 import me.itstheholyblack.testmodpleaseignore.Reference;
+import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
+import me.itstheholyblack.testmodpleaseignore.network.PacketJump;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class LeapingBoots extends ItemArmor {
-
+	
+	private static int timesJumped;
+	private static boolean jumpDown;
+	
 	public LeapingBoots(EntityEquipmentSlot type, String name) {
 		this(type, name, ArmorTypes.ENDER_CLOTH_MAT);
 	}
@@ -15,6 +28,26 @@ public class LeapingBoots extends ItemArmor {
 		setUnlocalizedName(Reference.MODID + "." + "leapingboots");
 		setRegistryName("leapingboots");
 		GameRegistry.register(this);
+	}
+	@SideOnly(Side.CLIENT)
+	public void onArmorTick(ItemStack stack, EntityLivingBase player) {
+		if(player instanceof EntityPlayerSP && player == Minecraft.getMinecraft().thePlayer) {
+			EntityPlayerSP playerSp = (EntityPlayerSP) player;
+			UUID uuid = playerSp.getUniqueID();
+
+			if(playerSp.onGround)
+				timesJumped = 0;
+			else {
+				if(playerSp.movementInput.jump) {
+					if(!jumpDown && timesJumped < getMaxAllowedJumps()) {
+						playerSp.jump();
+						PacketHandler.sendToServer(new PacketJump());
+						timesJumped++;
+					}
+					jumpDown = true;
+				} else jumpDown = false;
+			}
+		}
 	}
 	public int getMaxAllowedJumps() {
 		return 5;
