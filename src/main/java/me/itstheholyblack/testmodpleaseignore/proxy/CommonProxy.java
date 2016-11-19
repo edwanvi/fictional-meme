@@ -1,6 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.proxy;
 
 import me.itstheholyblack.testmodpleaseignore.blocks.ModBlocks;
+import me.itstheholyblack.testmodpleaseignore.crafting.ShapedRecipies;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -15,7 +16,8 @@ public class CommonProxy {
     }
 
     public void init(FMLInitializationEvent e) {
-
+    	System.out.println("initializing recipies");
+    	ShapedRecipies.initRecipies();
     }
 
     public void postInit(FMLPostInitializationEvent e) {
