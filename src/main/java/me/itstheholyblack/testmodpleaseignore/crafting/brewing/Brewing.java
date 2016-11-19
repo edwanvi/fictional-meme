@@ -1,4 +1,4 @@
-package me.itstheholyblack.testmodpleaseignore.crafting;
+package me.itstheholyblack.testmodpleaseignore.crafting.brewing;
 
 import java.util.List;
 import javax.annotation.Nullable;
@@ -44,8 +44,9 @@ public class Brewing {
 	 * @param strongType The potion type to use if the potion has been strengthened with Glowstone.
 	 * */
 	public static void addCompletePotionRecipes(Predicate<ItemStack> predicate, PotionType fromType, PotionType normalType, @Nullable PotionType longType, @Nullable PotionType strongType) {
-	    if (fromType == PotionTypes.AWKWARD)
+	    if (fromType == PotionTypes.AWKWARD) {
 	        MethodHandles.registerPotionTypeConversion(PotionTypes.WATER, predicate, PotionTypes.MUNDANE);
+	    }
 	    MethodHandles.registerPotionTypeConversion(fromType, predicate, normalType);
 	    if (longType != null) MethodHandles.registerPotionTypeConversion(normalType, REDSTONE_PREDICATE, longType);
 	    if (strongType != null) MethodHandles.registerPotionTypeConversion(normalType, GLOWSTONE_PREDICATE, strongType);
