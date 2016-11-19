@@ -41,4 +41,8 @@ public class TransparentBlock extends Block {
     public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
     	return layer == BlockRenderLayer.CUTOUT;
     }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+    	return false;
+    }
 }
