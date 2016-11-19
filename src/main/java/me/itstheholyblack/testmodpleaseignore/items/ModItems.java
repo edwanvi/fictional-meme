@@ -8,11 +8,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public final class ModItems {
 	
 	public static AutoItem testingItem;
-	public static AutoItem witheredWater;
+	public static WitheredWater witheredWater;
 	
 	public static void createItems() {
 		testingItem = new AutoItem("firstitem");
-		witheredWater = new AutoItem("witheredwater");
+		witheredWater = new WitheredWater("witheredwater", 0, 0, false);
 	}
 	@SideOnly(Side.CLIENT)
     public static void initModels() {
