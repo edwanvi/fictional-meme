@@ -7,14 +7,16 @@ import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
 
 public class AcceleratorTileEntity extends TileEntity implements ITickable {
 	private int count;
 	private boolean ruined = false;
+	private BlockPos pos = getPos();
 	@Override
 	public void update() {
 		//if (worldObj.isRemote) {
-		if(count > 10 && !ruined) {
+		if(count > 100 && !ruined) {
 			this.worldObj.newExplosion(null, getPos().getX(), getPos().getY(), getPos().getZ(), 4.0F, true, true);
 			ruined = true;
 			markDirty();
