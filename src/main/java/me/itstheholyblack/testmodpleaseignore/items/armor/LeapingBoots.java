@@ -1,9 +1,8 @@
 package me.itstheholyblack.testmodpleaseignore.items.armor;
 
+import java.util.Random;
 import java.util.UUID;
-
 import javax.annotation.Nonnull;
-
 import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
 import me.itstheholyblack.testmodpleaseignore.network.PacketJump;
@@ -26,6 +25,7 @@ public class LeapingBoots extends ItemArmor {
 	
 	private static int timesJumped;
 	private static boolean jumpDown;
+
 	
 	public LeapingBoots(EntityEquipmentSlot type, String name){
 		super(ArmorTypes.ENDER_CLOTH_MAT, 0, type);
