@@ -2,6 +2,9 @@ item.testmodpleaseignore.firstitem.name=Withered Powder
 item.testmodpleaseignore.witheredwater.name=Withering Water
 tile.firstblock.name=Ender Glass
 
+item.testmodpleaseignore.end_hide.name=End Hide
+item.testmodpleaseignore.leapingboots.name=Ender-Infused Leaping Boots
+
 potion.effect.wither=Withering Potion
 potion.effect.long_wither=Endless Withering Potion
 potion.effect.strong_wither=Greater Withering Potion
