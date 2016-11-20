@@ -1,5 +1,6 @@
 package me.itstheholyblack.testmodpleaseignore.items.armor;
 
+import me.itstheholyblack.testmodpleaseignore.Reference;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.util.EnumHelper;
@@ -9,7 +10,7 @@ import net.minecraftforge.common.util.EnumHelper;
  * */
 public class ArmorTypes {
 	public static final ArmorMaterial ENDER_CLOTH_MAT = EnumHelper.addArmorMaterial("ENDER_CLOTH_MAT",
-			"endercloth",
+			Reference.MODID+":endercloth",
 			20,
 			new int[]{1, 2, 3, 1},
 			40,

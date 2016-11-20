@@ -33,6 +33,7 @@ public class LeapingBoots extends ItemArmor {
 		setRegistryName("leapingboots");
 		GameRegistry.register(this);
 	}
+	
 	@SideOnly(Side.CLIENT)
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
