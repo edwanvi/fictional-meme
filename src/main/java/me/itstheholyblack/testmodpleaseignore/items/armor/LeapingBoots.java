@@ -2,11 +2,14 @@ package me.itstheholyblack.testmodpleaseignore.items.armor;
 
 import java.util.UUID;
 
+import javax.annotation.Nonnull;
+
 import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
 import me.itstheholyblack.testmodpleaseignore.network.PacketJump;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,11 +27,8 @@ public class LeapingBoots extends ItemArmor {
 	private static int timesJumped;
 	private static boolean jumpDown;
 	
-	public LeapingBoots(EntityEquipmentSlot type, String name) {
-		this(type, name, ArmorTypes.ENDER_CLOTH_MAT);
-	}
-	public LeapingBoots(EntityEquipmentSlot type, String name, ArmorMaterial mat){
-		super(mat, 0, type);
+	public LeapingBoots(EntityEquipmentSlot type, String name){
+		super(ArmorTypes.ENDER_CLOTH_MAT, 0, type);
 		setUnlocalizedName(Reference.MODID + "." + "leapingboots");
 		setRegistryName("leapingboots");
 		GameRegistry.register(this);

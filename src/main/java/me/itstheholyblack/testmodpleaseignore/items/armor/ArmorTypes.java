@@ -9,7 +9,7 @@ import net.minecraftforge.common.util.EnumHelper;
  * */
 public class ArmorTypes {
 	public static final ArmorMaterial ENDER_CLOTH_MAT = EnumHelper.addArmorMaterial("ENDER_CLOTH_MAT",
-			"ender_cloth",
+			"endercloth",
 			20,
 			new int[]{1, 2, 3, 1},
 			40,
