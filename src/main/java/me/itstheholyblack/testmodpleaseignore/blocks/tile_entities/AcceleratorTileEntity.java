@@ -13,7 +13,6 @@ public class AcceleratorTileEntity extends TileEntity implements ITickable {
 	private boolean ruined = false;
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		//if (worldObj.isRemote) {
 		if(count > 10 && !ruined) {
 			this.worldObj.newExplosion(null, getPos().getX(), getPos().getY(), getPos().getZ(), 4.0F, true, true);
