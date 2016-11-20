@@ -22,42 +22,44 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class LeapingBoots extends ItemArmor {
-	
+
 	private static int timesJumped;
 	private static boolean jumpDown;
 
-	
-	public LeapingBoots(EntityEquipmentSlot type, String name){
+	public LeapingBoots(EntityEquipmentSlot type, String name) {
 		super(ArmorTypes.ENDER_CLOTH_MAT, 0, type);
 		setUnlocalizedName(Reference.MODID + "." + "leapingboots");
 		setRegistryName("leapingboots");
 		GameRegistry.register(this);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
-    public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
-    }
+	public void initModel() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+	}
+
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-		if(player instanceof EntityPlayerSP && player == Minecraft.getMinecraft().thePlayer) {
+		if (player instanceof EntityPlayerSP && player == Minecraft.getMinecraft().thePlayer) {
 			EntityPlayerSP playerSp = (EntityPlayerSP) player;
 			UUID uuid = playerSp.getUniqueID();
 
-			if(playerSp.onGround)
+			if (playerSp.onGround)
 				timesJumped = 0;
 			else {
-				if(playerSp.movementInput.jump) {
-					if(!jumpDown && timesJumped < getMaxAllowedJumps()) {
+				if (playerSp.movementInput.jump) {
+					if (!jumpDown && timesJumped < getMaxAllowedJumps()) {
 						playerSp.jump();
 						PacketHandler.sendToServer(new PacketJump());
 						timesJumped++;
 					}
 					jumpDown = true;
-				} else jumpDown = false;
+				} else
+					jumpDown = false;
 			}
 		}
 	}
+
 	public int getMaxAllowedJumps() {
 		return 5;
 	}

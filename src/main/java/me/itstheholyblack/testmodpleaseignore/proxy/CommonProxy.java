@@ -1,6 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.proxy;
 
 import me.itstheholyblack.testmodpleaseignore.blocks.ModBlocks;
+import me.itstheholyblack.testmodpleaseignore.crafting.ShapedRecipes;
 import me.itstheholyblack.testmodpleaseignore.crafting.ShapelessRecipes;
 import me.itstheholyblack.testmodpleaseignore.crafting.Smelting;
 import me.itstheholyblack.testmodpleaseignore.crafting.brewing.AddBrewing;
@@ -31,6 +32,7 @@ public class CommonProxy {
     	Smelting.initRecipies();
     	// Forge borked brewing
     	AddBrewing.initRecipes();
+    	ShapedRecipes.initRecipes();
     }
 
     public void postInit(FMLPostInitializationEvent e) {

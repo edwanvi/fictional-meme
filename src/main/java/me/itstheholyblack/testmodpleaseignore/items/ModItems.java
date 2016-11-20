@@ -10,10 +10,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public final class ModItems {
 	
 	public static AutoItem testingItem;
+	public static AutoItem endHide;
 	public static LeapingBoots leapingboots;
 	
 	public static void createItems() {
 		testingItem = new AutoItem("firstitem");
+		endHide = new AutoItem("end_hide");
 		leapingboots = new LeapingBoots(EntityEquipmentSlot.FEET, "leapingboots");
 	}
 	@SideOnly(Side.CLIENT)
@@ -21,5 +23,6 @@ public final class ModItems {
 		System.out.println("Loading item models");
         testingItem.initModel();
         leapingboots.initModel();
+        endHide.initModel();
     }
 }
