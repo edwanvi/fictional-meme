@@ -2,6 +2,8 @@ item.testmodpleaseignore.firstitem.name=Withered Powder
 item.testmodpleaseignore.witheredwater.name=Withering Water
 tile.firstblock.name=Ender Glass
 
+tile.acceleratorblock.name=Stellar Accelerator
+
 item.testmodpleaseignore.end_hide.name=End Hide
 item.testmodpleaseignore.leapingboots.name=Ender-Infused Leaping Boots
 
