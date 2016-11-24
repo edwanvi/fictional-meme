@@ -63,7 +63,7 @@ public class LeapingBoots extends ItemArmor {
 	}
 
 	public int getMaxAllowedJumps() {
-		return 5;
+		return 6;
 	}
 	@SideOnly(Side.CLIENT)
     @Override
