@@ -3,10 +3,12 @@ package me.itstheholyblack.testmodpleaseignore.blocks.tile_entities;
 import javax.annotation.Nullable;
 
 import me.itstheholyblack.testmodpleaseignore.blocks.ModBlocks;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 
@@ -23,6 +25,11 @@ public class AcceleratorTileEntity extends TileEntity implements ITickable {
 			markDirty();
 		} else {
 			safe = test_all_faces();
+			if (!safe) {
+				increase();
+			} else {
+				// NO-OP
+			}
 			markDirty();
 		}
 	}
@@ -50,21 +57,10 @@ public class AcceleratorTileEntity extends TileEntity implements ITickable {
         return compound;
     }
     public boolean test_all_faces() {
-    	boolean pos_x_safe = false;
-    	boolean neg_x_safe = false;
-    	if (worldObj.getBlockState(pos.add(1, 0, 0)).getBlock() == ModBlocks.tutorialBlock) {
-    		pos_x_safe = true;
-    	}
-    	if (worldObj.getBlockState(pos.add(-1, 0, 0)).getBlock() == ModBlocks.tutorialBlock) {
-    		neg_x_safe = true;
-    	}
-		if (pos_x_safe && neg_x_safe) {
-			safe = true;
-			markDirty();
-		} else {
-			safe = false;
-			markDirty();
-		}
-		return safe;
+    	for (EnumFacing facing : EnumFacing.VALUES) {
+            IBlockState state = getWorld().getBlockState(getPos().offset(facing));
+            if (state.getBlock() == ModBlocks.tutorialBlock) return true;
+        }
+        return false;
     }
 }
