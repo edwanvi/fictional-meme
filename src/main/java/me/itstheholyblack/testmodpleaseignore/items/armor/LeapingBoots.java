@@ -1,5 +1,6 @@
 package me.itstheholyblack.testmodpleaseignore.items.armor;
 
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import javax.annotation.Nonnull;
@@ -10,6 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -62,5 +64,12 @@ public class LeapingBoots extends ItemArmor {
 
 	public int getMaxAllowedJumps() {
 		return 5;
+	}
+	@SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+        tooltip.add(I18n.format("mouseovertext.endboots"));
+        // ItemTooltipListener.addNormalGravityTooltip(tooltip, playerIn);
+        super.addInformation(stack, playerIn, tooltip, advanced);
 	}
 }

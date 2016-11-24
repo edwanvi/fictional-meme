@@ -6,6 +6,7 @@ tile.acceleratorblock.name=Stellar Accelerator
 
 item.testmodpleaseignore.end_hide.name=End Hide
 item.testmodpleaseignore.leapingboots.name=Ender-Infused Leaping Boots
+mouseovertext.endboots=Boots which enable the wearer to jump numerous times before landing.
 
 potion.effect.wither=Withering Potion
 potion.effect.long_wither=Endless Withering Potion
