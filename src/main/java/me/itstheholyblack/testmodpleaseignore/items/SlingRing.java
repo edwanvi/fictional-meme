@@ -36,7 +36,9 @@ public class SlingRing extends Item {
 			stack.setTagCompound(new NBTTagCompound());
 			NBTInit(stack, playerIn);
 			System.out.println(playerIn.getName() + " initialized a sling ring. \\[T]/");
-			playerIn.addChatComponentMessage(new TextComponentString(TextFormatting.GREEN + "Sling Ring initialized."));
+			if (!worldIn.isRemote) {
+				playerIn.addChatComponentMessage(new TextComponentString(TextFormatting.GREEN + "Sling Ring initialized."));
+			}
 		} else {
 			NBTTagCompound compound = stack.getTagCompound();
 			playerIn.setPositionAndUpdate(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
