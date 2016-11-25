@@ -12,11 +12,13 @@ public final class ModItems {
 	public static AutoItem testingItem;
 	public static AutoItem endHide;
 	public static LeapingBoots leapingboots;
+	public static SlingRing slingRing;
 	
 	public static void createItems() {
 		testingItem = new AutoItem("firstitem");
 		endHide = new AutoItem("end_hide");
 		leapingboots = new LeapingBoots(EntityEquipmentSlot.FEET, "leapingboots");
+		slingRing = new SlingRing();
 	}
 	@SideOnly(Side.CLIENT)
     public static void initModels() {

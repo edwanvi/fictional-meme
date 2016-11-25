@@ -1,6 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.items;
 
 import me.itstheholyblack.testmodpleaseignore.Reference;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,6 +12,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class SlingRing extends Item {
 	// @Override
@@ -18,6 +20,8 @@ public class SlingRing extends Item {
 		this.maxStackSize = 1;
 		setRegistryName("sling_ring");
 		setUnlocalizedName(Reference.MODID + "." + "sling_ring");
+		setCreativeTab(CreativeTabs.TRANSPORTATION);
+		GameRegistry.register(this);
 	}
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn, EnumHand hand) {
 		// if no NBT is saved, make some
