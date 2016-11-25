@@ -69,7 +69,6 @@ public class LeapingBoots extends ItemArmor {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
         tooltip.add(I18n.format("mouseovertext.endboots"));
-        // ItemTooltipListener.addNormalGravityTooltip(tooltip, playerIn);
         super.addInformation(stack, playerIn, tooltip, advanced);
 	}
 }
