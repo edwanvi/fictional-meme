@@ -26,7 +26,7 @@ public class TransparentBlock extends Block {
     }
 
     public TransparentBlock(String unlocalizedName, float hardness, float resistance) {
-        this(unlocalizedName, Material.ROCK, hardness, resistance);
+        this(unlocalizedName, Material.ICE, hardness, resistance);
     }
 
     public TransparentBlock(String unlocalizedName) {

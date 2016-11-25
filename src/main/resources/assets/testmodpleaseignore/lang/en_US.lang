@@ -2,12 +2,27 @@ item.testmodpleaseignore.firstitem.name=Withered Powder
 item.testmodpleaseignore.witheredwater.name=Withering Water
 tile.firstblock.name=Ender Glass
 
+tile.acceleratorblock.name=Stellar Accelerator
+
+item.testmodpleaseignore.end_hide.name=End Hide
+item.testmodpleaseignore.leapingboots.name=Ender-Infused Leaping Boots
+mouseovertext.endboots=Boots which enable the wearer to jump numerous times before landing.
+
 potion.effect.wither=Withering Potion
 potion.effect.long_wither=Endless Withering Potion
 potion.effect.strong_wither=Greater Withering Potion
+
 tipped_arrow.effect.wither=Withering Arrow
 tipped_arrow.effect.long_wither=Endless Withering Arrow
 tipped_arrow.effect.strong_wither=Greater Withering Arrow
+
 splash_potion.effect.wither=Splash Potion of Withering
 splash_potion.effect.long_wither=Splash Potion of Endless Withering
 splash_potion.effect.strong_wither=Splash Potion of Greater Withering
+
+lingering_potion.effect.wither=Lingering Withering Potion
+lingering_potion.effect.long_wither=Lingering Potion of Endless Withering
+lingering_potion.effect.strong_wither=Lingering Greater Withering Potion
+
+item.testmodpleaseignore.sling_ring.name=Sling Ring
+mouseovertext.sling_ring=A ring which enables the bearer to return to a previously marked location. 
