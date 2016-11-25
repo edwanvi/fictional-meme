@@ -27,7 +27,7 @@ public class SlingRing extends Item {
 		// if no NBT is saved, make some
 		if (stack.getTagCompound() == null) {
 			stack.setTagCompound(new NBTTagCompound());
-			NBTInit(stack);
+			NBTInit(stack, playerIn);
 			System.out.println(playerIn.getName() + " initialized a sling ring. \\[T]/");
 			playerIn.addChatComponentMessage(new TextComponentString(TextFormatting.GREEN + "Sling Ring initialized."));
 		} else {
@@ -36,10 +36,10 @@ public class SlingRing extends Item {
 		}
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
-	public void NBTInit(ItemStack stack) {
+	public void NBTInit(ItemStack stack, EntityPlayer player) {
 		NBTTagCompound compound = stack.getTagCompound();
-		compound.setInteger("x", 0);
-		compound.setInteger("y", 0);
-		compound.setInteger("z", 0);
+		compound.setInteger("x", player.getPosition().getX());
+		compound.setInteger("y", player.getPosition().getY());
+		compound.setInteger("z", player.getPosition().getZ());
 	}
 }
