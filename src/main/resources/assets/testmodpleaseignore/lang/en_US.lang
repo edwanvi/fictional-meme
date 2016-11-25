@@ -23,3 +23,6 @@ splash_potion.effect.strong_wither=Splash Potion of Greater Withering
 lingering_potion.effect.wither=Lingering Withering Potion
 lingering_potion.effect.long_wither=Lingering Potion of Endless Withering
 lingering_potion.effect.strong_wither=Lingering Greater Withering Potion
+
+item.testmodpleaseignore.sling_ring.name=Sling Ring
+mouseovertext.sling_ring=A ring which enables the bearer to return to a previously marked location. 
