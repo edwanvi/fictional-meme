@@ -26,5 +26,6 @@ public final class ModItems {
         testingItem.initModel();
         leapingboots.initModel();
         endHide.initModel();
+        slingRing.initModel();
     }
 }
