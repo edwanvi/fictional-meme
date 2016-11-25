@@ -8,6 +8,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 public class SlingRing extends Item {
@@ -21,6 +23,11 @@ public class SlingRing extends Item {
 		if (stack.getTagCompound() == null) {
 			stack.setTagCompound(new NBTTagCompound());
 			NBTInit(stack);
+			System.out.println(playerIn.getName() + " initialized a sling ring. \\[T]/");
+			playerIn.addChatComponentMessage(new TextComponentString(TextFormatting.GREEN + "Sling Ring initialized."));
+		} else {
+			NBTTagCompound compound = stack.getTagCompound();
+			playerIn.setPositionAndUpdate(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
 		}
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
