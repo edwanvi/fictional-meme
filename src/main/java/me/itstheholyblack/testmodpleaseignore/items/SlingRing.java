@@ -1,5 +1,6 @@
 package me.itstheholyblack.testmodpleaseignore.items;
 
+import me.itstheholyblack.testmodpleaseignore.Reference;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,6 +12,10 @@ import net.minecraft.world.World;
 
 public class SlingRing extends Item {
 	// @Override
+	public SlingRing() {
+		setRegistryName("sling_ring");
+		setUnlocalizedName(Reference.MODID + "." + "sling_ring");
+	}
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn, EnumHand hand) {
 		// if no NBT is saved, make some
 		if (stack.getTagCompound() == null) {
