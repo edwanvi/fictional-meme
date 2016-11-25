@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 public class SlingRing extends Item {
 	// @Override
 	public SlingRing() {
+		this.maxStackSize = 1;
 		setRegistryName("sling_ring");
 		setUnlocalizedName(Reference.MODID + "." + "sling_ring");
 	}
