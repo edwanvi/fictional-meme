@@ -41,12 +41,13 @@ public class SlingRing extends Item {
 			if (!worldIn.isRemote) {
 				playerIn.addChatComponentMessage(new TextComponentString(TextFormatting.GREEN + "Sling Ring initialized."));
 			}
-			if (worldIn instanceof WorldServer) {
-		        FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(worldIn.provider.getDimension()).spawnParticle(EnumParticleTypes.FLAME, true, playerIn.posX, playerIn.posY, playerIn.posZ, 100, 0.5, 1, 0.5, 0.005D);
-			}
+			
 		} else {
 			NBTTagCompound compound = stack.getTagCompound();
 			playerIn.setPositionAndUpdate(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
+			if (worldIn instanceof WorldServer) {
+				FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(worldIn.provider.getDimension()).spawnParticle(EnumParticleTypes.FLAME, true, playerIn.posX, playerIn.posY, playerIn.posZ, 1000, 0.5, 1, 0.5, 0.005D); 
+			}
 		}
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
