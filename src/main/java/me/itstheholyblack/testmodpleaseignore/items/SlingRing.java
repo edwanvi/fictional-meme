@@ -26,7 +26,7 @@ public class SlingRing extends Item {
 		this.maxStackSize = 1;
 		setRegistryName("sling_ring");
 		setUnlocalizedName(Reference.MODID + "." + "sling_ring");
-		setCreativeTab(CreativeTabs.TRANSPORTATION);
+		setCreativeTab(ModItems.CREATIVETAB);
 		GameRegistry.register(this);
 	}
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn, EnumHand hand) {

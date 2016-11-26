@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.UUID;
 import javax.annotation.Nonnull;
 import me.itstheholyblack.testmodpleaseignore.Reference;
+import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
 import me.itstheholyblack.testmodpleaseignore.network.PacketJump;
 import net.minecraft.client.Minecraft;
@@ -32,6 +33,7 @@ public class LeapingBoots extends ItemArmor {
 		super(ArmorTypes.ENDER_CLOTH_MAT, 0, type);
 		setUnlocalizedName(Reference.MODID + "." + "leapingboots");
 		setRegistryName("leapingboots");
+		setCreativeTab(ModItems.CREATIVETAB);
 		GameRegistry.register(this);
 	}
 

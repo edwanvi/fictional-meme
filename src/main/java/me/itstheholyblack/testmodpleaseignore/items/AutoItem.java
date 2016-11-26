@@ -14,7 +14,7 @@ public class AutoItem extends Item {
 		super();
 		setRegistryName(unlocalizedName);
 		setUnlocalizedName(Reference.MODID + "." + unlocalizedName);
-		setCreativeTab(CreativeTabs.MATERIALS);
+		setCreativeTab(ModItems.CREATIVETAB);
 		GameRegistry.register(this);
 	}
 	@SideOnly(Side.CLIENT)

@@ -2,6 +2,7 @@ package me.itstheholyblack.testmodpleaseignore.blocks;
 
 import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.blocks.tile_entities.AcceleratorTileEntity;
+import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.MapColor;
@@ -34,6 +35,7 @@ public class StellarAccelerator extends Block implements ITileEntityProvider{
         GameRegistry.registerTileEntity(AcceleratorTileEntity.class, Reference.MODID + "_acceleratorblock");
         // set default face as north
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        setCreativeTab(ModItems.CREATIVETAB);
 	}
 	public void initModel() {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
