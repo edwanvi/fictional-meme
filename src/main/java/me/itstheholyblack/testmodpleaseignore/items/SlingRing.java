@@ -44,10 +44,9 @@ public class SlingRing extends Item {
 			
 		} else {
 			NBTTagCompound compound = stack.getTagCompound();
+			particles(worldIn, playerIn);
 			playerIn.setPositionAndUpdate(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
-			if (worldIn instanceof WorldServer) {
-				FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(worldIn.provider.getDimension()).spawnParticle(EnumParticleTypes.FLAME, true, playerIn.posX, playerIn.posY, playerIn.posZ, 1000, 0.5, 1, 0.5, 0.005D); 
-			}
+			particles(worldIn, playerIn);
 		}
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
@@ -59,6 +58,11 @@ public class SlingRing extends Item {
 	}
 	public void initModel() {
 		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+	}
+	private void particles(World worldIn, EntityPlayer playerIn) {
+		if (worldIn instanceof WorldServer) {
+			FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(worldIn.provider.getDimension()).spawnParticle(EnumParticleTypes.FLAME, true, playerIn.posX, playerIn.posY, playerIn.posZ, 1000, 0.5, 1, 0.5, 0.005D); 
+		}
 	}
 	@SideOnly(Side.CLIENT)
     @Override
