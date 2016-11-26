@@ -12,10 +12,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -37,6 +40,9 @@ public class SlingRing extends Item {
 			System.out.println(playerIn.getName() + " initialized a sling ring. \\[T]/");
 			if (!worldIn.isRemote) {
 				playerIn.addChatComponentMessage(new TextComponentString(TextFormatting.GREEN + "Sling Ring initialized."));
+			}
+			if (worldIn instanceof WorldServer) {
+		        FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(worldIn.provider.getDimension()).spawnParticle(EnumParticleTypes.FLAME, true, playerIn.posX, playerIn.posY, playerIn.posZ, 100, 0.5, 1, 0.5, 0.005D);
 			}
 		} else {
 			NBTTagCompound compound = stack.getTagCompound();
