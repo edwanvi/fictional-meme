@@ -1,6 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.items;
 
 import me.itstheholyblack.testmodpleaseignore.items.armor.LeapingBoots;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -13,6 +14,11 @@ public final class ModItems {
 	public static AutoItem endHide;
 	public static LeapingBoots leapingboots;
 	public static SlingRing slingRing;
+	public static final CreativeTabs CREATIVETAB = new CreativeTabs("testModPleaseIgnore") {
+	    @Override public Item getTabIconItem() {
+	        return endHide;
+	    }
+	};
 	
 	public static void createItems() {
 		testingItem = new AutoItem("firstitem");
