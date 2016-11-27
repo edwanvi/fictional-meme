@@ -3,6 +3,7 @@ package me.itstheholyblack.testmodpleaseignore.items;
 import java.util.List;
 
 import me.itstheholyblack.testmodpleaseignore.Reference;
+import me.itstheholyblack.testmodpleaseignore.core.CustomTeleporter;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -45,7 +46,10 @@ public class SlingRing extends Item {
 		} else {
 			NBTTagCompound compound = stack.getTagCompound();
 			particles(worldIn, playerIn);
-			playerIn.setPositionAndUpdate(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
+			if (compound.getInteger("dim") == playerIn.worldObj.provider.getDimension()) {
+				playerIn.setPositionAndUpdate(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
+			}
+			// CustomTeleporter.teleportToDimension((EntityPlayer) playerIn, compound.getInteger("dim"), compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
 			particles(worldIn, playerIn);
 		}
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
@@ -55,6 +59,7 @@ public class SlingRing extends Item {
 		compound.setInteger("x", player.getPosition().getX());
 		compound.setInteger("y", player.getPosition().getY());
 		compound.setInteger("z", player.getPosition().getZ());
+		compound.setInteger("dim", player.worldObj.provider.getDimension());
 	}
 	public void initModel() {
 		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
