@@ -7,4 +7,6 @@ public class Reference {
 	public static final String MODNAME = "Test Mod Please Ignore";
 	
 	public static final String NETWORK_CHANNEL = MODID;
+	
+	public static final String DEPENDENCIES = "required-after:Baubles@[1.3.5];";
 }
