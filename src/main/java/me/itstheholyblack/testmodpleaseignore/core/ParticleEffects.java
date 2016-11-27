@@ -15,7 +15,7 @@ public class ParticleEffects {
 	 * @param Z - Z coordinate of particles to spawn
 	 * @param particleType - The type of particle to spawn.
 	 * @param count - The (approximate?) numer of particles to create.*/
-	private void particles(World worldIn, double X, double Y, double Z, EnumParticleTypes particleType, int count) {
+	public static void particles(World worldIn, double X, double Y, double Z, EnumParticleTypes particleType, int count) {
 		if (worldIn instanceof WorldServer) {
 			FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(worldIn.provider.getDimension()).spawnParticle(particleType, true, X, Y, Z, count, 0.5, 1, 0.5, 0.005D); 
 		}
