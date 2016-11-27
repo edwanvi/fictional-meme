@@ -5,7 +5,6 @@ import me.itstheholyblack.testmodpleaseignore.blocks.tile_entities.AcceleratorTi
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;

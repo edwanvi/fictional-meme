@@ -1,6 +1,5 @@
 package me.itstheholyblack.testmodpleaseignore.core;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
