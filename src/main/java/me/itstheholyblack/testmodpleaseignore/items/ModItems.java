@@ -13,6 +13,7 @@ public final class ModItems {
 	public static AutoItem endHide;
 	public static LeapingBoots leapingboots;
 	public static SlingRing slingRing;
+	public static ItemTestCloak testCloak;
 	public static final CreativeTabs CREATIVETAB = new CreativeTabs("testModPleaseIgnore") {
 	    @Override public Item getTabIconItem() {
 	        return endHide;
@@ -24,6 +25,7 @@ public final class ModItems {
 		endHide = new AutoItem("end_hide");
 		leapingboots = new LeapingBoots(EntityEquipmentSlot.FEET, "leapingboots");
 		slingRing = new SlingRing();
+		testCloak = new ItemTestCloak();
 	}
 	@SideOnly(Side.CLIENT)
     public static void initModels() {
