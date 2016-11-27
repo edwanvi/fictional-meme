@@ -7,6 +7,7 @@ import me.itstheholyblack.testmodpleaseignore.core.CustomTeleporter;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,6 +17,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.model.ModelLoader;
@@ -46,10 +48,11 @@ public class SlingRing extends Item {
 		} else {
 			NBTTagCompound compound = stack.getTagCompound();
 			particles(worldIn, playerIn);
-			if (compound.getInteger("dim") == playerIn.worldObj.provider.getDimension()) {
+			if (playerIn instanceof EntityPlayerMP && compound.getInteger("dim") != playerIn.worldObj.provider.getDimension()) {
+				CustomTeleporter.teleportToDimension((EntityPlayer) playerIn, compound.getInteger("dim"), compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
+			} else {
 				playerIn.setPositionAndUpdate(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
 			}
-			// CustomTeleporter.teleportToDimension((EntityPlayer) playerIn, compound.getInteger("dim"), compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
 			particles(worldIn, playerIn);
 		}
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
@@ -77,11 +80,13 @@ public class SlingRing extends Item {
 			int x = compound.getInteger("x");
 			int y = compound.getInteger("y");
 			int z = compound.getInteger("z");
+			int dim = compound.getInteger("dim");
 			// (0, 0, 0) isn't reachable without breaking bedrock
 			if (x == 0 && y == 0 && z == 0) {
 				tooltip.add(I18n.format("mouseovertext.sling_ring"));
 			} else {
-				String fulltip = I18n.format("mouseovertext.sling_ring")+"\nX: " + Integer.toString(x) + "\nY: " + Integer.toString(y) + "\nZ: " + Integer.toString(z);
+				String dim_name = DimensionType.getById(dim).getName();
+				String fulltip = I18n.format("mouseovertext.sling_ring")+"\nX: " + Integer.toString(x) + "\nY: " + Integer.toString(y) + "\nZ: " + Integer.toString(z) + "\nDimension: " + dim_name;
 				tooltip.add(fulltip);
 			}
 		} else {
