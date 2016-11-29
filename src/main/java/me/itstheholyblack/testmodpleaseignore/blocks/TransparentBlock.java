@@ -32,14 +32,18 @@ public class TransparentBlock extends Block {
     public TransparentBlock(String unlocalizedName) {
         this(unlocalizedName, 2.0f, 10.0f);
     }
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getBlockLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
+
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
     // grab the model from our unlocalized name
     @SideOnly(Side.CLIENT)
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
-    }
-    @Override
-    public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
-    	return layer == BlockRenderLayer.CUTOUT;
     }
     @Override
     public boolean isOpaqueCube(IBlockState state) {
