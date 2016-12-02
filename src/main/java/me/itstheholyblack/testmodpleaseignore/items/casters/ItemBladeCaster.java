@@ -31,6 +31,7 @@ public class ItemBladeCaster extends ItemSword {
 		GameRegistry.register(this);
 	}
 	// right click
+	// I :clap: stole :clap: this :clap: code :clap: from :clap: blood :clap: magic
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn, EnumHand hand) {
 		if (hand == EnumHand.MAIN_HAND) {
 			if (stack.getTagCompound() == null) {
