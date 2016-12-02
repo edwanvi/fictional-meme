@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "testmodpleaseignore:items/blade_caster_deployed"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "deployed": 0
+      },
+      "model": "testmodpleaseignore:item/bladeCaster"
+    }
+  ]
+}
