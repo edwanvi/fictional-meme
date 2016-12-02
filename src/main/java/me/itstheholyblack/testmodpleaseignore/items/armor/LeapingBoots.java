@@ -1,18 +1,16 @@
 package me.itstheholyblack.testmodpleaseignore.items.armor;
 
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
-import javax.annotation.Nonnull;
+
 import me.itstheholyblack.testmodpleaseignore.Reference;
+import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
 import me.itstheholyblack.testmodpleaseignore.network.PacketJump;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
@@ -32,6 +30,7 @@ public class LeapingBoots extends ItemArmor {
 		super(ArmorTypes.ENDER_CLOTH_MAT, 0, type);
 		setUnlocalizedName(Reference.MODID + "." + "leapingboots");
 		setRegistryName("leapingboots");
+		setCreativeTab(ModItems.CREATIVETAB);
 		GameRegistry.register(this);
 	}
 

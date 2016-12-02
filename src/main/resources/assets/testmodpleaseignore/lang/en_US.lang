@@ -1,3 +1,5 @@
+itemGroup.testModPleaseIgnore=Test Mod Please Ignore
+
 item.testmodpleaseignore.firstitem.name=Withered Powder
 item.testmodpleaseignore.witheredwater.name=Withering Water
 tile.firstblock.name=Ender Glass
@@ -26,3 +28,7 @@ lingering_potion.effect.strong_wither=Lingering Greater Withering Potion
 
 item.testmodpleaseignore.sling_ring.name=Sling Ring
 mouseovertext.sling_ring=A ring which enables the bearer to return to a previously marked location. 
+
+item.testmodpleaseignore.itemTestCloak.name=Test Cloak Please Ignore
+
+item.testmodpleaseignore.bladeCaster.name=Novice's Blade Caster

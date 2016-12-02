@@ -1,6 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore;
 
 import me.itstheholyblack.testmodpleaseignore.proxy.CommonProxy;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -9,7 +10,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = Reference.MODID, version = Reference.VERSION, name = Reference.MODNAME)
+@Mod(modid = Reference.MODID, version = Reference.VERSION, name = Reference.MODNAME, acceptedMinecraftVersions = Reference.ACCPETED_MINECRAFT_VERSION, dependencies = Reference.DEPENDENCIES)
 public class mod {
 	@Instance
     public static mod instance = new mod();
@@ -20,6 +21,8 @@ public class mod {
     @EventHandler
     public void preInit(FMLPreInitializationEvent e) {
       System.out.println("Entering preInit");
+      // Register our event manager so we can flyyyyyy
+      MinecraftForge.EVENT_BUS.register(new EventHandles());
       proxy.preInit(e);
     }
 

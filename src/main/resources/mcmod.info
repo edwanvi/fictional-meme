@@ -3,7 +3,7 @@
   "modid": "testmodpleaseignore",
   "name": "Test Mod Please Ignore",
   "description": "a completely useless mod, and a total waste of disk space. uninstall ASAP.",
-  "version": "0.0.2-gamma",
+  "version": "0.0.4-gamma",
   "mcversion": "1.10.2",
   "url": "https://github.com/tkdberger/fictional-meme",
   "updateUrl": "",
