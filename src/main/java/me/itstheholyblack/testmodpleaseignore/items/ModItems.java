@@ -38,5 +38,6 @@ public final class ModItems {
         endHide.initModel();
         slingRing.initModel();
         testCloak.initModel();
+        bladeCaster.initModel();
     }
 }
