@@ -44,7 +44,6 @@ public class SlingRing extends Item {
 			if (!worldIn.isRemote) {
 				playerIn.addChatComponentMessage(new TextComponentString(TextFormatting.GREEN + "Sling Ring initialized."));
 			}
-			
 		} else {
 			NBTTagCompound compound = stack.getTagCompound();
 			particles(worldIn, playerIn);

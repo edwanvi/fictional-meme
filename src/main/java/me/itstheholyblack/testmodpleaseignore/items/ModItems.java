@@ -1,6 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.items;
 
 import me.itstheholyblack.testmodpleaseignore.items.armor.LeapingBoots;
+import me.itstheholyblack.testmodpleaseignore.items.casters.ItemBladeCaster;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -14,6 +15,7 @@ public final class ModItems {
 	public static LeapingBoots leapingboots;
 	public static SlingRing slingRing;
 	public static ItemTestCloak testCloak;
+	public static ItemBladeCaster bladeCaster;
 	public static final CreativeTabs CREATIVETAB = new CreativeTabs("testModPleaseIgnore") {
 	    @Override public Item getTabIconItem() {
 	        return endHide;
@@ -26,6 +28,7 @@ public final class ModItems {
 		leapingboots = new LeapingBoots(EntityEquipmentSlot.FEET, "leapingboots");
 		slingRing = new SlingRing();
 		testCloak = new ItemTestCloak();
+		bladeCaster = new ItemBladeCaster();
 	}
 	@SideOnly(Side.CLIENT)
     public static void initModels() {
@@ -35,5 +38,6 @@ public final class ModItems {
         endHide.initModel();
         slingRing.initModel();
         testCloak.initModel();
+        bladeCaster.initModel();
     }
 }
