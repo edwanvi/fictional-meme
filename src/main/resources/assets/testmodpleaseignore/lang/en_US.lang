@@ -32,3 +32,5 @@ mouseovertext.sling_ring=A ring which enables the bearer to return to a previous
 item.testmodpleaseignore.itemTestCloak.name=Test Cloak Please Ignore
 
 item.testmodpleaseignore.bladeCaster.name=Novice's Blade Caster
+item.testmodpleaseignore.halfCaster_Main.name=Half-Blade Caster
+mouseovertext.half_caster=The main hand component of the Half-Blade Caster. Hits light and extremely fast.
