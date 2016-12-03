@@ -8,7 +8,7 @@
       "predicate": {
         "deployed": 1
       },
-      "model": "testmodpleaseignore:item/blade_caster_deployed"
+      "model": "testmodpleaseignore:item/half_caster_deployed_m"
     }
   ]
 }
