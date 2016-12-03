@@ -2,6 +2,7 @@ package me.itstheholyblack.testmodpleaseignore.items;
 
 import me.itstheholyblack.testmodpleaseignore.items.armor.LeapingBoots;
 import me.itstheholyblack.testmodpleaseignore.items.casters.ItemBladeCaster;
+import me.itstheholyblack.testmodpleaseignore.items.casters.ItemHalfCaster_Main;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -16,6 +17,7 @@ public final class ModItems {
 	public static SlingRing slingRing;
 	public static ItemTestCloak testCloak;
 	public static ItemBladeCaster bladeCaster;
+	public static ItemHalfCaster_Main halfCaster_Main;
 	public static final CreativeTabs CREATIVETAB = new CreativeTabs("testModPleaseIgnore") {
 	    @Override public Item getTabIconItem() {
 	        return endHide;
@@ -29,6 +31,7 @@ public final class ModItems {
 		slingRing = new SlingRing();
 		testCloak = new ItemTestCloak();
 		bladeCaster = new ItemBladeCaster();
+		halfCaster_Main = new ItemHalfCaster_Main();
 	}
 	@SideOnly(Side.CLIENT)
     public static void initModels() {
@@ -39,5 +42,6 @@ public final class ModItems {
         slingRing.initModel();
         testCloak.initModel();
         bladeCaster.initModel();
+        halfCaster_Main.initModel();
     }
 }
