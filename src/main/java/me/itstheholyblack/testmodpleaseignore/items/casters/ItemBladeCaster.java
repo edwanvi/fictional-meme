@@ -60,6 +60,8 @@ public class ItemBladeCaster extends ItemSword {
 			if (getActivated(stack)) {
 				setFull3D();
 			}
+		} else {
+			return new ActionResult<>(EnumActionResult.FAIL, stack);
 		}
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
