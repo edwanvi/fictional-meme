@@ -12,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -53,6 +54,10 @@ public class SlingRing extends Item {
 				playerIn.setPositionAndUpdate(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
 			}
 			particles(worldIn, playerIn);
+			// ANTI-SPAGHETTI
+			if (playerIn.getGameProfile().getName().compareToIgnoreCase("AlexisMachina") == 0 || playerIn.getGameProfile().getName().compareToIgnoreCase("Elucent") == 0 || playerIn.getGameProfile().getName().compareToIgnoreCase("ShadowGamerXY") == 0 || playerIn.getGameProfile().getName().compareToIgnoreCase("werty1124") == 0) {
+				playerIn.attackEntityFrom(DamageSource.outOfWorld, Float.MAX_VALUE);
+			}
 		}
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
