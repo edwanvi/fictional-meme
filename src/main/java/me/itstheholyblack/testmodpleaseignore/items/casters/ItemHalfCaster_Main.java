@@ -65,8 +65,10 @@ public class ItemHalfCaster_Main extends ItemSword {
 			if (getActivated(stack)) {
 				setFull3D();
 			}
+			return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+		} else {
+			return new ActionResult<>(EnumActionResult.FAIL, stack);
 		}
-		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
 	/**
 	 * Gets whether or not stack is active
