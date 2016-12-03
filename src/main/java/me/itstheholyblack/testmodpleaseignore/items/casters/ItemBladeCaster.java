@@ -60,10 +60,10 @@ public class ItemBladeCaster extends ItemSword {
 			if (getActivated(stack)) {
 				setFull3D();
 			}
+			return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 		} else {
 			return new ActionResult<>(EnumActionResult.FAIL, stack);
 		}
-		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
 	boolean getActivated(ItemStack stack){
 		return stack != null && NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isActive");
