@@ -23,7 +23,7 @@
     }
   },
   "textures": {
-    "layer0": "testmodpleaseignore:items/caster_act/blade_caster_deployed-0"
+    "layer0": "testmodpleaseignore:items/caster_act/half_caster_deployed_m"
   },
   "overrides": [
     {

@@ -89,10 +89,11 @@ public class ItemHalfCaster_Main extends ItemSword {
 	 */
 	@Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        return NBTHelper.checkNBT(oldStack).getTagCompound().getBoolean("isActive") != NBTHelper.checkNBT(newStack).getTagCompound().getBoolean("isActive");
+        return NBTHelper.checkNBT(oldStack).getTagCompound().getBoolean("isActive") != NBTHelper.checkNBT(newStack).getTagCompound().getBoolean("isActive") | oldStack.getItem() != newStack.getItem();
     }
 	/**
-	 * Initialize the model for this item*/
+	 * Initialize the model for this item
+	 * */
 	@SideOnly(Side.CLIENT)
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
