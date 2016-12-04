@@ -80,7 +80,7 @@ public class ItemBladeCaster extends ItemSword {
 	// cause re-equip
 	@Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        return NBTHelper.checkNBT(oldStack).getTagCompound().getBoolean("isActive") != NBTHelper.checkNBT(newStack).getTagCompound().getBoolean("isActive");
+        return NBTHelper.checkNBT(oldStack).getTagCompound().getBoolean("isActive") != NBTHelper.checkNBT(newStack).getTagCompound().getBoolean("isActive") || oldStack.getItem() != newStack.getItem();
     }
 	@SideOnly(Side.CLIENT)
     public void initModel() {
