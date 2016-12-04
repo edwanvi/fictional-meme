@@ -7,6 +7,7 @@ import com.google.common.collect.Multimap;
 
 import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.core.NBTHelper;
+import me.itstheholyblack.testmodpleaseignore.core.Raycasting;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
@@ -53,8 +54,8 @@ public class ItemHalfCaster_Off extends ItemSword {
 	// right click
 	// I :clap: stole :clap: this :clap: code :clap: from :clap: blood :clap: magic
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-		// this caster will *only* activate in the main hand
-		if (hand == EnumHand.MAIN_HAND) {
+		// this caster will *only* activate in the off hand
+		if (hand == EnumHand.OFF_HAND) {
 			if (stack.getTagCompound() == null) {
 				stack.setTagCompound(new NBTTagCompound());
 				NBTTagCompound compound = stack.getTagCompound();
@@ -70,7 +71,7 @@ public class ItemHalfCaster_Off extends ItemSword {
 					// NO-OP
 					System.out.println("Miss");
 				} else {
-					Entity hit_entity = ray_result.entityHit;
+					Entity hit_entity = Raycasting.getEntityLookedAt(playerIn);
 					hit_entity.attackEntityFrom(DamageSource.magic, 4);
 				}
 				playerIn.getCooldownTracker().setCooldown(this, 20);
