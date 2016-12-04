@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "testmodpleaseignore:items/half_caster_idle_off"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "deployed": 1
+      },
+      "model": "testmodpleaseignore:item/half_caster_deployed_o"
+    }
+  ]
+}

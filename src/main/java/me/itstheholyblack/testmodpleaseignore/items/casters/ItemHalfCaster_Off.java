@@ -66,15 +66,12 @@ public class ItemHalfCaster_Off extends ItemSword {
 				compound.setBoolean("isActive", !getActivated(stack));
 			} else {
 				// Get the entity the player is looking at, and harm it
-				RayTraceResult ray_result = new RayTraceResult(playerIn);
-				if (ray_result.typeOfHit == Type.BLOCK || ray_result.typeOfHit == Type.MISS) {
-					// NO-OP
-					System.out.println("Miss");
-				} else {
-					Entity hit_entity = Raycasting.getEntityLookedAt(playerIn);
+				Entity hit_entity = Raycasting.getEntityLookedAt(playerIn);
+				if (hit_entity != null) {
+					System.out.println("Hit!");
 					hit_entity.attackEntityFrom(DamageSource.magic, 4);
+					playerIn.getCooldownTracker().setCooldown(this, 20);
 				}
-				playerIn.getCooldownTracker().setCooldown(this, 20);
 			}
 			if (getActivated(stack)) {
 				setFull3D();

@@ -16,6 +16,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
@@ -61,7 +62,12 @@ public class ItemHalfCaster_Main extends ItemSword {
 				compound.setBoolean("isActive", false);
 			}
 			NBTTagCompound compound = stack.getTagCompound();
-			compound.setBoolean("isActive", !getActivated(stack));
+			InventoryPlayer player_inv = playerIn.inventory;
+			if (player_inv.offHandInventory[0].getItem() != ModItems.halfCaster_Off) {
+				compound.setBoolean("isActive", !getActivated(stack));
+			} else {
+				return new ActionResult<>(EnumActionResult.PASS, stack);
+			}
 			if (getActivated(stack)) {
 				setFull3D();
 			}
@@ -73,13 +79,14 @@ public class ItemHalfCaster_Main extends ItemSword {
 	/**
 	 * Gets whether or not stack is active
 	 * @param stack - the ItemStack we want to look at
-	 * @return The boolean stored in key "isActive" for `stack`. False if the stack has no such key.*/
+	 * @return The boolean stored in key "isActive" for `stack`. False if the stack has no such key.
+	 */
 	boolean getActivated(ItemStack stack){
 		return stack != null && NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isActive");
 	}
 	/**
 	 * Sets caster damage and attack speed. The attack speed is constant and damage operates on the return of getActivated.
-	 * */
+	 */
 	@Override
     public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack stack) {
         Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
@@ -98,7 +105,7 @@ public class ItemHalfCaster_Main extends ItemSword {
     }
 	/**
 	 * Initialize the model for this item
-	 * */
+	 */
 	@SideOnly(Side.CLIENT)
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
