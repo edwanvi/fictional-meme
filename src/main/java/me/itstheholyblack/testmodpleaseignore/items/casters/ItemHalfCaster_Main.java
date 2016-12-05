@@ -62,8 +62,7 @@ public class ItemHalfCaster_Main extends ItemSword {
 				compound.setBoolean("isActive", false);
 			}
 			NBTTagCompound compound = stack.getTagCompound();
-			InventoryPlayer player_inv = playerIn.inventory;
-			if (player_inv.offHandInventory[0].getItem() != ModItems.halfCaster_Off) {
+			if (playerIn.getHeldItemOffhand() == null || playerIn.getHeldItemOffhand().getItem() != ModItems.halfCaster_Off) {
 				compound.setBoolean("isActive", !getActivated(stack));
 			} else {
 				return new ActionResult<>(EnumActionResult.PASS, stack);
