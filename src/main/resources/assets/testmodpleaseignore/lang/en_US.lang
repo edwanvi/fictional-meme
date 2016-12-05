@@ -35,4 +35,4 @@ item.testmodpleaseignore.bladeCaster.name=Novice's Blade Caster
 item.testmodpleaseignore.halfCaster_Main.name=Half-Blade Caster
 mouseovertext.half_caster=The main hand component of the Half-Blade Caster. Hits light and extremely fast.
 item.testmodpleaseignore.halfCaster_Off.name=Half-Blade Caster (Offhand)
-mouseovertest.half_caster_off=The offhand component of the Half-Blade Caster. Hits light, fast, and at a distance.
+mouseovertext.half_caster_off=The offhand component of the Half-Blade Caster. Hits light, fast, and at a distance. Unfortunately, it can't retain magically-added sharpness in flight.

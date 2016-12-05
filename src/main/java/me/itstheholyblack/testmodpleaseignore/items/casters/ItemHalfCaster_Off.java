@@ -1,5 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.items.casters;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import com.google.common.collect.HashMultimap;
@@ -10,6 +12,7 @@ import me.itstheholyblack.testmodpleaseignore.core.NBTHelper;
 import me.itstheholyblack.testmodpleaseignore.core.Raycasting;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -115,4 +118,10 @@ public class ItemHalfCaster_Off extends ItemSword {
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
     }
+	@SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+		tooltip.add(I18n.format("mouseovertext.half_caster_off"));
+		super.addInformation(stack, playerIn, tooltip, advanced);
+	}
 }
