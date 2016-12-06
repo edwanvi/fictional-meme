@@ -9,9 +9,12 @@ import javax.annotation.Nonnull;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDetection;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
 public class EntityGeminus_M extends EntityLiving {
@@ -48,5 +51,20 @@ public class EntityGeminus_M extends EntityLiving {
 			return super.attackEntityFrom(source, Math.min(cap, par2));
 		}
 		return false;
+	}
+	@Override
+	/**
+	 * Called when the mob's health reaches 0.
+	 * @author Edwan Vi (based on Vazkii)
+	 */
+	public void onDeath(@Nonnull DamageSource source) {
+		super.onDeath(source);
+		EntityLivingBase entitylivingbase = getAttackingEntity();
+		for (int i=1; i<playersWhoAttacked.size(); i++) {
+			UUID u = playersWhoAttacked.get(i);
+			EntityPlayer e = worldObj.getPlayerEntityByUUID(u);
+		}
+		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+		worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX, posY, posZ, 1D, 0D, 0D);
 	}
 }
