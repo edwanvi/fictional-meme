@@ -99,6 +99,8 @@ public class EntityMissile extends EntityThrowable {
         }
 
         this.moveEntity(this.motionX, this.motionY, this.motionZ);
+        if (time > 40)
+        	this.kill();
 		// increment tick counter
 		time++;
 	}
@@ -148,5 +150,9 @@ public class EntityMissile extends EntityThrowable {
 			break;
 		}
 		return target != null;
+	}
+	@Override
+	protected float getGravityVelocity() {
+		return 0.0F;
 	}
 }
