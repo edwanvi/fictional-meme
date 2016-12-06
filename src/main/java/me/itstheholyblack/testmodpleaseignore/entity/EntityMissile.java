@@ -31,6 +31,7 @@ public class EntityMissile extends EntityThrowable {
 	private static final String TAG_TIME = "time";
 	// homing variables
 	double lockX, lockY = -1, lockZ;
+	private EntityPlayer closestPlayer;
 	public EntityMissile(World worldIn) {
 		super(worldIn);
 		// set our size to *nothing*
@@ -74,56 +75,30 @@ public class EntityMissile extends EntityThrowable {
 
 		super.onUpdate();
 
-		if(!worldObj.isRemote && (!getTarget() || time > 400)) {
-			setDead();
-			return;
-		}
-		Vector3 thisVec = Vector3.fromEntityCenter(this);
-		Vector3 oldPos = new Vector3(lastTickPosX, lastTickPosY, lastTickPosZ);
-		Vector3 diff = thisVec.subtract(oldPos);
-		Vector3 step = diff.normalize().multiply(0.05);
-		int steps = (int) (diff.mag() / step.mag());
-		Vector3 particlePos = oldPos;
-		
-		// TODO: put particle code here. (Botania has a whole system in place for this, I don't)
-		
-		//get target entity
-		EntityLivingBase target = getTargetEntity();
-		if(target != null) {
-			if(lockY == -1) {
-				lockX = target.posX;
-				lockY = target.posY;
-				lockZ = target.posZ;
-			}
+		if (this.closestPlayer == null || this.closestPlayer.getDistanceSqToEntity(this) > 64.0D) {
+            this.closestPlayer = this.worldObj.getClosestPlayerToEntity(this, 8.0D);
+        }
+		// don't go for specators
+		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
+            this.closestPlayer = null;
+        }
+        if (this.closestPlayer != null) {
+            double d1 = (this.closestPlayer.posX - this.posX) / 8.0D;
+            double d2 = (this.closestPlayer.posY + (double)this.closestPlayer.getEyeHeight() / 2.0D - this.posY) / 8.0D;
+            double d3 = (this.closestPlayer.posZ - this.posZ) / 8.0D;
+            double d4 = Math.sqrt(d1 * d1 + d2 * d2 + d3 * d3);
+            double d5 = 1.0D - d4;
 
-			Vector3 targetVec = new Vector3(lockX, lockY, lockZ);
-			Vector3 diffVec = targetVec.subtract(thisVec);
-			Vector3 motionVec = diffVec.normalize().multiply(0.5);
-			motionX = motionVec.x;
-			motionY = motionVec.y;
-			if(time < 10)
-				motionY = Math.abs(motionY);
-			motionZ = motionVec.z;
-			this.moveEntity(targetVec.x, targetVec.y, targetVec.z);
+            if (d5 > 0.0D)
+            {
+                d5 = d5 * d5;
+                this.motionX += d1 / d4 * d5 * 0.1D;
+                this.motionY += d2 / d4 * d5 * 0.1D;
+                this.motionZ += d3 / d4 * d5 * 0.1D;
+            }
+        }
 
-			List<EntityLivingBase> targetList = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(posX - 0.5, posY - 0.5, posZ - 0.5, posX + 0.5, posY + 0.5, posZ + 0.5));
-			if(targetList.contains(target) && target != null) {
-				// get what threw us (inherited method)
-				EntityLivingBase thrower = getThrower();
-				if(thrower != null) {
-					// if the thrower is a player, store them
-					// if not, set this to null
-					EntityPlayer player = thrower instanceof EntityPlayer ? (EntityPlayer) thrower : null;
-					// damage target, either via player or mob damage (depending on thrower)
-					target.attackEntityFrom(player == null ? DamageSource.causeMobDamage(thrower) : DamageSource.causePlayerDamage(player), 12);
-				} else target.attackEntityFrom(DamageSource.generic, 12);
-
-				// setDead();
-			}
-			// die if close to target
-			if(diffVec.mag() < 1)
-				setDead();
-		}
+        this.moveEntity(this.motionX, this.motionY, this.motionZ);
 		// increment tick counter
 		time++;
 	}
@@ -143,7 +118,11 @@ public class EntityMissile extends EntityThrowable {
 	
 	@Override
 	protected void onImpact(RayTraceResult result) {
-		
+		if (result.typeOfHit == RayTraceResult.Type.ENTITY) {
+			Entity e = result.entityHit;
+			if (e == this.closestPlayer)
+				e.attackEntityFrom(DamageSource.magic, 1.0F);
+		}
 	}
 	/**
 	 * @author Vazkii
