@@ -13,6 +13,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -25,6 +26,7 @@ public class EntityGeminus_M extends EntityLiving {
 	// list of players who attacked the geminus pairing
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
 	// number of players
+	private static final String TAG_PLAYER_COUNT = "playerCount";
 	private static final DataParameter<Integer> PLAYER_COUNT = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.VARINT);
 	public EntityGeminus_M(World worldIn) {
 		super(worldIn);
@@ -32,9 +34,11 @@ public class EntityGeminus_M extends EntityLiving {
 		setSize(0.6F, 1.8F);
 		// duh.
 		isImmuneToFire = true;
+		experienceValue = 825;
 	}
 	@Override
 	protected void entityInit() {
+		super.entityInit();
 		dataManager.register(PLAYER_COUNT, 0);
 	}
 	/**
@@ -110,6 +114,9 @@ public class EntityGeminus_M extends EntityLiving {
 	public int getPlayerCount() {
 		return dataManager.get(PLAYER_COUNT);
 	}
+	public void setPlayerCount(int count) {
+		dataManager.set(PLAYER_COUNT, count);
+	}
 	@Override
 	public boolean isNonBoss() {
 		return false;
@@ -133,4 +140,16 @@ public class EntityGeminus_M extends EntityLiving {
         return flag;
     }
     // ===END ENTITYENDERMAN CODE===
+    @Override
+    public void writeEntityToNBT(NBTTagCompound par1nbtTagCompound) {
+    	super.writeEntityToNBT(par1nbtTagCompound);
+    	par1nbtTagCompound.setInteger(TAG_PLAYER_COUNT, getPlayerCount());
+    }
+    @Override
+    public void readEntityFromNBT(NBTTagCompound par1nbtTagCompound){
+    	super.readEntityFromNBT(par1nbtTagCompound);
+    	if(par1nbtTagCompound.hasKey(TAG_PLAYER_COUNT))
+			setPlayerCount(par1nbtTagCompound.getInteger(TAG_PLAYER_COUNT));
+    	else setPlayerCount(1);
+    }
 }
