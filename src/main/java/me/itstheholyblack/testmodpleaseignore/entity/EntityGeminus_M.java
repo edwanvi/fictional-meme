@@ -2,6 +2,7 @@ package me.itstheholyblack.testmodpleaseignore.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nonnull;
@@ -26,6 +27,7 @@ public class EntityGeminus_M extends EntityLiving {
 	// list of players who attacked the geminus pairing
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
 	// number of players
+	private static Random rand_gen = new Random();
 	private static final String TAG_PLAYER_COUNT = "playerCount";
 	private static final DataParameter<Integer> PLAYER_COUNT = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.VARINT);
 	public EntityGeminus_M(World worldIn) {
@@ -88,6 +90,7 @@ public class EntityGeminus_M extends EntityLiving {
 	}
 	@Override
 	public void onLivingUpdate() {
+		boolean spawning = true;
 		// count of players
 		int playerCount = getPlayerCount();
 		// get off meh
@@ -96,9 +99,13 @@ public class EntityGeminus_M extends EntityLiving {
 		if(isDead) {
 			return;
 		}
-		if (ticksExisted % 3 < 2) {
+		if (!spawning) {
+			spawning = rand_gen.nextBoolean();
+		}
+		if (ticksExisted % 3 < 2 && spawning) {
 			for(int i = 0; i < playerCount; i++)
 				spawnMissile();
+			spawning = false;
 		}
 	}
 	/**
