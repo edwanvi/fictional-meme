@@ -27,9 +27,15 @@ public class EntityGeminus_M extends EntityLiving {
 	// list of players who attacked the geminus pairing
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
 	// number of players
-	private static Random rand_gen = new Random();
 	private static final String TAG_PLAYER_COUNT = "playerCount";
 	private static final DataParameter<Integer> PLAYER_COUNT = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.VARINT);
+	// cooldown on missiles
+	private static final int COOLDOWN = 100;
+	private static final DataParameter<Integer> SPAWN_COOLDOWN = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.VARINT);
+	private static final DataParameter<Boolean> SPAWNING = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.BOOLEAN);
+	// rand gen
+	private static Random rand_gen = new Random();
+	
 	public EntityGeminus_M(World worldIn) {
 		super(worldIn);
 		// bout player sized
@@ -42,6 +48,8 @@ public class EntityGeminus_M extends EntityLiving {
 	protected void entityInit() {
 		super.entityInit();
 		dataManager.register(PLAYER_COUNT, 0);
+		dataManager.register(SPAWN_COOLDOWN, COOLDOWN);
+		dataManager.register(SPAWNING, false);
 	}
 	/**
 	 * Called when the entity is attacked. Causes blindness and adds the attacker to a hit list.
@@ -90,22 +98,24 @@ public class EntityGeminus_M extends EntityLiving {
 	}
 	@Override
 	public void onLivingUpdate() {
-		boolean spawning = true;
+		boolean spawning = dataManager.get(SPAWNING);
 		// count of players
 		int playerCount = getPlayerCount();
+		setCooldown(getCooldown()-1);
 		// get off meh
 		if(!getPassengers().isEmpty())
 			dismountRidingEntity();
 		if(isDead) {
 			return;
 		}
-		if (!spawning) {
+		if (!spawning && getCooldown() < 1) {
 			spawning = rand_gen.nextBoolean();
 		}
-		if (ticksExisted % 3 < 2 && spawning) {
+		if (spawning) {
 			for(int i = 0; i < playerCount; i++)
 				spawnMissile();
-			spawning = false;
+			dataManager.set(SPAWNING, false);
+			setCooldown(COOLDOWN);
 		}
 	}
 	/**
@@ -127,6 +137,12 @@ public class EntityGeminus_M extends EntityLiving {
 	}
 	public void setPlayerCount(int count) {
 		dataManager.set(PLAYER_COUNT, count);
+	}
+	public int getCooldown() {
+		return dataManager.get(SPAWN_COOLDOWN);
+	}
+	public void setCooldown(int value) {
+		dataManager.set(SPAWN_COOLDOWN, value);
 	}
 	@Override
 	public boolean isNonBoss() {
