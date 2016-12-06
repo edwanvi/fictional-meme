@@ -63,6 +63,7 @@ public class EntityGeminus_M extends EntityLiving {
 		for (int i=1; i<playersWhoAttacked.size(); i++) {
 			UUID u = playersWhoAttacked.get(i);
 			EntityPlayer e = worldObj.getPlayerEntityByUUID(u);
+			e.attackEntityFrom(DamageSource.magic, Float.MAX_VALUE);
 		}
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 		worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX, posY, posZ, 1D, 0D, 0D);
