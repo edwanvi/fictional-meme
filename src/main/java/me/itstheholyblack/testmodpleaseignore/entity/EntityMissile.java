@@ -34,7 +34,7 @@ public class EntityMissile extends EntityThrowable {
 	public EntityMissile(World worldIn) {
 		super(worldIn);
 		// set our size to *nothing*
-		setSize(0.1F, 0.1F);
+		setSize(0.5F, 0.1F);
 	}
 	
 	@Override

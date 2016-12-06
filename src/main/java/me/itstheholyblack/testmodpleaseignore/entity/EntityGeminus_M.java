@@ -52,9 +52,10 @@ public class EntityGeminus_M extends EntityLiving {
 		if (e instanceof EntityPlayer && PlayerDetection.isTruePlayer(e)) {
 			EntityPlayer player = (EntityPlayer) e;
 
-			if(!playersWhoAttacked.contains(player.getUniqueID()))
+			if(!playersWhoAttacked.contains(player.getUniqueID())) {
 				playersWhoAttacked.add(player.getUniqueID());
-
+				setPlayerCount(getPlayerCount() + 1);
+			}
 			player.isOnLadder();
 			player.isInWater();
 			player.isPotionActive(MobEffects.BLINDNESS);
@@ -73,11 +74,13 @@ public class EntityGeminus_M extends EntityLiving {
 	public void onDeath(@Nonnull DamageSource source) {
 		super.onDeath(source);
 		EntityLivingBase entitylivingbase = getAttackingEntity();
-		for (int i=1; i<playersWhoAttacked.size(); i++) {
+		for (int i=0; i < playersWhoAttacked.size(); i++) {
 			UUID u = playersWhoAttacked.get(i);
 			EntityPlayer e = worldObj.getPlayerEntityByUUID(u);
 			// I said you wouldn't survive
-			e.attackEntityFrom(DamageSource.magic, Float.MAX_VALUE);
+			System.out.println("Killing player " + e.getName());
+			//if (e != null) {}
+			e.attackEntityFrom(DamageSource.outOfWorld, Float.MAX_VALUE);
 		}
 		// "explode"
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
@@ -104,6 +107,7 @@ public class EntityGeminus_M extends EntityLiving {
 	 */
 	private void spawnMissile() {
 		EntityMissile missile = new EntityMissile(this);
+		System.out.println("Spawned missile");
 		// set missile position to ours, give or take some random values
 		missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1), posZ + (Math.random() - 0.5 * 0.1));
 		if(missile.getTarget()) {
