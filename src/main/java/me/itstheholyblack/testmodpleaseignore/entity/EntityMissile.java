@@ -41,7 +41,9 @@ public class EntityMissile extends EntityThrowable {
 	protected void entityInit() {
 		dataManager.register(TARGET, 0);
 	}
-	
+	public EntityMissile(EntityLivingBase thrower) {
+		this(thrower.worldObj);
+	}
 	/**
 	 * Simple method to set the missile's target.
 	 * @author Vazkii
