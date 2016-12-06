@@ -74,7 +74,7 @@ public class EntityMissile extends EntityThrowable {
 
 		super.onUpdate();
 
-		if(!worldObj.isRemote && (!getTarget() || time > 40)) {
+		if(!worldObj.isRemote && (!getTarget() || time > 400)) {
 			setDead();
 			return;
 		}
@@ -104,6 +104,7 @@ public class EntityMissile extends EntityThrowable {
 			if(time < 10)
 				motionY = Math.abs(motionY);
 			motionZ = motionVec.z;
+			this.moveEntity(targetVec.x, targetVec.y, targetVec.z);
 
 			List<EntityLivingBase> targetList = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(posX - 0.5, posY - 0.5, posZ - 0.5, posX + 0.5, posY + 0.5, posZ + 0.5));
 			if(targetList.contains(target) && target != null) {
@@ -117,7 +118,7 @@ public class EntityMissile extends EntityThrowable {
 					target.attackEntityFrom(player == null ? DamageSource.causeMobDamage(thrower) : DamageSource.causePlayerDamage(player), 12);
 				} else target.attackEntityFrom(DamageSource.generic, 12);
 
-				setDead();
+				// setDead();
 			}
 			// die if close to target
 			if(diffVec.mag() < 1)
@@ -156,9 +157,9 @@ public class EntityMissile extends EntityThrowable {
 
 		double range = 12;
 		List entities = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range), Predicates.instanceOf(EntityPlayer.class));
-		entities.add(worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range), Predicates.instanceOf(IMob.class)));
 		while(entities.size() > 0) {
-			Entity e = (Entity) entities.get(worldObj.rand.nextInt(entities.size()));
+			int rand_index = worldObj.rand.nextInt(entities.size());
+			Entity e = (Entity) entities.get(rand_index);
 			if(!(e instanceof EntityLivingBase) || e.isDead) { // Just in case...
 				entities.remove(e);
 				continue;
