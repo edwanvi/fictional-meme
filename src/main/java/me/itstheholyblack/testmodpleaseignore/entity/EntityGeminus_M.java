@@ -8,9 +8,11 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDetection;
+import me.itstheholyblack.testmodpleaseignore.core.Randomizer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -50,6 +52,11 @@ public class EntityGeminus_M extends EntityLiving {
 		dataManager.register(PLAYER_COUNT, 0);
 		dataManager.register(SPAWN_COOLDOWN, COOLDOWN);
 		dataManager.register(SPAWNING, false);
+	}
+	@Override
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP);
 	}
 	/**
 	 * Called when the entity is attacked. Causes blindness and adds the attacker to a hit list.
@@ -109,7 +116,7 @@ public class EntityGeminus_M extends EntityLiving {
 			return;
 		}
 		if (!spawning && getCooldown() < 1) {
-			spawning = rand_gen.nextBoolean();
+			spawning = Randomizer.getRandomBoolean(this.getHealth()/MAX_HP, Boolean.valueOf(true));
 		}
 		if (spawning) {
 			for(int i = 0; i < playerCount; i++)
