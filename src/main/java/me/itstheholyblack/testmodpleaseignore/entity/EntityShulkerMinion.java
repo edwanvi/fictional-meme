@@ -5,7 +5,11 @@ import javax.annotation.Nonnull;
 import net.minecraft.entity.monster.EntityShulker;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-
+/**
+ * Extension of shulkers that can easily be used for the geminus fight.
+ * @author Edwan Vi
+ * @author Mojang
+ */
 public class EntityShulkerMinion extends EntityShulker {
 	private EntityGeminus_M boss;
 	public EntityShulkerMinion(World worldIn, EntityGeminus_M bossman) {
