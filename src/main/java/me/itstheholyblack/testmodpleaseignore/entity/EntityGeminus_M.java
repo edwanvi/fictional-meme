@@ -152,9 +152,9 @@ public class EntityGeminus_M extends EntityLiving {
 			boolean shouldSpawnShulker = !(Randomizer.getRandomBoolean(PERCENT_HP / 10)) && shulkerList.size() < 5;
 			boolean mobGriefing = this.worldObj.getGameRules().getBoolean("mobGriefing");
 			BlockPos myPosition = this.getPosition();
-			double d0 = posX + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
-			double d1 = posY + (rand.nextInt(TELEPORT_RANGE_INT));
-			double d2 = posZ + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
+			double d0 = posX + (rand.nextDouble() - 0.5D) * (TELEPORT_RANGE_DOUBLE/2);
+			double d1 = posY + (rand.nextInt(TELEPORT_RANGE_INT/2));
+			double d2 = posZ + (rand.nextDouble() - 0.5D) * (TELEPORT_RANGE_DOUBLE/2);
 			if (shouldSpawnShulker) {
 				BlockPos pos = new BlockPos(d0, d1, d2);
 				if (mobGriefing) {
@@ -183,9 +183,7 @@ public class EntityGeminus_M extends EntityLiving {
 			setCooldown(COOLDOWN);
 		} else if (this.closestPlayer != null && this.closestPlayer.getDistanceSqToEntity(this) < 1.0D && !spawning) {
 			// teleport more often as HP deceases
-			if (!(Randomizer.getRandomBoolean(PERCENT_HP)) && !spawning) {
-				this.teleportRandomly();
-			}
+			this.teleportRandomly();
 		}
 		this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
 	}
@@ -245,15 +243,18 @@ public class EntityGeminus_M extends EntityLiving {
 	 * @return A boolean indicating whether or not we succeeded.
 	 * @author Notch
 	 */
-    private boolean teleportTo(double x, double y, double z) {
+	private boolean teleportTo(double x, double y, double z)
+    {
         net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(this, x, y, z, 0);
         if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event)) return false;
         boolean flag = this.attemptTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ());
 
-        if (flag) {
+        if (flag)
+        {
             this.worldObj.playSound((EntityPlayer)null, this.prevPosX, this.prevPosY, this.prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, this.getSoundCategory(), 1.0F, 1.0F);
             this.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
         }
+
         return flag;
     }
     // ===END ENTITYENDERMAN CODE===
@@ -283,7 +284,7 @@ public class EntityGeminus_M extends EntityLiving {
      * @param pos Where to place the shulker.
      * @return The spawned shulker (or {@code null} if we couldn't spawn it for some reason.)
      */
-    @SideOnly(Side.SERVER)
+    // @SideOnly(Side.SERVER)
     private EntityShulkerMinion shulkerReplace(BlockPos pos) {
     	System.out.println("Spawning Shulker Minion");
     	EntityShulkerMinion shulk = new EntityShulkerMinion(this.worldObj, this);
