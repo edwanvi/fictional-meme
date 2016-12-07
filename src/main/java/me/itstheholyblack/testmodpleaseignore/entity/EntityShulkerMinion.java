@@ -24,6 +24,6 @@ public class EntityShulkerMinion extends EntityShulker {
 	public void onDeath(@Nonnull DamageSource source) {
 		super.onDeath(source);
 		if (boss != null)
-			boss.shulkerList.remove(this);
+			boss.shulkerList.remove(this.getUniqueID());
 	}
 }
