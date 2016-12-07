@@ -14,6 +14,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
@@ -22,6 +23,8 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.world.BossInfo;
+import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.World;
 
 public class EntityGeminus_M extends EntityLiving {
@@ -32,11 +35,13 @@ public class EntityGeminus_M extends EntityLiving {
 	private static final String TAG_PLAYER_COUNT = "playerCount";
 	private static final DataParameter<Integer> PLAYER_COUNT = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.VARINT);
 	// cooldown on missiles
-	private static final int COOLDOWN = 100;
+	private static final int COOLDOWN = 10;
 	private static final DataParameter<Integer> SPAWN_COOLDOWN = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> SPAWNING = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.BOOLEAN);
 	// rand gen
 	private static Random rand_gen = new Random();
+	// boss bar
+	private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(this.getDisplayName(), BossInfo.Color.PURPLE, BossInfo.Overlay.PROGRESS));
 	
 	public EntityGeminus_M(World worldIn) {
 		super(worldIn);
@@ -116,7 +121,7 @@ public class EntityGeminus_M extends EntityLiving {
 			return;
 		}
 		if (!spawning && getCooldown() < 1) {
-			spawning = Randomizer.getRandomBoolean(this.getHealth()/MAX_HP, Boolean.valueOf(true));
+			spawning = !(Randomizer.getRandomBoolean(this.getHealth()/MAX_HP));
 		}
 		if (spawning) {
 			for(int i = 0; i < playerCount; i++)
@@ -174,6 +179,25 @@ public class EntityGeminus_M extends EntityLiving {
         return flag;
     }
     // ===END ENTITYENDERMAN CODE===
+    // +++BEGIN ENTITYWITHER CODE+++
+    /**
+     * Add the given player to the list of players tracking this entity. For instance, a player may track a boss in
+     * order to view its associated boss bar.
+     */
+    public void addTrackingPlayer(EntityPlayerMP player) {
+        super.addTrackingPlayer(player);
+        this.bossInfo.addPlayer(player);
+    }
+
+    /**
+     * Removes the given player from the list of players tracking this entity. See {@link Entity#addTrackingPlayer} for
+     * more information on tracking.
+     */
+    public void removeTrackingPlayer(EntityPlayerMP player) {
+        super.removeTrackingPlayer(player);
+        this.bossInfo.removePlayer(player);
+    }
+    // +++END ENTITYWITHER CODE+++
     @Override
     public void writeEntityToNBT(NBTTagCompound par1nbtTagCompound) {
     	super.writeEntityToNBT(par1nbtTagCompound);
