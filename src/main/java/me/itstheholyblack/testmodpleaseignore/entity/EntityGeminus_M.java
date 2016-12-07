@@ -43,6 +43,8 @@ public class EntityGeminus_M extends EntityLiving {
 	private static final DataParameter<Integer> SPAWN_COOLDOWN = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> SPAWNING = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> SHULKER_COOLDOWN = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.VARINT);
+	private static final double TELEPORT_RANGE_DOUBLE = 64.0D;
+	private static final int TELEPORT_RANGE_INT = (int) TELEPORT_RANGE_DOUBLE;
 	// rand gen
 	private static Random rand_gen = new Random();
 	// boss bar
@@ -126,6 +128,9 @@ public class EntityGeminus_M extends EntityLiving {
 		// count of players
 		int playerCount = getPlayerCount();
 		setCooldown(getCooldown()-1);
+		if (PERCENT_HP < 50 && getShulkerCooldown() > 0) {
+			setShulkerCooldown(getShulkerCooldown()-1);
+		}
 		// get off meh
 		if(!getPassengers().isEmpty())
 			dismountRidingEntity();
@@ -134,6 +139,29 @@ public class EntityGeminus_M extends EntityLiving {
 		}
 		if (!spawning && getCooldown() < 1) {
 			spawning = !(Randomizer.getRandomBoolean(this.getHealth() / this.getMaxHealth()));
+		}
+		// shulker spawning code
+		if (!spawning && getShulkerCooldown() < 1) {
+			boolean shouldSpawnShulker = !(Randomizer.getRandomBoolean(PERCENT_HP / 10));
+			boolean mobGriefing = this.worldObj.getGameRules().getBoolean("mobGriefing");
+			BlockPos myPosition = this.getPosition();
+			double d0 = posX + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
+			double d1 = posY + (rand.nextInt(TELEPORT_RANGE_INT) - 32);
+			double d2 = posZ + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
+			if (shouldSpawnShulker) {
+				BlockPos pos = new BlockPos(d0, d1, d2);
+				if (mobGriefing) {
+					this.shulkerReplace(pos);
+				} else {
+					if (worldObj.getBlockState(pos).getBlock() != Blocks.AIR) {
+						while (worldObj.getBlockState(pos).getBlock() != Blocks.AIR) {
+							pos = pos.add(0, 1, 0);
+						}
+						// we have an air block now
+						this.shulkerReplace(pos);
+					}
+				}
+			}
 		}
 		if (spawning) {
 			for(int i = 0; i < playerCount; i++)
@@ -162,6 +190,7 @@ public class EntityGeminus_M extends EntityLiving {
 			worldObj.spawnEntityInWorld(missile);
 		}
 	}
+	// setters and getters
 	public int getPlayerCount() {
 		return dataManager.get(PLAYER_COUNT);
 	}
@@ -174,6 +203,12 @@ public class EntityGeminus_M extends EntityLiving {
 	public void setCooldown(int value) {
 		dataManager.set(SPAWN_COOLDOWN, value);
 	}
+	public int getShulkerCooldown() {
+		return dataManager.get(SHULKER_COOLDOWN);
+	}
+	public void setShulkerCooldown(int value) {
+		dataManager.set(SHULKER_COOLDOWN, value);
+	}
 	@Override
 	public boolean isNonBoss() {
 		return false;
@@ -181,10 +216,10 @@ public class EntityGeminus_M extends EntityLiving {
 	// ===BEGIN ENTITYENDERMAN CODE===
 	/**
 	 * Teleport to a random position within 64 blocks.
+	 * @return A boolean indicating whether or not we succeeded.
+	 * @author Notch
 	 */
 	private boolean teleportRandomly() {
-		double TELEPORT_RANGE_DOUBLE = 64.0D;
-		int TELEPORT_RANGE_INT = (int) TELEPORT_RANGE_DOUBLE;
 		double d0 = posX + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
 		double d1 = posY + (rand.nextInt(TELEPORT_RANGE_INT) - 32);
 		double d2 = posZ + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
@@ -192,6 +227,11 @@ public class EntityGeminus_M extends EntityLiving {
 	}
 	/**
 	 * Teleport to a given position.
+	 * @param x The x coordinate of our destination.
+	 * @param y The y coordinate of our destination.
+	 * @param z The z coordinate of our destination.
+	 * @return A boolean indicating whether or not we succeeded.
+	 * @author Notch
 	 */
     private boolean teleportTo(double x, double y, double z) {
         net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(this, x, y, z, 0);
