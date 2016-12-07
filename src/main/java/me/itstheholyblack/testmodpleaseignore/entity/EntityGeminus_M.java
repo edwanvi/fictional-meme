@@ -16,6 +16,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityShulker;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,6 +29,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLLog;
 
 public class EntityGeminus_M extends EntityLiving {
 	private static final float MAX_HP = 320F;
@@ -222,11 +224,19 @@ public class EntityGeminus_M extends EntityLiving {
     // +++END ENTITYWITHER CODE+++
     /**
      * Replace a given block with a shulker because f*ck you. THIS CODE DOESN'T GIVE A DAMN ABOUT THE {@code mobGriefing} GAME RULE. DON'T. BE. A. TWIT.
+     * Fails if the given block pos is bedrock.
      * @author Edwan Vi
+     * @param pos Where to place the shulker.
      */
     private void shulkerReplace(BlockPos pos) {
     	EntityShulker shulk = new EntityShulker(this.worldObj);
     	shulk.setPosition(pos.getX(), pos.getY(), pos.getZ());
+    	if (worldObj.getBlockState(pos).getBlock() != Blocks.BEDROCK) {
+    		this.worldObj.setBlockToAir(pos);
+        	worldObj.spawnEntityInWorld(shulk);
+    	} else {
+    		FMLLog.warning("Could not place shulker at given position.", "Could not place shulker at given position.");
+    	}
     }
     @Override
     public void writeEntityToNBT(NBTTagCompound par1nbtTagCompound) {
