@@ -13,6 +13,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.monster.EntityShulker;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
@@ -23,6 +24,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.World;
@@ -218,6 +220,14 @@ public class EntityGeminus_M extends EntityLiving {
         this.bossInfo.removePlayer(player);
     }
     // +++END ENTITYWITHER CODE+++
+    /**
+     * Replace a given block with a shulker because f*ck you. THIS CODE DOESN'T GIVE A DAMN ABOUT THE {@code mobGriefing} GAME RULE. DON'T. BE. A. TWIT.
+     * @author Edwan Vi
+     */
+    private void shulkerReplace(BlockPos pos) {
+    	EntityShulker shulk = new EntityShulker(this.worldObj);
+    	shulk.setPosition(pos.getX(), pos.getY(), pos.getZ());
+    }
     @Override
     public void writeEntityToNBT(NBTTagCompound par1nbtTagCompound) {
     	super.writeEntityToNBT(par1nbtTagCompound);
