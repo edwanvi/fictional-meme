@@ -152,6 +152,7 @@ public class EntityGeminus_M extends EntityLiving {
 				BlockPos pos = new BlockPos(d0, d1, d2);
 				if (mobGriefing) {
 					this.shulkerReplace(pos);
+					setShulkerCooldown(COOLDOWN);
 				} else {
 					if (worldObj.getBlockState(pos).getBlock() != Blocks.AIR) {
 						while (worldObj.getBlockState(pos).getBlock() != Blocks.AIR) {
@@ -159,6 +160,7 @@ public class EntityGeminus_M extends EntityLiving {
 						}
 						// we have an air block now
 						this.shulkerReplace(pos);
+						setShulkerCooldown(COOLDOWN * 10);
 					}
 				}
 			}
@@ -274,8 +276,10 @@ public class EntityGeminus_M extends EntityLiving {
     	EntityShulker shulk = new EntityShulker(this.worldObj);
     	shulk.setPosition(pos.getX(), pos.getY(), pos.getZ());
     	if (worldObj.getBlockState(pos).getBlock() != Blocks.BEDROCK) {
-    		this.worldObj.setBlockToAir(pos);
-        	worldObj.spawnEntityInWorld(shulk);
+    		if (!worldObj.isRemote) {
+    			this.worldObj.setBlockToAir(pos);
+    			worldObj.spawnEntityInWorld(shulk);
+    		}
     	} else {
     		FMLLog.warning("Could not place shulker at given position.", "Could not place shulker at given position.");
     	}
