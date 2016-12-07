@@ -41,7 +41,7 @@ public class EntityGeminus_M extends EntityLiving {
 	// rand gen
 	private static Random rand_gen = new Random();
 	// boss bar
-	private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(this.getDisplayName(), BossInfo.Color.PURPLE, BossInfo.Overlay.PROGRESS));
+	private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(this.getDisplayName(), BossInfo.Color.GREEN, BossInfo.Overlay.NOTCHED_20));
 	
 	public EntityGeminus_M(World worldIn) {
 		super(worldIn);
@@ -121,7 +121,7 @@ public class EntityGeminus_M extends EntityLiving {
 			return;
 		}
 		if (!spawning && getCooldown() < 1) {
-			spawning = !(Randomizer.getRandomBoolean(this.getHealth()/MAX_HP));
+			spawning = !(Randomizer.getRandomBoolean(this.getHealth() / this.getMaxHealth()));
 		}
 		if (spawning) {
 			for(int i = 0; i < playerCount; i++)
@@ -129,6 +129,7 @@ public class EntityGeminus_M extends EntityLiving {
 			dataManager.set(SPAWNING, false);
 			setCooldown(COOLDOWN);
 		}
+		this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
 	}
 	/**
 	 * Spawns a missile attack.
