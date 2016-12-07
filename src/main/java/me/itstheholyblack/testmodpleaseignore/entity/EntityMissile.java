@@ -123,7 +123,7 @@ public class EntityMissile extends EntityThrowable {
 		if (result.typeOfHit == RayTraceResult.Type.ENTITY) {
 			Entity e = result.entityHit;
 			if (e == this.closestPlayer)
-				e.attackEntityFrom(DamageSource.magic, 1.0F);
+				e.attackEntityFrom(DamageSource.magic, 5.0F);
 		}
 	}
 	/**
