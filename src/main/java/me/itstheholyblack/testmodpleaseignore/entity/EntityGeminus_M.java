@@ -105,15 +105,19 @@ public class EntityGeminus_M extends EntityLiving {
 	 */
 	public void onDeath(@Nonnull DamageSource source) {
 		super.onDeath(source);
+		if (source == DamageSource.outOfWorld) {
+			// no-op
+			return;
+		}
 		EntityLivingBase entitylivingbase = getAttackingEntity();
 		for (int i=0; i < playersWhoAttacked.size(); i++) {
 			UUID u = playersWhoAttacked.get(i);
 			EntityPlayer e = worldObj.getPlayerEntityByUUID(u);
 			// I said you wouldn't survive
 			System.out.println("Killing player " + e.getName());
-			//if (e != null) {}
 			e.attackEntityFrom(DamageSource.outOfWorld, Float.MAX_VALUE);
 		}
+		shulkerList.clear();
 		// "explode"
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 		worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX, posY, posZ, 1D, 0D, 0D);
@@ -142,8 +146,8 @@ public class EntityGeminus_M extends EntityLiving {
 			spawning = !(Randomizer.getRandomBoolean(this.getHealth() / this.getMaxHealth()));
 		}
 		// shulker spawning code
-		if (!spawning && getShulkerCooldown() < 1) {
-			boolean shouldSpawnShulker = !(Randomizer.getRandomBoolean(PERCENT_HP / 10)) && !(shulkerList.size() < 5);
+		if (getShulkerCooldown() < 1) {
+			boolean shouldSpawnShulker = !(Randomizer.getRandomBoolean(PERCENT_HP / 10)) && shulkerList.size() < 5;
 			boolean mobGriefing = this.worldObj.getGameRules().getBoolean("mobGriefing");
 			BlockPos myPosition = this.getPosition();
 			double d0 = posX + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
@@ -189,7 +193,6 @@ public class EntityGeminus_M extends EntityLiving {
 	 */
 	private void spawnMissile() {
 		EntityMissile missile = new EntityMissile(this);
-		System.out.println("Spawned missile");
 		// set missile position to ours, give or take some random values
 		missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1), posZ + (Math.random() - 0.5 * 0.1));
 		if(missile.getTarget()) {
@@ -279,6 +282,7 @@ public class EntityGeminus_M extends EntityLiving {
      * @return The spawned shulker (or {@code null} if we couldn't spawn it for some reason.)
      */
     private EntityShulkerMinion shulkerReplace(BlockPos pos) {
+    	System.out.println("Spawning Shulker Minion");
     	EntityShulkerMinion shulk = new EntityShulkerMinion(this.worldObj, this);
     	shulk.setPosition(pos.getX(), pos.getY(), pos.getZ());
     	if (worldObj.getBlockState(pos).getBlock() != Blocks.BEDROCK) {
