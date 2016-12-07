@@ -42,7 +42,8 @@ public class EntityGeminus_M extends EntityLiving {
 	private static Random rand_gen = new Random();
 	// boss bar
 	private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(this.getDisplayName(), BossInfo.Color.GREEN, BossInfo.Overlay.NOTCHED_20));
-	
+	// closest player
+	private EntityPlayer closestPlayer;
 	public EntityGeminus_M(World worldIn) {
 		super(worldIn);
 		// bout player sized
@@ -128,6 +129,8 @@ public class EntityGeminus_M extends EntityLiving {
 				spawnMissile();
 			dataManager.set(SPAWNING, false);
 			setCooldown(COOLDOWN);
+		} else if ((this.closestPlayer == null || this.closestPlayer.getDistanceSqToEntity(this) < 10.0D) && !spawning) {
+			this.teleportRandomly();
 		}
 		this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
 	}
@@ -162,12 +165,20 @@ public class EntityGeminus_M extends EntityLiving {
 		return false;
 	}
 	// ===BEGIN ENTITYENDERMAN CODE===
+	/**
+	 * Teleport to a random position within 64 blocks.
+	 */
 	private boolean teleportRandomly() {
-		double d0 = posX + (rand.nextDouble() - 0.5D) * 64.0D;
-		double d1 = posY + (rand.nextInt(64) - 32);
-		double d2 = posZ + (rand.nextDouble() - 0.5D) * 64.0D;
+		double TELEPORT_RANGE_DOUBLE = 64.0D;
+		int TELEPORT_RANGE_INT = (int) TELEPORT_RANGE_DOUBLE;
+		double d0 = posX + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
+		double d1 = posY + (rand.nextInt(TELEPORT_RANGE_INT) - 32);
+		double d2 = posZ + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
 		return teleportTo(d0, d1, d2);
 	}
+	/**
+	 * Teleport to a given position.
+	 */
     private boolean teleportTo(double x, double y, double z) {
         net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(this, x, y, z, 0);
         if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event)) return false;
