@@ -29,6 +29,8 @@ import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityGeminus_M extends EntityLiving {
 	private static final float MAX_HP = 320F;
@@ -151,7 +153,7 @@ public class EntityGeminus_M extends EntityLiving {
 			boolean mobGriefing = this.worldObj.getGameRules().getBoolean("mobGriefing");
 			BlockPos myPosition = this.getPosition();
 			double d0 = posX + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
-			double d1 = posY + (rand.nextInt(TELEPORT_RANGE_INT) - 32);
+			double d1 = posY + (rand.nextInt(TELEPORT_RANGE_INT));
 			double d2 = posZ + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
 			if (shouldSpawnShulker) {
 				BlockPos pos = new BlockPos(d0, d1, d2);
@@ -281,6 +283,7 @@ public class EntityGeminus_M extends EntityLiving {
      * @param pos Where to place the shulker.
      * @return The spawned shulker (or {@code null} if we couldn't spawn it for some reason.)
      */
+    @SideOnly(Side.SERVER)
     private EntityShulkerMinion shulkerReplace(BlockPos pos) {
     	System.out.println("Spawning Shulker Minion");
     	EntityShulkerMinion shulk = new EntityShulkerMinion(this.worldObj, this);
