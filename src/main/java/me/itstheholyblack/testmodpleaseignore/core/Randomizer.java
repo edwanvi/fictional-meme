@@ -13,16 +13,11 @@ public class Randomizer {
 	/**
 	 * Generate a random boolean, with a bias {@code p} for being {@code true}.
 	 * @param p The chance of returning {@code true}. 0.5 = 50%.
-	 * @param direction Set this to false to return {@code false} instead of true.
 	 * @return A boolean
 	 * @author maxf130
 	 * @author Edwan Vi
 	 */
-	public static boolean getRandomBoolean(float p, @Nullable Boolean direction){
-		if (direction == null || direction == true)
+	public static boolean getRandomBoolean(float p){
 			return rand_gen.nextFloat() < p;
-		else {
-			return !(rand_gen.nextFloat() < p);
-		}
 	}
 }
