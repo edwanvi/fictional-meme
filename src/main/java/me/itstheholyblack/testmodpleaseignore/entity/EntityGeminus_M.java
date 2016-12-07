@@ -112,6 +112,10 @@ public class EntityGeminus_M extends EntityLiving {
 	@Override
 	public void onLivingUpdate() {
 		boolean spawning = dataManager.get(SPAWNING);
+		this.closestPlayer = this.worldObj.getClosestPlayerToEntity(this, 8.0D);
+		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
+            this.closestPlayer = null;
+        }
 		// count of players
 		int playerCount = getPlayerCount();
 		setCooldown(getCooldown()-1);
@@ -129,7 +133,7 @@ public class EntityGeminus_M extends EntityLiving {
 				spawnMissile();
 			dataManager.set(SPAWNING, false);
 			setCooldown(COOLDOWN);
-		} else if ((this.closestPlayer == null || this.closestPlayer.getDistanceSqToEntity(this) < 10.0D) && !spawning) {
+		} else if (this.closestPlayer != null && this.closestPlayer.getDistanceSqToEntity(this) < 1.0D && !spawning) {
 			this.teleportRandomly();
 		}
 		this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
