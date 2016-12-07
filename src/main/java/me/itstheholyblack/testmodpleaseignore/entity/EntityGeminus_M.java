@@ -13,7 +13,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.monster.EntityShulker;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -45,6 +44,8 @@ public class EntityGeminus_M extends EntityLiving {
 	private static final DataParameter<Integer> SHULKER_COOLDOWN = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.VARINT);
 	private static final double TELEPORT_RANGE_DOUBLE = 64.0D;
 	private static final int TELEPORT_RANGE_INT = (int) TELEPORT_RANGE_DOUBLE;
+	// list of shulkers so we don't spawn a billion of them
+	public List<UUID> shulkerList = new ArrayList<>();
 	// rand gen
 	private static Random rand_gen = new Random();
 	// boss bar
@@ -142,7 +143,7 @@ public class EntityGeminus_M extends EntityLiving {
 		}
 		// shulker spawning code
 		if (!spawning && getShulkerCooldown() < 1) {
-			boolean shouldSpawnShulker = !(Randomizer.getRandomBoolean(PERCENT_HP / 10));
+			boolean shouldSpawnShulker = !(Randomizer.getRandomBoolean(PERCENT_HP / 10)) && !(shulkerList.size() < 5);
 			boolean mobGriefing = this.worldObj.getGameRules().getBoolean("mobGriefing");
 			BlockPos myPosition = this.getPosition();
 			double d0 = posX + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
@@ -151,7 +152,9 @@ public class EntityGeminus_M extends EntityLiving {
 			if (shouldSpawnShulker) {
 				BlockPos pos = new BlockPos(d0, d1, d2);
 				if (mobGriefing) {
-					this.shulkerReplace(pos);
+					EntityShulkerMinion e = this.shulkerReplace(pos);
+					if (e != null)
+						shulkerList.add(e.getUniqueID());
 					setShulkerCooldown(COOLDOWN);
 				} else {
 					if (worldObj.getBlockState(pos).getBlock() != Blocks.AIR) {
@@ -159,7 +162,9 @@ public class EntityGeminus_M extends EntityLiving {
 							pos = pos.add(0, 1, 0);
 						}
 						// we have an air block now
-						this.shulkerReplace(pos);
+						EntityShulkerMinion e = this.shulkerReplace(pos);
+						if (e != null)
+							shulkerList.add(e.getUniqueID());
 						setShulkerCooldown(COOLDOWN * 10);
 					}
 				}
@@ -271,17 +276,20 @@ public class EntityGeminus_M extends EntityLiving {
      * Fails if the given block pos is bedrock.
      * @author Edwan Vi
      * @param pos Where to place the shulker.
+     * @return The spawned shulker (or {@code null} if we couldn't spawn it for some reason.)
      */
-    private void shulkerReplace(BlockPos pos) {
-    	EntityShulker shulk = new EntityShulker(this.worldObj);
+    private EntityShulkerMinion shulkerReplace(BlockPos pos) {
+    	EntityShulkerMinion shulk = new EntityShulkerMinion(this.worldObj, this);
     	shulk.setPosition(pos.getX(), pos.getY(), pos.getZ());
     	if (worldObj.getBlockState(pos).getBlock() != Blocks.BEDROCK) {
     		if (!worldObj.isRemote) {
     			this.worldObj.setBlockToAir(pos);
     			worldObj.spawnEntityInWorld(shulk);
     		}
+    		return shulk;
     	} else {
     		FMLLog.warning("Could not place shulker at given position.", "Could not place shulker at given position.");
+    		return null;
     	}
     }
     @Override
@@ -296,4 +304,5 @@ public class EntityGeminus_M extends EntityLiving {
 			setPlayerCount(par1nbtTagCompound.getInteger(TAG_PLAYER_COUNT));
     	else setPlayerCount(1);
     }
+    
 }
