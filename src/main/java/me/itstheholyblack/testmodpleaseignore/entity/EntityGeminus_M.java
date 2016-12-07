@@ -38,10 +38,11 @@ public class EntityGeminus_M extends EntityLiving {
 	// number of players
 	private static final String TAG_PLAYER_COUNT = "playerCount";
 	private static final DataParameter<Integer> PLAYER_COUNT = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.VARINT);
-	// cooldown on missiles
+	// cooldown on missiles/shulkers
 	private static final int COOLDOWN = 10;
 	private static final DataParameter<Integer> SPAWN_COOLDOWN = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> SPAWNING = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Integer> SHULKER_COOLDOWN = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.VARINT);
 	// rand gen
 	private static Random rand_gen = new Random();
 	// boss bar
@@ -62,6 +63,7 @@ public class EntityGeminus_M extends EntityLiving {
 		dataManager.register(PLAYER_COUNT, 0);
 		dataManager.register(SPAWN_COOLDOWN, COOLDOWN);
 		dataManager.register(SPAWNING, false);
+		dataManager.register(SHULKER_COOLDOWN, COOLDOWN);
 	}
 	@Override
     protected void applyEntityAttributes() {
