@@ -96,7 +96,7 @@ public class EntityGeminus_M extends EntityLiving {
 			player.isRiding();
 
 			int cap = 25;
-			return true;
+			return super.attackEntityFrom(source, Math.min(cap, par2));
 		}
 		return false;
 	}
@@ -126,6 +126,7 @@ public class EntityGeminus_M extends EntityLiving {
 	}
 	@Override
 	public void onLivingUpdate() {
+		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
 		this.closestPlayer = this.worldObj.getClosestPlayerToEntity(this, 8.0D);
 		float PERCENT_HP = this.getHealth() / this.getMaxHealth();
