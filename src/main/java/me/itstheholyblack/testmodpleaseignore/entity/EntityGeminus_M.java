@@ -143,6 +143,10 @@ public class EntityGeminus_M extends EntityLiving {
 	}
 	@Override
 	public void onLivingUpdate() {
+		if (this.getHome() == new BlockPos(0, 0, 0)) {
+			// i very much doubt it's at 0 0 0
+			this.setHome(this.getPosition());
+		}
 		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
 		this.closestPlayer = this.worldObj.getClosestPlayerToEntity(this, 8.0D);
