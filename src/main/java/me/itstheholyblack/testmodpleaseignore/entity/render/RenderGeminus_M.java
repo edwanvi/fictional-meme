@@ -19,7 +19,7 @@ public class RenderGeminus_M extends RenderLiving<EntityGeminus_M> {
 	@Override
 	protected ResourceLocation getEntityTexture(EntityGeminus_M entity) {
 		// TODO Auto-generated method stub
-		return null;
+		return mobTexture;
 	}
 	public static class Factory implements IRenderFactory<EntityGeminus_M> {
         @Override
