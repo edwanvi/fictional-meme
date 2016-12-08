@@ -57,6 +57,8 @@ public class EntityGeminus_M extends EntityLiving {
 	private EntityPlayer closestPlayer;
 	// home point
 	private static final DataParameter<BlockPos> HOME = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.BLOCK_POS);
+	// sister
+	private EntityGeminus_F sister;
 	public EntityGeminus_M(World worldIn) {
 		super(worldIn);
 		// bout player sized
@@ -73,6 +75,7 @@ public class EntityGeminus_M extends EntityLiving {
 		dataManager.register(SPAWNING, false);
 		dataManager.register(SHULKER_COOLDOWN, COOLDOWN);
 		dataManager.register(HOME, BlockPos.ORIGIN);
+		this.sister = new EntityGeminus_F(this.worldObj);
 	}
 	@Override
     protected void applyEntityAttributes() {
