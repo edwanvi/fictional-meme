@@ -17,8 +17,8 @@ public class ModEntities {
 		// Every entity in our mod has an ID (local to this mod)
 		int id = 1;
 		EntityRegistry.registerModEntity(EntityMissile.class, "Missile", id++, mod.instance, 64, 3, true, 0x996600, 0x00ff00);
-		EntityRegistry.registerModEntity(EntityGeminus_M.class, "entityGeminus_M", id++, mod.instance, 100, 6, true, 0x996600, 0x00ff00);
-		EntityRegistry.registerModEntity(EntityShulkerMinion.class, "shulkerMinion", id++, mod.instance, 64, 3, true);
+		EntityRegistry.registerModEntity(EntityGeminus_M.class, "entityGeminus_M", id++, mod.instance, 128, 6, true, 0x996600, 0x00ff00);
+		EntityRegistry.registerModEntity(EntityShulkerMinion.class, "shulkerMinion", id++, mod.instance, 128, 3, true);
 	}
 	@SideOnly(Side.CLIENT)
     public static void initModels() {
