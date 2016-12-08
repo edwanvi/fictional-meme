@@ -6,6 +6,7 @@ import me.itstheholyblack.testmodpleaseignore.crafting.ShapelessRecipes;
 import me.itstheholyblack.testmodpleaseignore.crafting.Smelting;
 import me.itstheholyblack.testmodpleaseignore.crafting.brewing.AddBrewing;
 import me.itstheholyblack.testmodpleaseignore.effect.ModEffects;
+import me.itstheholyblack.testmodpleaseignore.entity.ModEntities;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
 import net.minecraftforge.fml.common.FMLLog;
@@ -25,6 +26,8 @@ public class CommonProxy {
 		ModEffects.initEffects();
 		FMLLog.info("", "Creating potion items...");
 		ModEffects.initItems();
+		FMLLog.info("Creating mobs", "");
+		ModEntities.init();
 	}
     public void init(FMLInitializationEvent e) {
     	System.out.println("initializing recipies");
