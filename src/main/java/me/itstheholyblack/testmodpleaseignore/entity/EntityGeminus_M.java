@@ -72,7 +72,7 @@ public class EntityGeminus_M extends EntityLiving {
 		dataManager.register(SPAWN_COOLDOWN, COOLDOWN);
 		dataManager.register(SPAWNING, false);
 		dataManager.register(SHULKER_COOLDOWN, COOLDOWN);
-		dataManager.register(HOME, null);
+		dataManager.register(HOME, BlockPos.ORIGIN);
 	}
 	@Override
     protected void applyEntityAttributes() {
@@ -142,7 +142,7 @@ public class EntityGeminus_M extends EntityLiving {
 	}
 	@Override
 	public void onLivingUpdate() {
-		if (this.getHome() == null) {
+		if (this.getHome() == null || this.getHome().equals(BlockPos.ORIGIN)) {
 			// i very much doubt it's at 0 0 0
 			this.setHome(this.getPosition());
 		}
@@ -213,7 +213,7 @@ public class EntityGeminus_M extends EntityLiving {
 		}
 		BlockPos homePos = getHome();
 		// teleport home
-		if (homePos != null && this.getDistance(homePos.getX(), homePos.getY(), homePos.getZ()) > 64 && homePos != BlockPos.ORIGIN) {
+		if (this.getDistance(homePos.getX(), homePos.getY(), homePos.getZ()) > 64 && !homePos.equals(BlockPos.ORIGIN)) {
 			this.setPositionAndUpdate(homePos.getX(), homePos.getY(), homePos.getZ());
 		}
 		super.updateAITasks();
