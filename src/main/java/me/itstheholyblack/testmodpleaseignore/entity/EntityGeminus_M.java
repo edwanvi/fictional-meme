@@ -96,7 +96,7 @@ public class EntityGeminus_M extends EntityLiving {
 			player.isRiding();
 
 			int cap = 25;
-			return super.attackEntityFrom(source, Math.min(cap, par2));
+			return true;
 		}
 		return false;
 	}
