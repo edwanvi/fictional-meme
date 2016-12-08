@@ -13,6 +13,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -128,13 +129,23 @@ public class EntityGeminus_M extends EntityLiving {
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 		worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX, posY, posZ, 1D, 0D, 0D);
 	}
+	protected void initEntityAI() {
+		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		this.applyEntityAI();
+	}
+	protected void applyEntityAI() {
+		
+	}
 	@Override
 	public void onLivingUpdate() {
 		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
 		this.closestPlayer = this.worldObj.getClosestPlayerToEntity(this, 8.0D);
-		if (this.closestPlayer != null)
-			this.getLookHelper().setLookPosition(this.closestPlayer.posX, this.closestPlayer.posY, this.closestPlayer.posZ, this.getHorizontalFaceSpeed(), this.getVerticalFaceSpeed());
+		if (this.closestPlayer != null && !this.closestPlayer.isSpectator() && !this.getLookHelper().getIsLooking()) {
+			this.getLookHelper().setLookPositionWithEntity(this.closestPlayer, this.getHorizontalFaceSpeed(), this.getVerticalFaceSpeed());
+		} else {
+			this.getLookHelper().setLookPosition(0, 0, 0, this.getHorizontalFaceSpeed(), this.getVerticalFaceSpeed());
+		}
 		float PERCENT_HP = this.getHealth() / this.getMaxHealth();
 		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
             this.closestPlayer = null;
