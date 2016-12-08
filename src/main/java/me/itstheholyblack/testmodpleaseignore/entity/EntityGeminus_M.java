@@ -119,6 +119,10 @@ public class EntityGeminus_M extends EntityLiving {
 			System.out.println("Killing player " + e.getName());
 			e.attackEntityFrom(DamageSource.outOfWorld, Float.MAX_VALUE);
 		}
+		for (int i = 0; i < shulkerList.size(); i++) {
+			EntityShulkerMinion e = shulkerList.get(i);
+			e.attackEntityFrom(DamageSource.outOfWorld, Float.MAX_VALUE);
+		}
 		shulkerList.clear();
 		// "explode"
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
@@ -129,6 +133,7 @@ public class EntityGeminus_M extends EntityLiving {
 		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
 		this.closestPlayer = this.worldObj.getClosestPlayerToEntity(this, 8.0D);
+		this.getLookHelper().setLookPosition(this.closestPlayer.getPosition().getX(), this.closestPlayer.getPosition().getY(), this.closestPlayer.getPosition().getZ(), 0.5F, 0.5F);
 		float PERCENT_HP = this.getHealth() / this.getMaxHealth();
 		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
             this.closestPlayer = null;
