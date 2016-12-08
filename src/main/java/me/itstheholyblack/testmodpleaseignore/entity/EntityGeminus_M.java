@@ -45,7 +45,7 @@ public class EntityGeminus_M extends EntityLiving {
 	private static final DataParameter<Integer> SPAWN_COOLDOWN = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> SPAWNING = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> SHULKER_COOLDOWN = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.VARINT);
-	private static final double TELEPORT_RANGE_DOUBLE = 64.0D;
+	private static final double TELEPORT_RANGE_DOUBLE = 32.0D;
 	private static final int TELEPORT_RANGE_INT = (int) TELEPORT_RANGE_DOUBLE;
 	// list of shulkers so we don't spawn a billion of them
 	public List<EntityShulkerMinion> shulkerList = new ArrayList<>();
