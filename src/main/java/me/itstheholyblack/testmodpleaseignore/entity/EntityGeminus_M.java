@@ -133,7 +133,8 @@ public class EntityGeminus_M extends EntityLiving {
 		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
 		this.closestPlayer = this.worldObj.getClosestPlayerToEntity(this, 8.0D);
-		this.getLookHelper().setLookPosition(this.closestPlayer.getPosition().getX(), this.closestPlayer.getPosition().getY(), this.closestPlayer.getPosition().getZ(), 0.5F, 0.5F);
+		if (this.closestPlayer != null)
+			this.getLookHelper().setLookPosition(this.closestPlayer.posX, this.closestPlayer.posY, this.closestPlayer.posZ, this.getHorizontalFaceSpeed(), this.getVerticalFaceSpeed());
 		float PERCENT_HP = this.getHealth() / this.getMaxHealth();
 		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
             this.closestPlayer = null;
