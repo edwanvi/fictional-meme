@@ -72,7 +72,7 @@ public class EntityGeminus_M extends EntityLiving {
 		dataManager.register(SPAWN_COOLDOWN, COOLDOWN);
 		dataManager.register(SPAWNING, false);
 		dataManager.register(SHULKER_COOLDOWN, COOLDOWN);
-		dataManager.register(HOME, this.getPosition());
+		dataManager.register(HOME, null);
 	}
 	@Override
     protected void applyEntityAttributes() {
@@ -129,7 +129,6 @@ public class EntityGeminus_M extends EntityLiving {
 			EntityShulkerMinion e = shulkerList.get(i);
 			e.attackEntityFrom(DamageSource.outOfWorld, e.getHealth());
 		}
-		shulkerList.clear();
 		// "explode"
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 		worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX, posY, posZ, 1D, 0D, 0D);
@@ -143,7 +142,7 @@ public class EntityGeminus_M extends EntityLiving {
 	}
 	@Override
 	public void onLivingUpdate() {
-		if (this.getHome() == new BlockPos(0, 0, 0)) {
+		if (this.getHome() == null) {
 			// i very much doubt it's at 0 0 0
 			this.setHome(this.getPosition());
 		}
@@ -214,7 +213,7 @@ public class EntityGeminus_M extends EntityLiving {
 		}
 		BlockPos homePos = getHome();
 		// teleport home
-		if (this.getDistance(homePos.getX(), homePos.getY(), homePos.getZ()) > 64 && homePos != BlockPos.ORIGIN) {
+		if (homePos != null && this.getDistance(homePos.getX(), homePos.getY(), homePos.getZ()) > 64 && homePos != BlockPos.ORIGIN) {
 			this.setPositionAndUpdate(homePos.getX(), homePos.getY(), homePos.getZ());
 		}
 		super.updateAITasks();
