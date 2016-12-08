@@ -47,7 +47,7 @@ public class EntityGeminus_M extends EntityLiving {
 	private static final double TELEPORT_RANGE_DOUBLE = 64.0D;
 	private static final int TELEPORT_RANGE_INT = (int) TELEPORT_RANGE_DOUBLE;
 	// list of shulkers so we don't spawn a billion of them
-	public List<UUID> shulkerList = new ArrayList<>();
+	public List<EntityShulkerMinion> shulkerList = new ArrayList<>();
 	// rand gen
 	private static Random rand_gen = new Random();
 	// boss bar
@@ -160,7 +160,7 @@ public class EntityGeminus_M extends EntityLiving {
 				if (mobGriefing) {
 					EntityShulkerMinion e = this.shulkerReplace(pos);
 					if (e != null)
-						shulkerList.add(e.getUniqueID());
+						shulkerList.add(e);
 					setShulkerCooldown(COOLDOWN);
 				} else {
 					if (worldObj.getBlockState(pos).getBlock() != Blocks.AIR) {
@@ -170,7 +170,7 @@ public class EntityGeminus_M extends EntityLiving {
 						// we have an air block now
 						EntityShulkerMinion e = this.shulkerReplace(pos);
 						if (e != null)
-							shulkerList.add(e.getUniqueID());
+							shulkerList.add(e);
 						setShulkerCooldown(COOLDOWN * 10);
 					}
 				}
