@@ -55,6 +55,8 @@ public class EntityGeminus_M extends EntityLiving {
 	private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(this.getDisplayName(), BossInfo.Color.GREEN, BossInfo.Overlay.NOTCHED_20));
 	// closest player
 	private EntityPlayer closestPlayer;
+	// home point
+	private static final DataParameter<BlockPos> HOME = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.BLOCK_POS);
 	public EntityGeminus_M(World worldIn) {
 		super(worldIn);
 		// bout player sized
@@ -70,15 +72,18 @@ public class EntityGeminus_M extends EntityLiving {
 		dataManager.register(SPAWN_COOLDOWN, COOLDOWN);
 		dataManager.register(SPAWNING, false);
 		dataManager.register(SHULKER_COOLDOWN, COOLDOWN);
+		dataManager.register(HOME, this.getPosition());
 	}
 	@Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP);
+        this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1);
 	}
 	/**
 	 * Called when the entity is attacked. Causes blindness and adds the attacker to a hit list.
-	 * @author Vazkii, minimal edits by Edwan Vi
+	 * @author Vazkii
+	 * @author Edwan Vi
 	 */
 	@Override
 	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
@@ -122,7 +127,7 @@ public class EntityGeminus_M extends EntityLiving {
 		}
 		for (int i = 0; i < shulkerList.size(); i++) {
 			EntityShulkerMinion e = shulkerList.get(i);
-			e.attackEntityFrom(DamageSource.outOfWorld, Float.MAX_VALUE);
+			e.attackEntityFrom(DamageSource.outOfWorld, e.getHealth());
 		}
 		shulkerList.clear();
 		// "explode"
@@ -141,11 +146,6 @@ public class EntityGeminus_M extends EntityLiving {
 		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
 		this.closestPlayer = this.worldObj.getClosestPlayerToEntity(this, 8.0D);
-		if (this.closestPlayer != null && !this.closestPlayer.isSpectator() && !this.getLookHelper().getIsLooking()) {
-			this.getLookHelper().setLookPositionWithEntity(this.closestPlayer, this.getHorizontalFaceSpeed(), this.getVerticalFaceSpeed());
-		} else {
-			this.getLookHelper().setLookPosition(0, 0, 0, this.getHorizontalFaceSpeed(), this.getVerticalFaceSpeed());
-		}
 		float PERCENT_HP = this.getHealth() / this.getMaxHealth();
 		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
             this.closestPlayer = null;
@@ -199,11 +199,21 @@ public class EntityGeminus_M extends EntityLiving {
 				spawnMissile();
 			dataManager.set(SPAWNING, false);
 			setCooldown(COOLDOWN);
-		} else if (this.closestPlayer != null && this.closestPlayer.getDistanceSqToEntity(this) < 1.0D && !spawning) {
+		}
+		this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
+		super.onLivingUpdate();
+	}
+	protected void updateAITasks() {
+		if (this.closestPlayer != null && this.closestPlayer.getDistanceSqToEntity(this) < 1.0D) {
 			// teleport more often as HP deceases
 			this.teleportRandomly();
 		}
-		this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
+		BlockPos homePos = getHome();
+		// teleport home
+		if (this.getDistanceSq(homePos) > 64) {
+			this.setPositionAndUpdate(homePos.getX(), homePos.getY(), homePos.getZ());
+		}
+		super.updateAITasks();
 	}
 	/**
 	 * Spawns a missile attack.
@@ -219,23 +229,35 @@ public class EntityGeminus_M extends EntityLiving {
 		}
 	}
 	// setters and getters
+	/**Get the number of players fighting this thing*/
 	public int getPlayerCount() {
 		return dataManager.get(PLAYER_COUNT);
 	}
+	/**Sets the number of players fighting this thing*/
 	public void setPlayerCount(int count) {
 		dataManager.set(PLAYER_COUNT, count);
 	}
+	/**Gets the current value of missile cooldown.*/
 	public int getCooldown() {
 		return dataManager.get(SPAWN_COOLDOWN);
 	}
+	/**Sets the current value of missile cooldown.*/
 	public void setCooldown(int value) {
 		dataManager.set(SPAWN_COOLDOWN, value);
 	}
+	/**Gets the current value of shulker cooldown.*/
 	public int getShulkerCooldown() {
 		return dataManager.get(SHULKER_COOLDOWN);
 	}
+	/**Sets the current value of shulker cooldown.*/
 	public void setShulkerCooldown(int value) {
 		dataManager.set(SHULKER_COOLDOWN, value);
+	}
+	public void setHome(BlockPos pos) {
+		dataManager.set(HOME, pos);
+	}
+	public BlockPos getHome() {
+		return dataManager.get(HOME);
 	}
 	@Override
 	public boolean isNonBoss() {
