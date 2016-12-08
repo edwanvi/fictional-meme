@@ -14,11 +14,9 @@ public class RenderGeminus_M extends RenderLiving<EntityGeminus_M> {
 	private ResourceLocation mobTexture = new ResourceLocation("testmodpleaseignore:textures/entity/geminus_m.png");
 	public RenderGeminus_M(RenderManager rendermanagerIn) {
 		super(rendermanagerIn, new ModelPlayer(0.5F, false), 0.5F);
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	protected ResourceLocation getEntityTexture(EntityGeminus_M entity) {
-		// TODO Auto-generated method stub
 		return mobTexture;
 	}
 	public static class Factory implements IRenderFactory<EntityGeminus_M> {
