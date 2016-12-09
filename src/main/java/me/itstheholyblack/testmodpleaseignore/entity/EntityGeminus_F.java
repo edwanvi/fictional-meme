@@ -32,7 +32,7 @@ public class EntityGeminus_F extends EntityLiving {
 	private static final float MAX_HP = 320F;
 	// list of players who attacked the geminus pairing
 	// set to null since sister inherits this from brother
-	private List<UUID> playersWhoAttacked = null;
+	private List<UUID> playersWhoAttacked = new ArrayList<>();
 	// player count
 	private static final String TAG_PLAYER_COUNT = "playerCount";
 	private static final DataParameter<Integer> PLAYER_COUNT = EntityDataManager.createKey(EntityGeminus_F.class, DataSerializers.VARINT);
@@ -70,7 +70,7 @@ public class EntityGeminus_F extends EntityLiving {
 		dataManager.register(HOME, BlockPos.ORIGIN);
 	}
 	protected void initEntityAI() {
-		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, TELEPORT_RANGE_INT));
 		this.applyEntityAI();
 	}
 	protected void applyEntityAI() {
@@ -89,7 +89,7 @@ public class EntityGeminus_F extends EntityLiving {
 			// i very much doubt it's at 0 0 0
 			this.setHome(this.getPosition());
 		}
-		if (this.playersWhoAttacked == null && brother != null) {
+		if (this.playersWhoAttacked.size() == 0 && brother != null) {
 			// first tick
 			this.playersWhoAttacked = this.brother.playersWhoAttacked;
 		} else if (brother != null && !this.playersWhoAttacked.equals(brother.playersWhoAttacked)) {
@@ -132,8 +132,9 @@ public class EntityGeminus_F extends EntityLiving {
 				playersWhoAttacked.add(player.getUniqueID());
 				if (brother != null) {
 					brother.setPlayerCount(brother.getPlayerCount() + 1);
-					player.addChatMessage(new TextComponentString(TextFormatting.GREEN + this.getName() + ": There will be a high price to pay for that, foolish mortal!"));
 				}
+				if (!this.worldObj.isRemote)
+					player.addChatMessage(new TextComponentString(TextFormatting.GREEN + this.getName() + ": There will be a high price to pay for that, foolish mortal!"));
 			}
 			player.isOnLadder();
 			player.isInWater();

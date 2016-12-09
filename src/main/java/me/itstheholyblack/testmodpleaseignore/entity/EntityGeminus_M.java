@@ -137,7 +137,7 @@ public class EntityGeminus_M extends EntityLiving {
 		worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX, posY, posZ, 1D, 0D, 0D);
 	}
 	protected void initEntityAI() {
-		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, TELEPORT_RANGE_INT));
 		this.applyEntityAI();
 	}
 	protected void applyEntityAI() {
@@ -148,6 +148,10 @@ public class EntityGeminus_M extends EntityLiving {
 		if (this.getHome() == null || this.getHome().equals(BlockPos.ORIGIN)) {
 			// i very much doubt it's at 0 0 0
 			this.setHome(this.getPosition());
+		}
+		// this'll work
+		if (this.ticksExisted == 1) {
+			worldObj.spawnEntityInWorld(sister);
 		}
 		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
