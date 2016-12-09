@@ -69,7 +69,7 @@ public class EntityGeminus_F extends EntityLiving {
 		// no-op
 	}
 	public void onLivingUpdate() {
-		if (this.getHome().equals(BlockPos.ORIGIN)) {
+		if (this.getHome() == null || this.getHome().equals(BlockPos.ORIGIN)) {
 			// i very much doubt it's at 0 0 0
 			this.setHome(this.getPosition());
 		}
@@ -92,7 +92,7 @@ public class EntityGeminus_F extends EntityLiving {
 		super.onLivingUpdate();
 	}
 	protected void updateAITasks() {
-		if (this.closestPlayer != null && this.closestPlayer.getDistanceSqToEntity(this) < 1.5D) {
+		if (this.closestPlayer != null && this.closestPlayer.getDistanceSqToEntity(this) < 1.0D) {
 			this.teleportRandomly();
 		}
 		BlockPos homePos = getHome();
@@ -144,6 +144,7 @@ public class EntityGeminus_F extends EntityLiving {
  		double d0 = posX + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
  		double d1 = posY + (rand.nextInt(TELEPORT_RANGE_INT) - 32);
  		double d2 = posZ + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
+ 		System.out.println("Teleporting to " + d0 + " " + + d1 + " " + d2);
  		return teleportTo(d0, d1, d2);
  	}
  	/**
