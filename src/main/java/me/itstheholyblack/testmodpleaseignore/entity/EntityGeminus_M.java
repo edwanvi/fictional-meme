@@ -59,6 +59,7 @@ public class EntityGeminus_M extends EntityLiving {
 	private static final DataParameter<BlockPos> HOME = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.BLOCK_POS);
 	// sister
 	private EntityGeminus_F sister;
+	private static final DataParameter<Boolean> hellosis = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.BOOLEAN);
 	public EntityGeminus_M(World worldIn) {
 		super(worldIn);
 		// bout player sized
@@ -75,6 +76,7 @@ public class EntityGeminus_M extends EntityLiving {
 		dataManager.register(SPAWNING, false);
 		dataManager.register(SHULKER_COOLDOWN, COOLDOWN);
 		dataManager.register(HOME, BlockPos.ORIGIN);
+		dataManager.register(hellosis, false);
 		this.sister = new EntityGeminus_F(this.worldObj, this);
 	}
 	@Override
@@ -150,9 +152,10 @@ public class EntityGeminus_M extends EntityLiving {
 			this.setHome(this.getPosition());
 		}
 		// this'll work
-		if (this.ticksExisted == 1 && !this.worldObj.isRemote) {
+		if (!this.getSpawnedSister() && !this.worldObj.isRemote) {
 			sister.setPosition(posX+1, posY, posZ-1);
 			worldObj.spawnEntityInWorld(sister);
+			this.setSpawnedSister(false);
 		}
 		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
@@ -268,6 +271,12 @@ public class EntityGeminus_M extends EntityLiving {
 	}
 	public BlockPos getHome() {
 		return dataManager.get(HOME);
+	}
+	public Boolean getSpawnedSister() {
+		return dataManager.get(hellosis);
+	}
+	public void setSpawnedSister(Boolean value) {
+		dataManager.set(hellosis, value);
 	}
 	@Override
 	public boolean isNonBoss() {
