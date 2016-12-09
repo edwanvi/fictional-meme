@@ -6,8 +6,10 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import me.itstheholyblack.testmodpleaseignore.core.Randomizer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -27,18 +29,18 @@ public class EntityGeminus_F extends EntityLiving {
 	private List<UUID> playersWhoAttacked = null;
 	// player count
 	private static final String TAG_PLAYER_COUNT = "playerCount";
-	private static final DataParameter<Integer> PLAYER_COUNT = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> PLAYER_COUNT = EntityDataManager.createKey(EntityGeminus_F.class, DataSerializers.VARINT);
 	// cooldown on missiles/shulkers
 	private static final int COOLDOWN = 10;
 	private static final DataParameter<Integer> SPAWN_COOLDOWN = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.VARINT);
-	private static final DataParameter<Boolean> SPAWNING = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> SPAWNING = EntityDataManager.createKey(EntityGeminus_F.class, DataSerializers.BOOLEAN);
 	// boss bar
 	private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(this.getDisplayName(), BossInfo.Color.GREEN, BossInfo.Overlay.NOTCHED_20));
-	private static final DataParameter<BlockPos> HOME = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.BLOCK_POS);
+	private static final DataParameter<BlockPos> HOME = EntityDataManager.createKey(EntityGeminus_F.class, DataSerializers.BLOCK_POS);
 	// brother geminus, may be null
-	@Nullable public EntityGeminus_M brother;
+	public EntityGeminus_M brother;
 	// closest player, may be null
-	@Nullable private EntityPlayer closestPlayer;
+	private EntityPlayer closestPlayer;
 	private static final double TELEPORT_RANGE_DOUBLE = 32.0D;
 	private static final int TELEPORT_RANGE_INT = (int) TELEPORT_RANGE_DOUBLE;
 	public EntityGeminus_F(World worldIn) {
@@ -68,7 +70,15 @@ public class EntityGeminus_F extends EntityLiving {
 	protected void applyEntityAI() {
 		// no-op
 	}
+	@Override
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP);
+        this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1);
+	}
+	@Override
 	public void onLivingUpdate() {
+		setCooldown(getCooldown()-1);
 		if (this.getHome() == null || this.getHome().equals(BlockPos.ORIGIN)) {
 			// i very much doubt it's at 0 0 0
 			this.setHome(this.getPosition());
@@ -88,6 +98,9 @@ public class EntityGeminus_F extends EntityLiving {
 		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
             this.closestPlayer = null;
         }
+		if (!spawning && getCooldown() < 1) {
+			spawning = !(Randomizer.getRandomBoolean(this.getHealth() / this.getMaxHealth()));
+		}
 		this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
 		super.onLivingUpdate();
 	}
@@ -108,6 +121,14 @@ public class EntityGeminus_F extends EntityLiving {
 	}
 	public BlockPos getHome() {
 		return dataManager.get(HOME);
+	}
+	/**Gets the current value of missile cooldown.*/
+	public int getCooldown() {
+		return dataManager.get(SPAWN_COOLDOWN);
+	}
+	/**Sets the current value of missile cooldown.*/
+	public void setCooldown(int value) {
+		dataManager.set(SPAWN_COOLDOWN, value);
 	}
 	// setters and getters above this line *only*
 	// +++BEGIN ENTITYWITHER CODE+++
