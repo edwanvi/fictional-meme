@@ -151,7 +151,7 @@ public class EntityGeminus_M extends EntityLiving {
 		}
 		// this'll work
 		if (this.ticksExisted == 1 && !this.worldObj.isRemote) {
-			sister.setPosition(posX, posY, posZ);
+			sister.setPosition(posX+1, posY, posZ-1);
 			worldObj.spawnEntityInWorld(sister);
 		}
 		this.limbSwingAmount = 0.0F;
