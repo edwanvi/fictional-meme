@@ -210,7 +210,7 @@ public class EntityGeminus_M extends EntityLiving {
 		super.onLivingUpdate();
 	}
 	protected void updateAITasks() {
-		if (this.closestPlayer != null && this.closestPlayer.getDistanceSqToEntity(this) < 1.0D) {
+		if (this.closestPlayer != null && this.closestPlayer.getDistanceSqToEntity(this) < 2.0D) {
 			this.teleportRandomly();
 		}
 		BlockPos homePos = getHome();
