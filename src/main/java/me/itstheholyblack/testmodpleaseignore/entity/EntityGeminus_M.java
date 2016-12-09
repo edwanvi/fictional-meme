@@ -91,7 +91,7 @@ public class EntityGeminus_M extends EntityLiving {
 	@Override
 	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
 		Entity e = source.getEntity();
-
+		this.teleportRandomly();
 		if (e instanceof EntityPlayer && PlayerDetection.isTruePlayer(e)) {
 			EntityPlayer player = (EntityPlayer) e;
 

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import me.itstheholyblack.testmodpleaseignore.core.PlayerDetection;
 import me.itstheholyblack.testmodpleaseignore.core.Randomizer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -13,10 +15,12 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
@@ -114,6 +118,27 @@ public class EntityGeminus_F extends EntityLiving {
 			this.setPositionAndUpdate(homePos.getX(), homePos.getY(), homePos.getZ());
 		}
 		super.updateAITasks();
+	}
+	@Override
+	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
+		Entity e = source.getEntity();
+		this.teleportRandomly();
+		if (e instanceof EntityPlayer && PlayerDetection.isTruePlayer(e)) {
+			EntityPlayer player = (EntityPlayer) e;
+
+			if(!playersWhoAttacked.contains(player.getUniqueID())) {
+				playersWhoAttacked.add(player.getUniqueID());
+				brother.setPlayerCount(brother.getPlayerCount() + 1);
+			}
+			player.isOnLadder();
+			player.isInWater();
+			player.isPotionActive(MobEffects.BLINDNESS);
+			player.isRiding();
+
+			int cap = 25;
+			return super.attackEntityFrom(source, Math.min(cap, par2));
+		}
+		return false;
 	}
 	// setters and getters below this line *only*
 	public void setHome(BlockPos pos) {
