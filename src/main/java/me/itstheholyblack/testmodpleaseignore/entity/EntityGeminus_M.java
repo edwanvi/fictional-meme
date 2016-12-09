@@ -36,7 +36,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityGeminus_M extends EntityLiving {
 	private static final float MAX_HP = 320F;
 	// list of players who attacked the geminus pairing
-	private final List<UUID> playersWhoAttacked = new ArrayList<>();
+	public final List<UUID> playersWhoAttacked = new ArrayList<>();
 	// number of players
 	private static final String TAG_PLAYER_COUNT = "playerCount";
 	private static final DataParameter<Integer> PLAYER_COUNT = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.VARINT);
@@ -75,7 +75,7 @@ public class EntityGeminus_M extends EntityLiving {
 		dataManager.register(SPAWNING, false);
 		dataManager.register(SHULKER_COOLDOWN, COOLDOWN);
 		dataManager.register(HOME, BlockPos.ORIGIN);
-		this.sister = new EntityGeminus_F(this.worldObj);
+		this.sister = new EntityGeminus_F(this.worldObj, this);
 	}
 	@Override
     protected void applyEntityAttributes() {
