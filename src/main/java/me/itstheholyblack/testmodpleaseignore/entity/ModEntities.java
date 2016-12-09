@@ -1,6 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.entity;
 
 import me.itstheholyblack.testmodpleaseignore.mod;
+import me.itstheholyblack.testmodpleaseignore.entity.render.RenderGeminus_F;
 import me.itstheholyblack.testmodpleaseignore.entity.render.RenderGeminus_M;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
@@ -24,5 +25,6 @@ public class ModEntities {
 	@SideOnly(Side.CLIENT)
     public static void initModels() {
         RenderingRegistry.registerEntityRenderingHandler(EntityGeminus_M.class, RenderGeminus_M.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityGeminus_F.class, RenderGeminus_F.FACTORY);
     }
 }
