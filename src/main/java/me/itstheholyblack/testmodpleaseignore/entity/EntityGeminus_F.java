@@ -114,7 +114,7 @@ public class EntityGeminus_F extends EntityLiving {
 		}
 		BlockPos homePos = getHome();
 		// teleport home
-		if (this.getDistance(homePos.getX(), homePos.getY(), homePos.getZ()) > 64 && !homePos.equals(BlockPos.ORIGIN)) {
+		if (this.getDistance(homePos.getX(), homePos.getY(), homePos.getZ()) > TELEPORT_RANGE_INT + 10 && !homePos.equals(BlockPos.ORIGIN)) {
 			this.setPositionAndUpdate(homePos.getX(), homePos.getY(), homePos.getZ());
 		}
 		super.updateAITasks();
