@@ -22,6 +22,8 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.World;
@@ -130,6 +132,7 @@ public class EntityGeminus_F extends EntityLiving {
 				playersWhoAttacked.add(player.getUniqueID());
 				if (brother != null) {
 					brother.setPlayerCount(brother.getPlayerCount() + 1);
+					player.addChatMessage(new TextComponentString(TextFormatting.GREEN + this.getName() + ": There will be a high price to pay for that, foolish mortal!"));
 				}
 			}
 			player.isOnLadder();
