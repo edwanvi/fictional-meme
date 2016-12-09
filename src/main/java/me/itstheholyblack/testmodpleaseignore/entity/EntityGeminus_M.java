@@ -358,5 +358,4 @@ public class EntityGeminus_M extends EntityLiving {
 			setPlayerCount(par1nbtTagCompound.getInteger(TAG_PLAYER_COUNT));
     	else setPlayerCount(1);
     }
-    
 }
