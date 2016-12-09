@@ -211,7 +211,6 @@ public class EntityGeminus_M extends EntityLiving {
 	}
 	protected void updateAITasks() {
 		if (this.closestPlayer != null && this.closestPlayer.getDistanceSqToEntity(this) < 1.0D) {
-			// teleport more often as HP deceases
 			this.teleportRandomly();
 		}
 		BlockPos homePos = getHome();
