@@ -128,7 +128,9 @@ public class EntityGeminus_F extends EntityLiving {
 
 			if(!playersWhoAttacked.contains(player.getUniqueID())) {
 				playersWhoAttacked.add(player.getUniqueID());
-				brother.setPlayerCount(brother.getPlayerCount() + 1);
+				if (brother != null) {
+					brother.setPlayerCount(brother.getPlayerCount() + 1);
+				}
 			}
 			player.isOnLadder();
 			player.isInWater();
