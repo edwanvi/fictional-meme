@@ -123,6 +123,10 @@ public class EntityGeminus_F extends EntityLiving {
 	}
 	@Override
 	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
+		if (source == DamageSource.outOfWorld) {
+			// no-op
+			return super.attackEntityFrom(source, par2);
+		}
 		Entity e = source.getEntity();
 		this.teleportRandomly();
 		if (e instanceof EntityPlayer && PlayerDetection.isTruePlayer(e)) {

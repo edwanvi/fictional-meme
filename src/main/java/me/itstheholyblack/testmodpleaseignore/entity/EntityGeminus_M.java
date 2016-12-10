@@ -367,6 +367,7 @@ public class EntityGeminus_M extends EntityLiving {
     public void writeEntityToNBT(NBTTagCompound par1nbtTagCompound) {
     	super.writeEntityToNBT(par1nbtTagCompound);
     	par1nbtTagCompound.setInteger(TAG_PLAYER_COUNT, getPlayerCount());
+    	par1nbtTagCompound.setBoolean("hellosis", this.getSpawnedSister());
     }
     @Override
     public void readEntityFromNBT(NBTTagCompound par1nbtTagCompound){
@@ -374,5 +375,8 @@ public class EntityGeminus_M extends EntityLiving {
     	if(par1nbtTagCompound.hasKey(TAG_PLAYER_COUNT))
 			setPlayerCount(par1nbtTagCompound.getInteger(TAG_PLAYER_COUNT));
     	else setPlayerCount(1);
+    	if (par1nbtTagCompound.hasKey("hellosis"))
+    		setSpawnedSister(par1nbtTagCompound.getBoolean("hellosis"));
+    	else setSpawnedSister(false);
     }
 }
