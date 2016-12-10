@@ -247,7 +247,6 @@ public class EntityGeminus_F extends EntityLiving {
      // ===END ENTITYENDERMAN CODE===
  	@Override
  	public boolean canDespawn() {
-		return false;
- 		
+		return false;	
  	}
 }

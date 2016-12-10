@@ -379,4 +379,8 @@ public class EntityGeminus_M extends EntityLiving {
     		setSpawnedSister(par1nbtTagCompound.getBoolean("hellosis"));
     	else setSpawnedSister(false);
     }
+    @Override
+ 	public boolean canDespawn() {
+		return false;	
+ 	}
 }
