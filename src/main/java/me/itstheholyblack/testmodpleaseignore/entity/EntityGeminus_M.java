@@ -27,6 +27,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.World;
@@ -170,6 +171,9 @@ public class EntityGeminus_M extends EntityLiving {
 		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
             this.closestPlayer = null;
         }
+		if (closestPlayer.isPotionActive(MobEffects.BLINDNESS)) {
+			this.teleportToEntity(closestPlayer);
+		}
 		// count of players
 		int playerCount = getPlayerCount();
 		setCooldown(getCooldown()-1);
@@ -300,6 +304,20 @@ public class EntityGeminus_M extends EntityLiving {
 		double d2 = posZ + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
 		return teleportTo(d0, d1, d2);
 	}
+	/**
+     * Teleport to another entity
+     * @author Notch
+     */
+    protected boolean teleportToEntity(Entity p_70816_1_)
+    {
+        Vec3d vec3d = new Vec3d(this.posX - p_70816_1_.posX, this.getEntityBoundingBox().minY + (double)(this.height / 2.0F) - p_70816_1_.posY + (double)p_70816_1_.getEyeHeight(), this.posZ - p_70816_1_.posZ);
+        vec3d = vec3d.normalize();
+        double d0 = 16.0D;
+        double d1 = this.posX + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.xCoord * 16.0D;
+        double d2 = this.posY + (double)(this.rand.nextInt(16) - 8) - vec3d.yCoord * 16.0D;
+        double d3 = this.posZ + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.zCoord * 16.0D;
+        return this.teleportTo(d1, d2, d3);
+    }
 	/**
 	 * Teleport to a given position.
 	 * @param x The x coordinate of our destination.
