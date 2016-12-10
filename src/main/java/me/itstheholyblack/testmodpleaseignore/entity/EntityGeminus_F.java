@@ -105,7 +105,7 @@ public class EntityGeminus_F extends EntityLiving {
 		}
 		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
-		this.closestPlayer = this.world.getClosestPlayerToEntity(this, 8.0D);
+		this.closestPlayer = this.world.getClosestPlayerToEntity(this, TELEPORT_RANGE_DOUBLE);
 		float PERCENT_HP = this.getHealth() / this.getMaxHealth();
 		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
             this.closestPlayer = null;
@@ -157,7 +157,8 @@ public class EntityGeminus_F extends EntityLiving {
 			player.isOnLadder();
 			player.isInWater();
 			// blindness because fuck you
-			player.addPotionEffect(blindness);
+			if (source.equals(DamageSource.causePlayerDamage(player)))
+				player.addPotionEffect(blindness);
 			player.isRiding();
 
 			int cap = 25;

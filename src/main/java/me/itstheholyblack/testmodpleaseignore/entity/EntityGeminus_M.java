@@ -166,7 +166,7 @@ public class EntityGeminus_M extends EntityLiving {
 		}
 		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
-		this.closestPlayer = this.world.getClosestPlayerToEntity(this, 8.0D);
+		this.closestPlayer = this.world.getClosestPlayerToEntity(this, TELEPORT_RANGE_DOUBLE);
 		float PERCENT_HP = this.getHealth() / this.getMaxHealth();
 		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
             this.closestPlayer = null;
