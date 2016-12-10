@@ -48,7 +48,8 @@ public class ItemBladeCaster extends ItemSword {
 	}
 	// right click
 	// I :clap: stole :clap: this :clap: code :clap: from :clap: blood :clap: magic
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+		ItemStack stack = playerIn.getHeldItem(hand);
 		if (hand == EnumHand.MAIN_HAND) {
 			if (stack.getTagCompound() == null) {
 				stack.setTagCompound(new NBTTagCompound());
