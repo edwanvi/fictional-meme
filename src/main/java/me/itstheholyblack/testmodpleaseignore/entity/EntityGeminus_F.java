@@ -97,6 +97,9 @@ public class EntityGeminus_F extends EntityLiving {
 		} else {
 			this.playersWhoAttacked = new ArrayList<>();
 		}
+		if (this.brother != null && brother.isDead) {
+			this.kill();
+		}
 		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
 		this.closestPlayer = this.worldObj.getClosestPlayerToEntity(this, 8.0D);
