@@ -53,7 +53,9 @@ public class ItemHalfCaster_Main extends ItemSword {
 	}
 	// right click
 	// I :clap: stole :clap: this :clap: code :clap: from :clap: blood :clap: magic
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+	
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+		ItemStack stack = playerIn.getHeldItem(hand);
 		// this caster will *only* activate in the main hand
 		if (hand == EnumHand.MAIN_HAND) {
 			if (stack.getTagCompound() == null) {

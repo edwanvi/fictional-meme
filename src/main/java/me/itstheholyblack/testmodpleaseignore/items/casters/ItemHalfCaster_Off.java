@@ -49,24 +49,26 @@ public class ItemHalfCaster_Off extends ItemSword {
 		this.addPropertyOverride(new ResourceLocation("deployed"), new IItemPropertyGetter() {
             @SideOnly(Side.CLIENT)
             public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-                return entityIn != null && entityIn instanceof EntityPlayer && NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isActive") ? 1.0F : 0.0F;
+            	boolean condidtion = entityIn != null && entityIn instanceof EntityPlayer && NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isactive");
+                return condidtion ? 1.0F : 0.0F;
             }
 		});
 		GameRegistry.register(this);
 	}
 	// right click
 	// I :clap: stole :clap: this :clap: code :clap: from :clap: blood :clap: magic
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+		ItemStack stack = playerIn.getHeldItem(hand);
 		// this caster will *only* activate in the off hand
 		if (hand == EnumHand.OFF_HAND) {
 			if (stack.getTagCompound() == null) {
 				stack.setTagCompound(new NBTTagCompound());
 				NBTTagCompound compound = stack.getTagCompound();
-				compound.setBoolean("isActive", false);
+				compound.setBoolean("isactive", false);
 			}
 			NBTTagCompound compound = stack.getTagCompound();
 			if (playerIn.isSneaking()) {
-				compound.setBoolean("isActive", !getActivated(stack));
+				compound.setBoolean("isactive", !getActivated(stack));
 			} else {
 				// Get the entity the player is looking at, and harm it
 				Entity hit_entity = Raycasting.getEntityLookedAt(playerIn);
@@ -87,10 +89,10 @@ public class ItemHalfCaster_Off extends ItemSword {
 	/**
 	 * Gets whether or not stack is active
 	 * @param stack - the ItemStack we want to look at
-	 * @return The boolean stored in key "isActive" for `stack`. False if the stack has no such key.
+	 * @return The boolean stored in key "isactive" for `stack`. False if the stack has no such key.
 	 */
 	boolean getActivated(ItemStack stack){
-		return stack != null && stack != ItemStack.EMPTY && NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isActive");
+		return stack != null && stack != ItemStack.EMPTY && NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isactive");
 	}
 	/**
 	 * Sets caster damage and attack speed. The attack speed is constant and damage operates on the return of getActivated.
@@ -105,11 +107,11 @@ public class ItemHalfCaster_Off extends ItemSword {
         return multimap;
     }
 	/**
-	 * Causes a re-equip animation when oldStack and newStack have differing values for NBT tag isActive.
+	 * Causes a re-equip animation when oldStack and newStack have differing values for NBT tag isactive.
 	 */
 	@Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        return NBTHelper.checkNBT(oldStack).getTagCompound().getBoolean("isActive") != NBTHelper.checkNBT(newStack).getTagCompound().getBoolean("isActive") | oldStack.getItem() != newStack.getItem();
+        return NBTHelper.checkNBT(oldStack).getTagCompound().getBoolean("isactive") != NBTHelper.checkNBT(newStack).getTagCompound().getBoolean("isactive") | oldStack.getItem() != newStack.getItem();
     }
 	/**
 	 * Initialize the model for this item
