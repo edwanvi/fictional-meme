@@ -110,6 +110,12 @@ public class EntityGeminus_F extends EntityLiving {
 		if (!spawning && getCooldown() < 1) {
 			spawning = !(Randomizer.getRandomBoolean(this.getHealth() / this.getMaxHealth()));
 		}
+		if (spawning) {
+			for(int i = 0; i < playersWhoAttacked.size(); i++)
+				spawnMissile();
+			dataManager.set(SPAWNING, false);
+			setCooldown(COOLDOWN);
+		}
 		this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
 		super.onLivingUpdate();
 	}
@@ -152,6 +158,19 @@ public class EntityGeminus_F extends EntityLiving {
 			return super.attackEntityFrom(source, Math.min(cap, par2));
 		}
 		return false;
+	}
+	/**
+	 * Spawns a missile attack.
+	 * @author Vazkii
+	 */
+	private void spawnMissile() {
+		EntityMissile missile = new EntityMissile(this);
+		// set missile position to ours, give or take some random values
+		missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1), posZ + (Math.random() - 0.5 * 0.1));
+		if(missile.getTarget()) {
+			// add the missile to the world
+			worldObj.spawnEntityInWorld(missile);
+		}
 	}
 	// setters and getters below this line *only*
 	public void setHome(BlockPos pos) {
@@ -226,4 +245,9 @@ public class EntityGeminus_F extends EntityLiving {
          return flag;
      }
      // ===END ENTITYENDERMAN CODE===
+ 	@Override
+ 	public boolean canDespawn() {
+		return false;
+ 		
+ 	}
 }
