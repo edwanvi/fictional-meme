@@ -23,6 +23,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -60,6 +61,7 @@ public class EntityGeminus_M extends EntityLiving {
 	// sister
 	private EntityGeminus_F sister;
 	private static final DataParameter<Boolean> hellosis = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.BOOLEAN);
+	public static final PotionEffect blindness = new PotionEffect(MobEffects.BLINDNESS, 3600);
 	public EntityGeminus_M(World worldIn) {
 		super(worldIn);
 		// bout player sized
@@ -107,7 +109,7 @@ public class EntityGeminus_M extends EntityLiving {
 			}
 			player.isOnLadder();
 			player.isInWater();
-			player.isPotionActive(MobEffects.BLINDNESS);
+			player.addPotionEffect(blindness);
 			player.isRiding();
 
 			int cap = 25;

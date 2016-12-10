@@ -20,6 +20,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
@@ -49,6 +50,7 @@ public class EntityGeminus_F extends EntityLiving {
 	private EntityPlayer closestPlayer;
 	private static final double TELEPORT_RANGE_DOUBLE = 64.0D;
 	private static final int TELEPORT_RANGE_INT = (int) TELEPORT_RANGE_DOUBLE;
+	public static final PotionEffect blindness = new PotionEffect(MobEffects.BLINDNESS, 600);
 	public EntityGeminus_F(World worldIn) {
 		super(worldIn);
 		this.brother = null;
@@ -149,7 +151,8 @@ public class EntityGeminus_F extends EntityLiving {
 			}
 			player.isOnLadder();
 			player.isInWater();
-			player.isPotionActive(MobEffects.BLINDNESS);
+			// blindness because fuck you
+			player.addPotionEffect(blindness);
 			player.isRiding();
 
 			int cap = 25;
