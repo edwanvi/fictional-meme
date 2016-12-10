@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "testmodpleaseignore:items/explosive_caster_idle"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "deployed": 1
+      },
+      "model": "testmodpleaseignore:item/blade_caster_deployed"
+    }
+  ]
+}

@@ -36,7 +36,7 @@ public class ItemExplosiveCaster extends Item {
 		this.addPropertyOverride(new ResourceLocation("deployed"), new IItemPropertyGetter() {
 			@SideOnly(Side.CLIENT)
 		    public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-		        return entityIn != null && entityIn instanceof EntityPlayer && NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isActive") ? 1.0F : 0.0F;
+		        return entityIn != null && entityIn instanceof EntityPlayer && NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isactive") ? 1.0F : 0.0F;
 		    }
 		});
 		GameRegistry.register(this);
@@ -64,7 +64,7 @@ public class ItemExplosiveCaster extends Item {
 				RayTraceResult result = Raycasting.raycast(playerIn, 20.0D);
 				if (result == null) {
 					return new ActionResult<>(EnumActionResult.FAIL, stack);
-				} else {
+				} else if (getActivated(stack)) {
 					playerIn.getCooldownTracker().setCooldown(this, 20);
 					// server side only
 					if (!playerIn.world.isRemote) {
