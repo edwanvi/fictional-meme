@@ -41,7 +41,7 @@ public class EntityGeminus_F extends EntityLiving {
 	private static final DataParameter<Integer> SPAWN_COOLDOWN = EntityDataManager.createKey(EntityGeminus_F.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> SPAWNING = EntityDataManager.createKey(EntityGeminus_F.class, DataSerializers.BOOLEAN);
 	// boss bar
-	private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(this.getDisplayName(), BossInfo.Color.GREEN, BossInfo.Overlay.NOTCHED_20));
+	private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(this.getDisplayName(), BossInfo.Color.PINK, BossInfo.Overlay.NOTCHED_20));
 	private static final DataParameter<BlockPos> HOME = EntityDataManager.createKey(EntityGeminus_F.class, DataSerializers.BLOCK_POS);
 	// brother geminus, may be null
 	public EntityGeminus_M brother;
@@ -146,8 +146,6 @@ public class EntityGeminus_F extends EntityLiving {
 				if (brother != null) {
 					brother.setPlayerCount(brother.getPlayerCount() + 1);
 				}
-				if (!this.worldObj.isRemote)
-					player.addChatMessage(new TextComponentString(TextFormatting.GREEN + this.getName() + ": There will be a high price to pay for that, foolish mortal!"));
 			}
 			player.isOnLadder();
 			player.isInWater();

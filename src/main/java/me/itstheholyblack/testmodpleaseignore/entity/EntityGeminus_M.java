@@ -52,7 +52,7 @@ public class EntityGeminus_M extends EntityLiving {
 	// rand gen
 	private static Random rand_gen = new Random();
 	// boss bar
-	private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(this.getDisplayName(), BossInfo.Color.GREEN, BossInfo.Overlay.NOTCHED_20));
+	private final BossInfoServer bossInfo = (BossInfoServer)(new BossInfoServer(this.getDisplayName(), BossInfo.Color.BLUE, BossInfo.Overlay.NOTCHED_20));
 	// closest player
 	private EntityPlayer closestPlayer;
 	// home point
