@@ -9,6 +9,6 @@ public class PotionWitherMod extends PotionMod {
 	}
 	@Override
 	public void performEffect(EntityLivingBase entity, int amplifier) {
-		entity.attackEntityFrom(DamageSource.wither, 1.0F);
+		entity.attackEntityFrom(DamageSource.WITHER, 1.0F);
 	}
 }

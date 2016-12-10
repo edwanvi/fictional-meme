@@ -41,7 +41,7 @@ public class LeapingBoots extends ItemArmor {
 
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-		if (player instanceof EntityPlayerSP && player == Minecraft.getMinecraft().thePlayer) {
+		if (player instanceof EntityPlayerSP && player == Minecraft.getMinecraft().player) {
 			EntityPlayerSP playerSp = (EntityPlayerSP) player;
 			UUID uuid = playerSp.getUniqueID();
 

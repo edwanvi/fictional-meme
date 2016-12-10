@@ -7,6 +7,7 @@ import com.google.common.base.Predicates;
 import me.itstheholyblack.testmodpleaseignore.core.Vector3;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -43,7 +44,7 @@ public class EntityMissile extends EntityThrowable {
 		dataManager.register(TARGET, 0);
 	}
 	public EntityMissile(EntityLivingBase thrower) {
-		this(thrower.worldObj);
+		this(thrower.world);
 	}
 	/**
 	 * Simple method to set the missile's target.
@@ -58,7 +59,7 @@ public class EntityMissile extends EntityThrowable {
 	 */
 	public EntityLivingBase getTargetEntity() {
 		int id = dataManager.get(TARGET);
-		Entity e = worldObj.getEntityByID(id);
+		Entity e = world.getEntityByID(id);
 		if(e != null && e instanceof EntityLivingBase) {
 			return (EntityLivingBase) e;
 		}
@@ -76,7 +77,7 @@ public class EntityMissile extends EntityThrowable {
 		super.onUpdate();
 
 		if (this.closestPlayer == null || this.closestPlayer.getDistanceSqToEntity(this) > 64.0D) {
-            this.closestPlayer = this.worldObj.getClosestPlayerToEntity(this, 8.0D);
+            this.closestPlayer = this.world.getClosestPlayerToEntity(this, 8.0D);
         }
 		// don't go for specators
 		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
@@ -98,7 +99,7 @@ public class EntityMissile extends EntityThrowable {
             }
         }
 
-        this.moveEntity(this.motionX, this.motionY, this.motionZ);
+        this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
         if (time > 40)
         	this.kill();
 		// increment tick counter
@@ -123,7 +124,7 @@ public class EntityMissile extends EntityThrowable {
 		if (result.typeOfHit == RayTraceResult.Type.ENTITY) {
 			Entity e = result.entityHit;
 			if (e == this.closestPlayer)
-				e.attackEntityFrom(DamageSource.magic, 5.0F);
+				e.attackEntityFrom(DamageSource.MAGIC, 5.0F);
 		}
 	}
 	/**
@@ -131,15 +132,15 @@ public class EntityMissile extends EntityThrowable {
 	 */
 	public boolean getTarget() {
 		EntityLivingBase target = getTargetEntity();
-		if(target != null && target.getHealth() > 0 && !target.isDead && worldObj.loadedEntityList.contains(target))
+		if(target != null && target.getHealth() > 0 && !target.isDead && world.loadedEntityList.contains(target))
 			return true;
 		if(target != null)
 			setTarget(null);
 
 		double range = 12;
-		List entities = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range), Predicates.instanceOf(EntityPlayer.class));
+		List entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range), Predicates.instanceOf(EntityPlayer.class));
 		while(entities.size() > 0) {
-			int rand_index = worldObj.rand.nextInt(entities.size());
+			int rand_index = world.rand.nextInt(entities.size());
 			Entity e = (Entity) entities.get(rand_index);
 			if(!(e instanceof EntityLivingBase) || e.isDead) { // Just in case...
 				entities.remove(e);

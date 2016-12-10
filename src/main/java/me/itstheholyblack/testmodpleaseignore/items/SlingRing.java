@@ -43,12 +43,12 @@ public class SlingRing extends Item {
 			NBTInit(stack, playerIn);
 			System.out.println(playerIn.getName() + " initialized a sling ring. \\[T]/");
 			if (!worldIn.isRemote) {
-				playerIn.addChatComponentMessage(new TextComponentString(TextFormatting.GREEN + "Sling Ring initialized."));
+				playerIn.sendStatusMessage(new TextComponentString(TextFormatting.GREEN + "Sling Ring initialized."), true);
 			}
 		} else {
 			NBTTagCompound compound = stack.getTagCompound();
 			particles(worldIn, playerIn);
-			if (playerIn instanceof EntityPlayerMP && compound.getInteger("dim") != playerIn.worldObj.provider.getDimension()) {
+			if (playerIn instanceof EntityPlayerMP && compound.getInteger("dim") != playerIn.world.provider.getDimension()) {
 				CustomTeleporter.teleportToDimension((EntityPlayer) playerIn, compound.getInteger("dim"), compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
 			} else {
 				playerIn.setPositionAndUpdate(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
@@ -56,7 +56,7 @@ public class SlingRing extends Item {
 			particles(worldIn, playerIn);
 			// ANTI-SPAGHETTI
 			if (playerIn.getGameProfile().getName().compareToIgnoreCase("AlexisMachina") == 0 || playerIn.getGameProfile().getName().compareToIgnoreCase("Elucent") == 0 || playerIn.getGameProfile().getName().compareToIgnoreCase("ShadowGamerXY") == 0 || playerIn.getGameProfile().getName().compareToIgnoreCase("werty1124") == 0) {
-				playerIn.attackEntityFrom(DamageSource.outOfWorld, Float.MAX_VALUE);
+				playerIn.attackEntityFrom(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);
 			}
 		}
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
@@ -66,7 +66,7 @@ public class SlingRing extends Item {
 		compound.setInteger("x", player.getPosition().getX());
 		compound.setInteger("y", player.getPosition().getY());
 		compound.setInteger("z", player.getPosition().getZ());
-		compound.setInteger("dim", player.worldObj.provider.getDimension());
+		compound.setInteger("dim", player.world.provider.getDimension());
 	}
 	public void initModel() {
 		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));

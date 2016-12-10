@@ -80,7 +80,7 @@ public class EntityGeminus_M extends EntityLiving {
 		dataManager.register(SHULKER_COOLDOWN, COOLDOWN);
 		dataManager.register(HOME, BlockPos.ORIGIN);
 		dataManager.register(hellosis, false);
-		this.sister = new EntityGeminus_F(this.worldObj, this);
+		this.sister = new EntityGeminus_F(this.world, this);
 	}
 	@Override
     protected void applyEntityAttributes() {
@@ -95,7 +95,7 @@ public class EntityGeminus_M extends EntityLiving {
 	 */
 	@Override
 	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
-		if (source == DamageSource.outOfWorld) {
+		if (source == DamageSource.OUT_OF_WORLD) {
 			// no-op
 			return super.attackEntityFrom(source, par2);
 		}
@@ -125,25 +125,25 @@ public class EntityGeminus_M extends EntityLiving {
 	 */
 	public void onDeath(@Nonnull DamageSource source) {
 		super.onDeath(source);
-		if (source == DamageSource.outOfWorld) {
+		if (source == DamageSource.OUT_OF_WORLD) {
 			// no-op
 			return;
 		}
 		EntityLivingBase entitylivingbase = getAttackingEntity();
 		for (int i=0; i < playersWhoAttacked.size(); i++) {
 			UUID u = playersWhoAttacked.get(i);
-			EntityPlayer e = worldObj.getPlayerEntityByUUID(u);
+			EntityPlayer e = world.getPlayerEntityByUUID(u);
 			// I said you wouldn't survive
 			System.out.println("Killing player " + e.getName());
-			e.attackEntityFrom(DamageSource.outOfWorld, Float.MAX_VALUE);
+			e.attackEntityFrom(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);
 		}
 		for (int i = 0; i < shulkerList.size(); i++) {
 			EntityShulkerMinion e = shulkerList.get(i);
-			e.attackEntityFrom(DamageSource.outOfWorld, e.getHealth());
+			e.attackEntityFrom(DamageSource.OUT_OF_WORLD, e.getHealth());
 		}
 		// "explode"
-		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
-		worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX, posY, posZ, 1D, 0D, 0D);
+		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+		world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX, posY, posZ, 1D, 0D, 0D);
 	}
 	protected void initEntityAI() {
 		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, TELEPORT_RANGE_INT));
@@ -159,14 +159,14 @@ public class EntityGeminus_M extends EntityLiving {
 			this.setHome(this.getPosition());
 		}
 		// this'll work
-		if (!this.getSpawnedSister() && !this.worldObj.isRemote) {
+		if (!this.getSpawnedSister() && !this.world.isRemote) {
 			sister.setPosition(posX+1, posY, posZ-1);
-			worldObj.spawnEntityInWorld(sister);
+			world.spawnEntity(sister);
 			this.setSpawnedSister(true);
 		}
 		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
-		this.closestPlayer = this.worldObj.getClosestPlayerToEntity(this, 8.0D);
+		this.closestPlayer = this.world.getClosestPlayerToEntity(this, 8.0D);
 		float PERCENT_HP = this.getHealth() / this.getMaxHealth();
 		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
             this.closestPlayer = null;
@@ -192,7 +192,7 @@ public class EntityGeminus_M extends EntityLiving {
 		// shulker spawning code
 		if (getShulkerCooldown() < 1) {
 			boolean shouldSpawnShulker = !(Randomizer.getRandomBoolean(PERCENT_HP / 10)) && shulkerList.size() < 5;
-			boolean mobGriefing = this.worldObj.getGameRules().getBoolean("mobGriefing");
+			boolean mobGriefing = this.world.getGameRules().getBoolean("mobGriefing");
 			BlockPos myPosition = this.getPosition();
 			double d0 = posX + (rand.nextDouble() - 0.5D) * (TELEPORT_RANGE_DOUBLE/2);
 			double d1 = posY + (rand.nextInt(TELEPORT_RANGE_INT/2));
@@ -205,8 +205,8 @@ public class EntityGeminus_M extends EntityLiving {
 						shulkerList.add(e);
 					setShulkerCooldown(COOLDOWN);
 				} else {
-					if (worldObj.getBlockState(pos).getBlock() != Blocks.AIR) {
-						while (worldObj.getBlockState(pos).getBlock() != Blocks.AIR) {
+					if (world.getBlockState(pos).getBlock() != Blocks.AIR) {
+						while (world.getBlockState(pos).getBlock() != Blocks.AIR) {
 							pos = pos.add(0, 1, 0);
 						}
 						// we have an air block now
@@ -248,7 +248,7 @@ public class EntityGeminus_M extends EntityLiving {
 		missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1), posZ + (Math.random() - 0.5 * 0.1));
 		if(missile.getTarget()) {
 			// add the missile to the world
-			worldObj.spawnEntityInWorld(missile);
+			world.spawnEntity(missile);
 		}
 	}
 	// setters and getters
@@ -334,7 +334,7 @@ public class EntityGeminus_M extends EntityLiving {
 
         if (flag)
         {
-            this.worldObj.playSound((EntityPlayer)null, this.prevPosX, this.prevPosY, this.prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, this.getSoundCategory(), 1.0F, 1.0F);
+            this.world.playSound((EntityPlayer)null, this.prevPosX, this.prevPosY, this.prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, this.getSoundCategory(), 1.0F, 1.0F);
             this.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
         }
 
@@ -370,12 +370,12 @@ public class EntityGeminus_M extends EntityLiving {
     // @SideOnly(Side.SERVER)
     private EntityShulkerMinion shulkerReplace(BlockPos pos) {
     	System.out.println("Spawning Shulker Minion");
-    	EntityShulkerMinion shulk = new EntityShulkerMinion(this.worldObj, this);
+    	EntityShulkerMinion shulk = new EntityShulkerMinion(this.world, this);
     	shulk.setPosition(pos.getX(), pos.getY(), pos.getZ());
-    	if (worldObj.getBlockState(pos).getBlock() != Blocks.BEDROCK) {
-    		if (!worldObj.isRemote) {
-    			this.worldObj.setBlockToAir(pos);
-    			worldObj.spawnEntityInWorld(shulk);
+    	if (world.getBlockState(pos).getBlock() != Blocks.BEDROCK) {
+    		if (!world.isRemote) {
+    			this.world.setBlockToAir(pos);
+    			world.spawnEntity(shulk);
     		}
     		return shulk;
     	} else {

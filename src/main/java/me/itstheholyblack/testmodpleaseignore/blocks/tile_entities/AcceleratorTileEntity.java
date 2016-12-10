@@ -21,7 +21,7 @@ public class AcceleratorTileEntity extends TileEntity implements ITickable {
 		// safe = test_all_faces();
 		//if (worldObj.isRemote) {
 		if(count > 100 && !safe) {
-			this.worldObj.newExplosion(null, getPos().getX(), getPos().getY(), getPos().getZ(), 4.0F, true, true);
+			this.world.newExplosion(null, getPos().getX(), getPos().getY(), getPos().getZ(), 4.0F, true, true);
 			markDirty();
 		} else {
 			safe = test_all_faces();

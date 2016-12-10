@@ -1,5 +1,5 @@
-entity.testmodpleaseignore.entityGeminus_M.name=Gemini [M]
-entity.testmodpleaseignore.entityGeminus_F.name=Gemini [F]
+entity.entityGeminus_M.name=Gemini [M]
+entity.entityGeminus_F.name=Gemini [F]
 
 itemGroup.testModPleaseIgnore=Test Mod Please Ignore
 

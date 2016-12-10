@@ -62,7 +62,7 @@ public class ItemHalfCaster_Main extends ItemSword {
 				compound.setBoolean("isActive", false);
 			}
 			NBTTagCompound compound = stack.getTagCompound();
-			if (playerIn.getHeldItemOffhand() == null || playerIn.getHeldItemOffhand().getItem() != ModItems.halfCaster_Off) {
+			if (playerIn.getHeldItemOffhand() == ItemStack.EMPTY || playerIn.getHeldItemOffhand().getItem() != ModItems.halfCaster_Off) {
 				compound.setBoolean("isActive", !getActivated(stack));
 			} else {
 				return new ActionResult<>(EnumActionResult.PASS, stack);
@@ -90,8 +90,8 @@ public class ItemHalfCaster_Main extends ItemSword {
     public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack stack) {
         Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", getActivated(stack) ? 4 : 0, 0)); // add 0 if not active
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", 5, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", getActivated(stack) ? 4 : 0, 0)); // add 0 if not active
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", 5, 0));
         }
         return multimap;
     }

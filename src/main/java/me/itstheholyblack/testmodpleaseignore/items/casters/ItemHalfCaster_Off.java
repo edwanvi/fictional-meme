@@ -72,7 +72,7 @@ public class ItemHalfCaster_Off extends ItemSword {
 				Entity hit_entity = Raycasting.getEntityLookedAt(playerIn);
 				if (hit_entity != null) {
 					System.out.println("Hit!");
-					hit_entity.attackEntityFrom(DamageSource.magic, 4);
+					hit_entity.attackEntityFrom(DamageSource.MAGIC, 4);
 					playerIn.getCooldownTracker().setCooldown(this, 20);
 				}
 			}
@@ -90,7 +90,7 @@ public class ItemHalfCaster_Off extends ItemSword {
 	 * @return The boolean stored in key "isActive" for `stack`. False if the stack has no such key.
 	 */
 	boolean getActivated(ItemStack stack){
-		return stack != null && NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isActive");
+		return stack != null && stack != ItemStack.EMPTY && NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isActive");
 	}
 	/**
 	 * Sets caster damage and attack speed. The attack speed is constant and damage operates on the return of getActivated.
@@ -99,8 +99,8 @@ public class ItemHalfCaster_Off extends ItemSword {
     public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack stack) {
         Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", getActivated(stack) ? 4 : 0, 0)); // add 0 if not active
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", 5, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", getActivated(stack) ? 4 : 0, 0)); // add 0 if not active
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", 5, 0));
         }
         return multimap;
     }

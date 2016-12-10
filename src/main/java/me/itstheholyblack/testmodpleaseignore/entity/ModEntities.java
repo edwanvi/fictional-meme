@@ -3,6 +3,7 @@ package me.itstheholyblack.testmodpleaseignore.entity;
 import me.itstheholyblack.testmodpleaseignore.mod;
 import me.itstheholyblack.testmodpleaseignore.entity.render.RenderGeminus_F;
 import me.itstheholyblack.testmodpleaseignore.entity.render.RenderGeminus_M;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -17,10 +18,10 @@ public class ModEntities {
 	public static void init() {
 		// Every entity in our mod has an ID (local to this mod)
 		int id = 1;
-		EntityRegistry.registerModEntity(EntityMissile.class, "Missile", id++, mod.instance, 64, 3, true);
-		EntityRegistry.registerModEntity(EntityGeminus_M.class, "entityGeminus_M", id++, mod.instance, 128, 6, true, 0x996600, 0x00ff00);
-		EntityRegistry.registerModEntity(EntityGeminus_F.class, "entityGeminus_F", id++, mod.instance, 128, 6, true, 0x003399, 0xff00ff);
-		EntityRegistry.registerModEntity(EntityShulkerMinion.class, "shulkerMinion", id++, mod.instance, 128, 3, true);
+		EntityRegistry.registerModEntity(new ResourceLocation("Missile"), EntityMissile.class, "Missile", id++, mod.instance, 64, 3, true);
+		EntityRegistry.registerModEntity(new ResourceLocation("entityGeminus_M"), EntityGeminus_M.class, "entityGeminus_M", id++, mod.instance, 128, 6, true, 0x996600, 0x00ff00);
+		EntityRegistry.registerModEntity(new ResourceLocation("entityGeminus_F"), EntityGeminus_F.class, "entityGeminus_F", id++, mod.instance, 128, 6, true, 0x003399, 0xff00ff);
+		EntityRegistry.registerModEntity(new ResourceLocation("shulkerMinion"), EntityShulkerMinion.class, "shulkerMinion", id++, mod.instance, 128, 3, true);
 	}
 	@SideOnly(Side.CLIENT)
     public static void initModels() {

@@ -105,7 +105,7 @@ public class EntityGeminus_F extends EntityLiving {
 		}
 		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
-		this.closestPlayer = this.worldObj.getClosestPlayerToEntity(this, 8.0D);
+		this.closestPlayer = this.world.getClosestPlayerToEntity(this, 8.0D);
 		float PERCENT_HP = this.getHealth() / this.getMaxHealth();
 		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
             this.closestPlayer = null;
@@ -139,7 +139,7 @@ public class EntityGeminus_F extends EntityLiving {
 	}
 	@Override
 	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
-		if (source == DamageSource.outOfWorld) {
+		if (source == DamageSource.OUT_OF_WORLD) {
 			// no-op
 			return super.attackEntityFrom(source, par2);
 		}
@@ -175,7 +175,7 @@ public class EntityGeminus_F extends EntityLiving {
 		missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1), posZ + (Math.random() - 0.5 * 0.1));
 		if(missile.getTarget()) {
 			// add the missile to the world
-			worldObj.spawnEntityInWorld(missile);
+			world.spawnEntity(missile);
 		}
 	}
 	// setters and getters below this line *only*
@@ -259,7 +259,7 @@ public class EntityGeminus_F extends EntityLiving {
          boolean flag = this.attemptTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ());
 
          if (flag) {
-             this.worldObj.playSound((EntityPlayer)null, this.prevPosX, this.prevPosY, this.prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, this.getSoundCategory(), 1.0F, 1.0F);
+             this.world.playSound((EntityPlayer)null, this.prevPosX, this.prevPosY, this.prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, this.getSoundCategory(), 1.0F, 1.0F);
              this.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
          }
          return flag;
