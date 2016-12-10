@@ -92,6 +92,10 @@ public class EntityGeminus_M extends EntityLiving {
 	 */
 	@Override
 	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
+		if (source == DamageSource.outOfWorld) {
+			// no-op
+			return super.attackEntityFrom(source, par2);
+		}
 		Entity e = source.getEntity();
 		this.teleportRandomly();
 		if (e instanceof EntityPlayer && PlayerDetection.isTruePlayer(e)) {
@@ -155,7 +159,7 @@ public class EntityGeminus_M extends EntityLiving {
 		if (!this.getSpawnedSister() && !this.worldObj.isRemote) {
 			sister.setPosition(posX+1, posY, posZ-1);
 			worldObj.spawnEntityInWorld(sister);
-			this.setSpawnedSister(false);
+			this.setSpawnedSister(true);
 		}
 		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
