@@ -19,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -110,7 +111,9 @@ public class EntityGeminus_M extends EntityLiving {
 			}
 			player.isOnLadder();
 			player.isInWater();
-			player.addPotionEffect(blindness);
+			if (player.getHeldItemMainhand().getItem() instanceof ItemSword) {
+				player.addPotionEffect(blindness);
+			}
 			player.isRiding();
 
 			int cap = 25;
