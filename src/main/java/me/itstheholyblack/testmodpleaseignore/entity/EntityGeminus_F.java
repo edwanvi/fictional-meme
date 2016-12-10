@@ -157,8 +157,7 @@ public class EntityGeminus_F extends EntityLiving {
 			player.isOnLadder();
 			player.isInWater();
 			// blindness because fuck you
-			if (source.equals(DamageSource.causePlayerDamage(player)))
-				player.addPotionEffect(blindness);
+			player.addPotionEffect(blindness);
 			player.isRiding();
 
 			int cap = 25;

@@ -62,7 +62,7 @@ public class EntityGeminus_M extends EntityLiving {
 	// sister
 	private EntityGeminus_F sister;
 	private static final DataParameter<Boolean> hellosis = EntityDataManager.createKey(EntityGeminus_M.class, DataSerializers.BOOLEAN);
-	public static final PotionEffect blindness = new PotionEffect(MobEffects.BLINDNESS, 3600);
+	public static final PotionEffect blindness = new PotionEffect(MobEffects.BLINDNESS, 600);
 	public EntityGeminus_M(World worldIn) {
 		super(worldIn);
 		// bout player sized
