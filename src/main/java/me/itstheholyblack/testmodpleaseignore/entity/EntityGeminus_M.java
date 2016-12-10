@@ -171,7 +171,7 @@ public class EntityGeminus_M extends EntityLiving {
 		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
             this.closestPlayer = null;
         }
-		if (closestPlayer.isPotionActive(MobEffects.BLINDNESS)) {
+		if (this.closestPlayer!= null && this.closestPlayer.isPotionActive(MobEffects.BLINDNESS)) {
 			this.teleportToEntity(closestPlayer);
 		}
 		// count of players

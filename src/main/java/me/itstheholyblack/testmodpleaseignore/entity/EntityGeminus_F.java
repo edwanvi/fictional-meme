@@ -110,8 +110,9 @@ public class EntityGeminus_F extends EntityLiving {
 		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
             this.closestPlayer = null;
         }
-		if (closestPlayer.isPotionActive(MobEffects.BLINDNESS)) {
+		if (this.closestPlayer!= null && this.closestPlayer.isPotionActive(MobEffects.BLINDNESS)) {
 			this.teleportToEntity(closestPlayer);
+			spawning = true;
 		}
 		if (!spawning && getCooldown() < 1) {
 			spawning = !(Randomizer.getRandomBoolean(this.getHealth() / this.getMaxHealth()));
