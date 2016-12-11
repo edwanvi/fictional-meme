@@ -32,6 +32,7 @@ public class PlayerDataMan {
 				// no focus
 				persist.setFloat(FocusTag, 0);
 			} else {
+				// various condition/response things, PRs to this list welcome
 				if (player.isAirBorne) {
 					addFocus(persist, -10);
 				}
@@ -49,6 +50,9 @@ public class PlayerDataMan {
 				}
 				if (player.isCollided) {
 					addFocus(persist, -0.5F);
+				}
+				if (player.isElytraFlying()) {
+					addFocus(persist, 1.0F);
 				}
 			}
 		}
