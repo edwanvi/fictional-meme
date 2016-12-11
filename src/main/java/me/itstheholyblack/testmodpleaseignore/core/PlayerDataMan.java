@@ -2,8 +2,11 @@ package me.itstheholyblack.testmodpleaseignore.core;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Class for managing player data.
@@ -16,6 +19,7 @@ public class PlayerDataMan {
 	public static final String ManaPool = DataTag + "manaPool";
 	
 	@SubscribeEvent
+	@SideOnly(Side.SERVER)
 	public void onPlayerTick(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			// for some reason onPlayerTick isn't always gonna give us a player
@@ -35,38 +39,46 @@ public class PlayerDataMan {
 				persist.setFloat(FocusTag, 0);
 			} else {
 				// various condition/response things, PRs to this list welcome
-				if (player.isAirBorne) {
+				persist.setFloat(FocusTag, 0);
+				if (player.isInLava()) {
+					System.out.println(player.getName() + " is in lava");
 					addFocus(persist, -10);
 				}
 				if (player.isWet()) {
+					System.out.println(player.getName() + " is wet");
 					addFocus(persist, -2);
 				}
 				if (player.motionX != 0 || player.motionZ != 0) {
-					addFocus(persist, 0.0F);
+					// addFocus(persist, 0.0F);
 				}
 				if (player.isBurning()) {
-					addFocus(persist, -15);
+					System.out.println(player.getName() + " is burning");
+					addFocus(persist, -15.0F);
 				}
 				if (player.isPlayerSleeping()) {
-					addFocus(persist, 10);
+					addFocus(persist, 10.0F);
 				}
 				if (player.isCollided) {
-					addFocus(persist, -0.5F);
+					// addFocus(persist, -0.5F);
 				}
 				if (player.isElytraFlying()) {
-					addFocus(persist, 1.0F);
+					addFocus(persist, 20.0F);
+				}
+				if (player.isSneaking()) {
+					addFocus(persist, 20.0F);
 				}
 			}
 			if (!persist.hasKey(ManaPool)) {
 				persist.setDouble(ManaPool, 0.0D);
 			} else {
-				if (persist.getFloat(FocusTag) >= 0) {
-					double value = Math.sqrt(persist.getDouble(FocusTag));
-					addMana(persist, (float) value);
-				} else {
-					addMana(persist, persist.getFloat(FocusTag));
+				if (persist.getFloat(FocusTag) >= 0 && persist.getFloat(ManaPool) < 100000.0F) {
+					double value = Math.sqrt(persist.getFloat(FocusTag));
+					addMana(persist, value);
 				}
 			}
+			// player.sendStatusMessage(new TextComponentString("Focus: " + Float.toString(persist.getFloat(FocusTag))), true);
+			player.sendStatusMessage(new TextComponentString("Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
+			System.out.println(Double.toString(persist.getDouble(ManaPool)));
 		}
 	}
 	public void setFocus(NBTTagCompound tagcomp, float value) {
@@ -76,8 +88,8 @@ public class PlayerDataMan {
 		float oldFocus = tagcomp.getFloat(FocusTag);
 		tagcomp.setFloat(FocusTag, oldFocus + value);
 	}
-	public void addMana(NBTTagCompound tagcomp, float value) {
-		float oldMana = tagcomp.getFloat(ManaPool);
-		tagcomp.setFloat(ManaPool, oldMana + value);
+	public void addMana(NBTTagCompound tagcomp, double value) {
+		double oldMana = tagcomp.getFloat(ManaPool);
+		tagcomp.setDouble(ManaPool, oldMana + value);
 	}
 }
