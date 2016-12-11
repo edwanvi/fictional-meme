@@ -37,11 +37,13 @@ public class PlayerDataMan {
 				} else if (player.isWet()) {
 					addFocus(persist, -2);
 				} else if (player.motionX != 0 || player.motionZ != 0) {
-					addFocus(persist, -0.1F);
+					addFocus(persist, 0.0F);
 				} else if (player.isBurning()) {
 					addFocus(persist, -15);
 				} else if (player.isPlayerSleeping()) {
 					addFocus(persist, 10);
+				} else if (player.isCollided) {
+					addFocus(persist, -0.5F);
 				}
 			}
 		}
