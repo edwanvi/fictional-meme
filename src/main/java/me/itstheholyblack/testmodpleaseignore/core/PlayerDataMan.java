@@ -62,9 +62,9 @@ public class PlayerDataMan {
 			} else {
 				if (persist.getFloat(FocusTag) >= 0) {
 					double value = Math.sqrt(persist.getDouble(FocusTag));
-					persist.setDouble(ManaPool, value);
+					addMana(persist, (float) value);
 				} else {
-					persist.setDouble(ManaPool, persist.getFloat(FocusTag));
+					addMana(persist, persist.getFloat(FocusTag));
 				}
 			}
 		}
@@ -75,5 +75,9 @@ public class PlayerDataMan {
 	public void addFocus(NBTTagCompound tagcomp, float value) {
 		float oldFocus = tagcomp.getFloat(FocusTag);
 		tagcomp.setFloat(FocusTag, oldFocus + value);
+	}
+	public void addMana(NBTTagCompound tagcomp, float value) {
+		float oldMana = tagcomp.getFloat(ManaPool);
+		tagcomp.setFloat(ManaPool, oldMana + value);
 	}
 }
