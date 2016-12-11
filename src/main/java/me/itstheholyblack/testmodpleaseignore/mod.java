@@ -1,5 +1,6 @@
 package me.itstheholyblack.testmodpleaseignore;
 
+import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
 import me.itstheholyblack.testmodpleaseignore.proxy.CommonProxy;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -23,6 +24,7 @@ public class mod {
       System.out.println("Entering preInit");
       // Register our event manager so we can flyyyyyy
       MinecraftForge.EVENT_BUS.register(new EventHandles());
+      MinecraftForge.EVENT_BUS.register(new PlayerDataMan());
       proxy.preInit(e);
     }
 
