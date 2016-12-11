@@ -30,19 +30,27 @@ public class PlayerDataMan {
 			// set up *our* tags
 			if (!persist.hasKey(FocusTag)) {
 				// no focus
-				persist.setInteger(FocusTag, 0);
+				persist.setFloat(FocusTag, 0);
 			} else {
 				if (player.isAirBorne) {
 					addFocus(persist, -10);
+				} else if (player.isWet()) {
+					addFocus(persist, -2);
+				} else if (player.motionX != 0 || player.motionZ != 0) {
+					addFocus(persist, -0.1F);
+				} else if (player.isBurning()) {
+					addFocus(persist, -15);
+				} else if (player.isPlayerSleeping()) {
+					addFocus(persist, 10);
 				}
 			}
 		}
 	}
-	public void setFocus(NBTTagCompound tagcomp, int value) {
-		tagcomp.setInteger(FocusTag, value);
+	public void setFocus(NBTTagCompound tagcomp, float value) {
+		tagcomp.setFloat(FocusTag, value);
 	}
-	public void addFocus(NBTTagCompound tagcomp, int value) {
-		int oldFocus = tagcomp.getInteger(FocusTag);
-		tagcomp.setInteger(FocusTag, oldFocus + value);
+	public void addFocus(NBTTagCompound tagcomp, float value) {
+		float oldFocus = tagcomp.getFloat(FocusTag);
+		tagcomp.setFloat(FocusTag, oldFocus + value);
 	}
 }
