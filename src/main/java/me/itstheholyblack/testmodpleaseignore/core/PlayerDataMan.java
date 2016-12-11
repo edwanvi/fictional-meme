@@ -12,6 +12,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class PlayerDataMan {
 	public static final String DataTag = "TMPIData.";
 	public static final String FocusTag = DataTag + "focusLevel";
+	// yes mana is stupidly generic get over it
+	public static final String ManaPool = DataTag + "manaPool";
 	
 	@SubscribeEvent
 	public void onPlayerTick(LivingUpdateEvent event) {
@@ -53,6 +55,16 @@ public class PlayerDataMan {
 				}
 				if (player.isElytraFlying()) {
 					addFocus(persist, 1.0F);
+				}
+			}
+			if (!persist.hasKey(ManaPool)) {
+				persist.setDouble(ManaPool, 0.0D);
+			} else {
+				if (persist.getFloat(FocusTag) >= 0) {
+					double value = Math.sqrt(persist.getDouble(FocusTag));
+					persist.setDouble(ManaPool, value);
+				} else {
+					persist.setDouble(ManaPool, persist.getFloat(FocusTag));
 				}
 			}
 		}
