@@ -1,6 +1,8 @@
 package me.itstheholyblack.testmodpleaseignore.proxy;
 
+import me.itstheholyblack.testmodpleaseignore.EventHandles;
 import me.itstheholyblack.testmodpleaseignore.blocks.ModBlocks;
+import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
 import me.itstheholyblack.testmodpleaseignore.crafting.ShapedRecipes;
 import me.itstheholyblack.testmodpleaseignore.crafting.ShapelessRecipes;
 import me.itstheholyblack.testmodpleaseignore.crafting.Smelting;
@@ -9,6 +11,7 @@ import me.itstheholyblack.testmodpleaseignore.effect.ModEffects;
 import me.itstheholyblack.testmodpleaseignore.entity.ModEntities;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -16,6 +19,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class CommonProxy {
 	public void preInit(FMLPreInitializationEvent e) {
+		FMLLog.info("Registering Event handles for TMPI", "");
+		MinecraftForge.EVENT_BUS.register(new EventHandles());
+		MinecraftForge.EVENT_BUS.register(new PlayerDataMan());
 		System.out.println("Registering packet handles...");
 		PacketHandler.init();
 		System.out.println("Creating items...");
@@ -29,16 +35,17 @@ public class CommonProxy {
 		FMLLog.info("Creating mobs", "");
 		ModEntities.init();
 	}
-    public void init(FMLInitializationEvent e) {
-    	System.out.println("initializing recipies");
-    	ShapelessRecipes.initRecipes();
-    	Smelting.initRecipies();
-    	// Forge borked brewing
-    	AddBrewing.initRecipes();
-    	ShapedRecipes.initRecipes();
-    }
 
-    public void postInit(FMLPostInitializationEvent e) {
+	public void init(FMLInitializationEvent e) {
+		System.out.println("initializing recipies");
+		ShapelessRecipes.initRecipes();
+		Smelting.initRecipies();
+		// Forge borked brewing
+		AddBrewing.initRecipes();
+		ShapedRecipes.initRecipes();
+	}
 
-    }
+	public void postInit(FMLPostInitializationEvent e) {
+
+	}
 }
