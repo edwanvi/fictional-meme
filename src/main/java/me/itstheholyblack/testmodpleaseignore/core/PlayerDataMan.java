@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -78,9 +79,8 @@ public class PlayerDataMan {
 					}
 				}
 				// player.sendStatusMessage(new TextComponentString("Focus: " + Float.toString(persist.getFloat(FocusTag))), true);
-				player.sendStatusMessage(new TextComponentString("Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
+				player.sendStatusMessage(new TextComponentString(TextFormatting.AQUA + "Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
 				// System.out.println(Double.toString(persist.getDouble(ManaPool)));
-				System.out.println("Sending MessageDataSync");
 				PacketHandler.sendToPlayer(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) player);
 			}
 		}
