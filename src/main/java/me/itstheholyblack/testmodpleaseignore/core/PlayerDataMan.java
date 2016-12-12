@@ -1,6 +1,5 @@
 package me.itstheholyblack.testmodpleaseignore.core;
 
-import me.itstheholyblack.testmodpleaseignore.mod;
 import me.itstheholyblack.testmodpleaseignore.network.MessageDataSync;
 import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,8 +8,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Class for managing player data.
