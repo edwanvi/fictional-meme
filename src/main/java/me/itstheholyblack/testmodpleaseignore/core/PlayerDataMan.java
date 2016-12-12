@@ -23,67 +23,68 @@ public class PlayerDataMan {
 	public static final String ManaPool = DataTag + "manaPool";
 	
 	@SubscribeEvent
-	@SideOnly(Side.SERVER)
 	public void onPlayerTick(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			// for some reason onPlayerTick isn't always gonna give us a player
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			// save the player's data
-			NBTTagCompound data = player.getEntityData();
-			// detect if player has NBT saved
-			// if they don't, remidy the situation
-			if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
-				data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
-			}
-			// save into variable
-			NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-			// set up *our* tags
-			if (!persist.hasKey(FocusTag)) {
-				// no focus
-				persist.setFloat(FocusTag, 0);
-			} else {
-				// various condition/response things, PRs to this list welcome
-				persist.setFloat(FocusTag, 0);
-				if (player.isInLava()) {
-					System.out.println(player.getName() + " is in lava");
-					addFocus(persist, -10);
+			if (!player.world.isRemote) {
+				NBTTagCompound data = player.getEntityData();
+				// detect if player has NBT saved
+				// if they don't, remidy the situation
+				if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
+					data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
 				}
-				if (player.isWet()) {
-					System.out.println(player.getName() + " is wet");
-					addFocus(persist, -2);
+				// save into variable
+				NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+				// set up *our* tags
+				if (!persist.hasKey(FocusTag)) {
+					// no focus
+					persist.setFloat(FocusTag, 0);
+				} else {
+					// various condition/response things, PRs to this list welcome
+					persist.setFloat(FocusTag, 0);
+					if (player.isInLava()) {
+						System.out.println(player.getName() + " is in lava");
+						addFocus(persist, -10);
+					}
+					if (player.isWet()) {
+						System.out.println(player.getName() + " is wet");
+						addFocus(persist, -2);
+					}
+					if (player.motionX != 0 || player.motionZ != 0) {
+						// addFocus(persist, 0.0F);
+					}
+					if (player.isBurning()) {
+						System.out.println(player.getName() + " is burning");
+						addFocus(persist, -15.0F);
+					}
+					if (player.isPlayerSleeping()) {
+						addFocus(persist, 10.0F);
+					}
+					if (player.isCollided) {
+						// addFocus(persist, -0.5F);
+					}
+					if (player.isElytraFlying()) {
+						addFocus(persist, 20.0F);
+					}
+					if (player.isSneaking()) {
+						addFocus(persist, 20.0F);
+					}
 				}
-				if (player.motionX != 0 || player.motionZ != 0) {
-					// addFocus(persist, 0.0F);
+				if (!persist.hasKey(ManaPool)) {
+					persist.setDouble(ManaPool, 0.0D);
+				} else {
+					if (persist.getFloat(FocusTag) >= 0 && persist.getFloat(ManaPool) < 100000.0F) {
+						double value = Math.sqrt(persist.getFloat(FocusTag));
+						addMana(persist, value);
+					}
 				}
-				if (player.isBurning()) {
-					System.out.println(player.getName() + " is burning");
-					addFocus(persist, -15.0F);
-				}
-				if (player.isPlayerSleeping()) {
-					addFocus(persist, 10.0F);
-				}
-				if (player.isCollided) {
-					// addFocus(persist, -0.5F);
-				}
-				if (player.isElytraFlying()) {
-					addFocus(persist, 20.0F);
-				}
-				if (player.isSneaking()) {
-					addFocus(persist, 20.0F);
-				}
-			}
-			if (!persist.hasKey(ManaPool)) {
-				persist.setDouble(ManaPool, 0.0D);
-			} else {
-				if (persist.getFloat(FocusTag) >= 0 && persist.getFloat(ManaPool) < 100000.0F) {
-					double value = Math.sqrt(persist.getFloat(FocusTag));
-					addMana(persist, value);
-				}
-			}
-			// player.sendStatusMessage(new TextComponentString("Focus: " + Float.toString(persist.getFloat(FocusTag))), true);
-			// player.sendStatusMessage(new TextComponentString("Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
-			System.out.println(Double.toString(persist.getDouble(ManaPool)));
-			PacketHandler.INSTANCE.sendTo(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) player);
+				// player.sendStatusMessage(new TextComponentString("Focus: " + Float.toString(persist.getFloat(FocusTag))), true);
+				// player.sendStatusMessage(new TextComponentString("Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
+				System.out.println(Double.toString(persist.getDouble(ManaPool)));
+				PacketHandler.INSTANCE.sendTo(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) player);
+			}	
 		}
 	}
 	public void setFocus(NBTTagCompound tagcomp, float value) {
