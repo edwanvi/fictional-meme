@@ -79,7 +79,7 @@ public class PlayerDataMan {
 					}
 				}
 				// player.sendStatusMessage(new TextComponentString("Focus: " + Float.toString(persist.getFloat(FocusTag))), true);
-				player.sendStatusMessage(new TextComponentString(TextFormatting.AQUA + "Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
+				player.sendStatusMessage(new TextComponentString(TextFormatting.BLUE + "Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
 				// System.out.println(Double.toString(persist.getDouble(ManaPool)));
 				PacketHandler.sendToPlayer(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) player);
 			}
