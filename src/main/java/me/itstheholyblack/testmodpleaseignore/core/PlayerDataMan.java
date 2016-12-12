@@ -1,8 +1,8 @@
 package me.itstheholyblack.testmodpleaseignore.core;
 
-import baubles.common.network.PacketHandler;
 import me.itstheholyblack.testmodpleaseignore.mod;
 import me.itstheholyblack.testmodpleaseignore.network.MessageDataSync;
+import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
@@ -83,12 +83,9 @@ public class PlayerDataMan {
 				// player.sendStatusMessage(new TextComponentString("Focus: " + Float.toString(persist.getFloat(FocusTag))), true);
 				player.sendStatusMessage(new TextComponentString("Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
 				// System.out.println(Double.toString(persist.getDouble(ManaPool)));
-				PacketHandler.INSTANCE.sendTo(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) player);
+				System.out.println("Sending MessageDataSync");
+				PacketHandler.sendToPlayer(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) player);
 			}
-			NBTTagCompound data = player.getEntityData();
-			// save into variable
-			NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-			System.out.println(Double.toString(persist.getDouble(ManaPool)));
 		}
 	}
 	public void setFocus(NBTTagCompound tagcomp, float value) {

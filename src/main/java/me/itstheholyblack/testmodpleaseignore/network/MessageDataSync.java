@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.IThreadListener;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -35,14 +36,18 @@ public class MessageDataSync implements IMessage {
 		public IMessage onMessage(MessageDataSync message, MessageContext ctx) {
 			// sync from server -> client
 			if (ctx != null && ctx.side.isClient()) {
+				System.out.println("Recieved MessageDataSync");
 				EntityPlayerSP player = Minecraft.getMinecraft().player;
-				NBTTagCompound data = player.getEntityData();
-				if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
-					data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
-				}
-				NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-				double value = message.toSend;
-				persist.setDouble(ManaPool, value);
+				IThreadListener threadListen = Minecraft.getMinecraft();
+				threadListen.addScheduledTask(() -> {
+					NBTTagCompound data = player.getEntityData();
+					if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
+						data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
+					}
+					NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+					double value = message.toSend;
+					persist.setDouble(ManaPool, value);
+				});
 			}
 			return null;
 		}	
