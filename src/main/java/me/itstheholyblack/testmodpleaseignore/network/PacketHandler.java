@@ -10,6 +10,7 @@ public class PacketHandler {
 	public static void init() {
 		int id = 0; 
 		HANDLER.registerMessage(PacketJump.Handler.class, PacketJump.class, id++, Side.SERVER);
+		HANDLER.registerMessage(MessageDataSync.Handler.class, MessageDataSync.class, id++, Side.CLIENT);
 	}
 	public static void sendToServer(IMessage msg) {
 		HANDLER.sendToServer(msg);
