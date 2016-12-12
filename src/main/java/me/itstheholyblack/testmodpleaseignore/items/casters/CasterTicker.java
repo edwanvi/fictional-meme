@@ -27,11 +27,14 @@ public class CasterTicker {
 				// holding blade caster
 				Item mainhelditem = player.getHeldItemMainhand().getItem();
 				ItemStack mainheldstack = player.getHeldItemMainhand();
-				if (mainhelditem == ModItems.bladeCaster && ((ItemBladeCaster) mainhelditem).getActivated(mainheldstack)) {
+				if (mainhelditem instanceof ItemBladeCaster && ((ItemBladeCaster) mainhelditem).getActivated(mainheldstack)) {
 					manapoollevel = manapoollevel - 1.0D;
 				} else if (mainhelditem == ModItems.halfCaster_Main && ((ItemHalfCaster_Main) mainhelditem).getActivated(mainheldstack)) {
 					manapoollevel = manapoollevel - 0.5D;
+				} else if (mainhelditem == ModItems.halfCaster_Off && ((ItemHalfCaster_Off) mainhelditem).getActivated(mainheldstack)) {
+					
 				}
+				persist.setDouble(ManaPool, manapoollevel);
 			}
 		}
 	}
