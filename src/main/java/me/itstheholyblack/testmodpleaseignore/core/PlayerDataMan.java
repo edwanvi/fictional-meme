@@ -82,9 +82,13 @@ public class PlayerDataMan {
 				}
 				// player.sendStatusMessage(new TextComponentString("Focus: " + Float.toString(persist.getFloat(FocusTag))), true);
 				player.sendStatusMessage(new TextComponentString("Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
-				System.out.println(Double.toString(persist.getDouble(ManaPool)));
+				// System.out.println(Double.toString(persist.getDouble(ManaPool)));
 				PacketHandler.INSTANCE.sendTo(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) player);
-			}	
+			}
+			NBTTagCompound data = player.getEntityData();
+			// save into variable
+			NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+			System.out.println(Double.toString(persist.getDouble(ManaPool)));
 		}
 	}
 	public void setFocus(NBTTagCompound tagcomp, float value) {
