@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
@@ -19,8 +20,7 @@ public class PlayerDataMan {
 	public static final String FocusTag = DataTag + "focusLevel";
 	// yes mana is stupidly generic get over it
 	public static final String ManaPool = DataTag + "manaPool";
-	
-	@SubscribeEvent
+	@SubscribeEvent(priority=EventPriority.HIGHEST)
 	public void onPlayerTick(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			// for some reason onPlayerTick isn't always gonna give us a player
