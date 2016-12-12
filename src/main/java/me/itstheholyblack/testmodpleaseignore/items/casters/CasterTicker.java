@@ -24,15 +24,20 @@ public class CasterTicker {
 				}
 				NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 				double manapoollevel = persist.getDouble(ManaPool);
-				// holding blade caster
+
 				Item mainhelditem = player.getHeldItemMainhand().getItem();
 				ItemStack mainheldstack = player.getHeldItemMainhand();
+				
+				ItemStack offheldstack = player.getHeldItemOffhand();
+				Item offhelditem = offheldstack.getItem();
 				if (mainhelditem instanceof ItemBladeCaster && ((ItemBladeCaster) mainhelditem).getActivated(mainheldstack)) {
-					manapoollevel = manapoollevel - 1.0D;
+					manapoollevel = manapoollevel - 3.0D;
 				} else if (mainhelditem == ModItems.halfCaster_Main && ((ItemHalfCaster_Main) mainhelditem).getActivated(mainheldstack)) {
 					manapoollevel = manapoollevel - 0.5D;
 				} else if (mainhelditem == ModItems.halfCaster_Off && ((ItemHalfCaster_Off) mainhelditem).getActivated(mainheldstack)) {
-					
+					manapoollevel = manapoollevel - 1.0D;
+				} else if (offhelditem == ModItems.halfCaster_Off && ((ItemHalfCaster_Off) offhelditem).getActivated(offheldstack)) {
+					manapoollevel = manapoollevel - 2.5D;
 				}
 				persist.setDouble(ManaPool, manapoollevel);
 			}
