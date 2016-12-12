@@ -1,6 +1,10 @@
 package me.itstheholyblack.testmodpleaseignore.core;
 
+import baubles.common.network.PacketHandler;
+import me.itstheholyblack.testmodpleaseignore.mod;
+import me.itstheholyblack.testmodpleaseignore.network.MessageDataSync;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -77,8 +81,9 @@ public class PlayerDataMan {
 				}
 			}
 			// player.sendStatusMessage(new TextComponentString("Focus: " + Float.toString(persist.getFloat(FocusTag))), true);
-			player.sendStatusMessage(new TextComponentString("Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
+			// player.sendStatusMessage(new TextComponentString("Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
 			System.out.println(Double.toString(persist.getDouble(ManaPool)));
+			PacketHandler.INSTANCE.sendTo(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) player);
 		}
 	}
 	public void setFocus(NBTTagCompound tagcomp, float value) {
