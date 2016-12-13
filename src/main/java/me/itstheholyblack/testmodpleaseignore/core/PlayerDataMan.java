@@ -124,7 +124,7 @@ public class PlayerDataMan {
 					persist.setDouble(ManaPool, 0.0D);
 				} else {
 					if (persist.getFloat(FocusTag) >= 0 && persist.getFloat(ManaPool) < 100000.0F) {
-						double value = Math.sqrt(persist.getFloat(FocusTag));
+						double value = 2.0D * Math.sqrt(persist.getFloat(FocusTag));
 						addMana(persist, value);
 					}
 				}
