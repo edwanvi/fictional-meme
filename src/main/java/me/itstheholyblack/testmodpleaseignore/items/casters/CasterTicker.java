@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class CasterTicker {
 	public static final String DataTag = PlayerDataMan.DataTag;
 	public static final String ManaPool = PlayerDataMan.ManaPool;
-	@SubscribeEvent(priority=EventPriority.LOW)
+	@SubscribeEvent(priority=EventPriority.HIGH)
 	public void onPlayerTick(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();

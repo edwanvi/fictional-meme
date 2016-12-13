@@ -28,7 +28,7 @@ public class PlayerDataMan {
 	public static final String FocusTag = DataTag + "focusLevel";
 	// yes mana is stupidly generic get over it
 	public static final String ManaPool = DataTag + "manaPool";
-	@SubscribeEvent()
+	@SubscribeEvent(priority=EventPriority.HIGH)
 	public void onPlayerTick(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			// for some reason onPlayerTick isn't always gonna give us a player
@@ -78,25 +78,10 @@ public class PlayerDataMan {
 						addFocus(persist, 1.0F);
 					}
 				}
-				if (!persist.hasKey(ManaPool)) {
-					persist.setDouble(ManaPool, 0.0D);
-				} else {
-					if (persist.getFloat(FocusTag) >= 0 && persist.getFloat(ManaPool) < 100000.0F) {
-						double value = Math.sqrt(persist.getFloat(FocusTag));
-						addMana(persist, value);
-					}
-				}
-				if (persist.getDouble(ManaPool) < 0) {
-					persist.setDouble(ManaPool, 0.0D);
-					player.attackEntityFrom(DamageSource.MAGIC, 2.0F);
-				}
-				player.sendStatusMessage(new TextComponentString(TextFormatting.BLUE + "Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
-				// System.out.println(Double.toString(persist.getDouble(ManaPool)));
-				PacketHandler.sendToPlayer(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) player);
 			}
 		}
 	}
-	@SubscribeEvent(priority=EventPriority.HIGHEST)
+	@SubscribeEvent(priority=EventPriority.HIGH)
 	public void ItemUse(LivingEntityUseItemEvent.Tick event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer e = (EntityPlayer) event.getEntityLiving();
@@ -114,16 +99,42 @@ public class PlayerDataMan {
 					NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 					// float f = event.getDuration() * event.getDuration();
 					addFocus(persist, 2.5F);
-					if (!persist.hasKey(ManaPool)) {
-						persist.setDouble(ManaPool, 0.0D);
-					} else {
-						if (persist.getFloat(FocusTag) >= 0 && persist.getFloat(ManaPool) < 100000.0F) {
-							double value = Math.sqrt(persist.getFloat(FocusTag));
-							addMana(persist, value);
-						}
-					}
-					PacketHandler.sendToPlayer(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) e);
 				}
+			}
+		}
+	}
+	/**
+	 * The actual mana calculation. This must happen after all focus calculations.
+	 * @author Edwan Vi
+	 */
+	@SubscribeEvent(priority=EventPriority.LOWEST)
+	public void manaCalc(LivingUpdateEvent event) {
+		if (event.getEntity() instanceof EntityPlayer) {
+			EntityPlayer e = (EntityPlayer) event.getEntity();
+			if (!e.world.isRemote) {
+				NBTTagCompound data = e.getEntityData();
+				// detect if player has NBT saved
+				// if they don't, remedy the situation
+				if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
+					data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
+				}
+				// save into variable
+				NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+				if (!persist.hasKey(ManaPool)) {
+					persist.setDouble(ManaPool, 0.0D);
+				} else {
+					if (persist.getFloat(FocusTag) >= 0 && persist.getFloat(ManaPool) < 100000.0F) {
+						double value = Math.sqrt(persist.getFloat(FocusTag));
+						addMana(persist, value);
+					}
+				}
+				if (persist.getDouble(ManaPool) < 0) {
+					persist.setDouble(ManaPool, 0.0D);
+					e.attackEntityFrom(DamageSource.MAGIC, 2.0F);
+				}
+				e.sendStatusMessage(new TextComponentString(TextFormatting.BLUE + "Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
+				// System.out.println(Double.toString(persist.getDouble(ManaPool)));
+				PacketHandler.sendToPlayer(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) e);
 			}
 		}
 	}
