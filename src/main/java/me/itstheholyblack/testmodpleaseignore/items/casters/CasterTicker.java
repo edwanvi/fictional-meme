@@ -45,6 +45,8 @@ public class CasterTicker {
 					NBTHelper.checkNBT(mainheldstack).getTagCompound().setBoolean("isActive", false);
 				} else if (mainhelditem == ModItems.halfCaster_Off && ((ItemHalfCaster_Off) mainhelditem).getActivated(mainheldstack)) {
 					NBTHelper.checkNBT(mainheldstack).getTagCompound().setBoolean("isActive", false);
+				} else if (mainhelditem == ModItems.halfCaster_Main && ((ItemHalfCaster_Main) mainhelditem).getActivated(mainheldstack)) {
+					NBTHelper.checkNBT(mainheldstack).getTagCompound().setBoolean("isActive", false);
 				}
 				persist.setDouble(ManaPool, manapoollevel);
 			}
