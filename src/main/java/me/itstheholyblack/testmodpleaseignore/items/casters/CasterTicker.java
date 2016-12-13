@@ -43,10 +43,12 @@ public class CasterTicker {
 				}
 				if (mainhelditem instanceof ItemBladeCaster && ((ItemBladeCaster) mainhelditem).getActivated(mainheldstack) && persist.getDouble(ManaPool) <= 0) {
 					NBTHelper.checkNBT(mainheldstack).getTagCompound().setBoolean("isActive", false);
-				} else if (mainhelditem == ModItems.halfCaster_Off && ((ItemHalfCaster_Off) mainhelditem).getActivated(mainheldstack)) {
+				} else if (mainhelditem == ModItems.halfCaster_Off && ((ItemHalfCaster_Off) mainhelditem).getActivated(mainheldstack) && persist.getDouble(ManaPool) <= 0) {
 					NBTHelper.checkNBT(mainheldstack).getTagCompound().setBoolean("isActive", false);
-				} else if (mainhelditem == ModItems.halfCaster_Main && ((ItemHalfCaster_Main) mainhelditem).getActivated(mainheldstack)) {
+				} else if (mainhelditem == ModItems.halfCaster_Main && ((ItemHalfCaster_Main) mainhelditem).getActivated(mainheldstack) && persist.getDouble(ManaPool) <= 0) {
 					NBTHelper.checkNBT(mainheldstack).getTagCompound().setBoolean("isActive", false);
+				} else if (offhelditem == ModItems.halfCaster_Off && ((ItemHalfCaster_Off) offhelditem).getActivated(offheldstack) && persist.getDouble(ManaPool) <= 0) {
+					NBTHelper.checkNBT(offheldstack).getTagCompound().setBoolean("isactive", false);
 				}
 				persist.setDouble(ManaPool, manapoollevel);
 			}

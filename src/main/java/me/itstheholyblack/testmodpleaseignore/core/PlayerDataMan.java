@@ -132,7 +132,7 @@ public class PlayerDataMan {
 					persist.setDouble(ManaPool, 0.0D);
 					e.attackEntityFrom(DamageSource.MAGIC, 2.0F);
 				}
-				e.sendStatusMessage(new TextComponentString(TextFormatting.BLUE + "Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
+				// e.sendStatusMessage(new TextComponentString(TextFormatting.BLUE + "Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
 				// System.out.println(Double.toString(persist.getDouble(ManaPool)));
 				PacketHandler.sendToPlayer(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) e);
 			}
