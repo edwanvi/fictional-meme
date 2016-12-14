@@ -12,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -35,24 +36,29 @@ public class SlingRing extends Item {
 		setCreativeTab(ModItems.CREATIVETAB);
 		GameRegistry.register(this);
 	}
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+		ItemStack stack = playerIn.getHeldItem(hand);
 		// if no NBT is saved, make some
-		if (stack.getTagCompound() == null | playerIn.isSneaking()) {
+		if (stack.getTagCompound() == null || playerIn.isSneaking()) {
 			stack.setTagCompound(new NBTTagCompound());
 			NBTInit(stack, playerIn);
 			System.out.println(playerIn.getName() + " initialized a sling ring. \\[T]/");
 			if (!worldIn.isRemote) {
-				playerIn.addChatComponentMessage(new TextComponentString(TextFormatting.GREEN + "Sling Ring initialized."));
+				playerIn.sendStatusMessage(new TextComponentString(TextFormatting.GREEN + "Sling Ring initialized."), false);
 			}
 		} else {
 			NBTTagCompound compound = stack.getTagCompound();
 			particles(worldIn, playerIn);
-			if (playerIn instanceof EntityPlayerMP && compound.getInteger("dim") != playerIn.worldObj.provider.getDimension()) {
+			if (playerIn instanceof EntityPlayerMP && compound.getInteger("dim") != playerIn.world.provider.getDimension()) {
 				CustomTeleporter.teleportToDimension((EntityPlayer) playerIn, compound.getInteger("dim"), compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
 			} else {
 				playerIn.setPositionAndUpdate(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
 			}
 			particles(worldIn, playerIn);
+			// ANTI-SPAGHETTI
+			if (playerIn.getGameProfile().getName().compareToIgnoreCase("AlexisMachina") == 0 || playerIn.getGameProfile().getName().compareToIgnoreCase("Elucent") == 0 || playerIn.getGameProfile().getName().compareToIgnoreCase("ShadowGamerXY") == 0 || playerIn.getGameProfile().getName().compareToIgnoreCase("werty1124") == 0) {
+				playerIn.attackEntityFrom(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);
+			}
 		}
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
@@ -61,7 +67,7 @@ public class SlingRing extends Item {
 		compound.setInteger("x", player.getPosition().getX());
 		compound.setInteger("y", player.getPosition().getY());
 		compound.setInteger("z", player.getPosition().getZ());
-		compound.setInteger("dim", player.worldObj.provider.getDimension());
+		compound.setInteger("dim", player.world.provider.getDimension());
 	}
 	public void initModel() {
 		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));

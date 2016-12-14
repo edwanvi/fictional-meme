@@ -1,0 +1,36 @@
+{
+  "parent": "builtin/generated",
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [-90, 90, -90 ],
+      "translation": [ 0, 0, 0 ],
+      "scale": [ 1.5, 1.5, 0 ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [ 90, -90, -90 ],
+      "translation": [ 0, 0, 0 ],
+      "scale": [ 1.5, 1.5, 0 ]
+    },
+    "firstperson_righthand": {
+      "rotation": [ 0, 180, 5 ],
+      "translation": [ -10, 2, -10 ],
+      "scale": [ 1.25, 1.25, 0 ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [ 180, 180, 5 ],
+      "translation": [ 10, 0, -10 ],
+      "scale": [ 1.25, 1.25, 0 ]
+    }
+  },
+  "textures": {
+    "layer0": "testmodpleaseignore:items/caster_act/half_caster_deployed_m"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "deployed": 0
+      },
+      "model": "testmodpleaseignore:item/halfCaster_Main"
+    }
+  ]
+}

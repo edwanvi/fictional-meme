@@ -1,6 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.proxy;
 
 import me.itstheholyblack.testmodpleaseignore.blocks.ModBlocks;
+import me.itstheholyblack.testmodpleaseignore.entity.ModEntities;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -13,6 +14,7 @@ public class ClientProxy extends CommonProxy {
         System.out.println("Loading models");
         ModItems.initModels();
         ModBlocks.initModels();
+        ModEntities.initModels();
     }
 
     @Override

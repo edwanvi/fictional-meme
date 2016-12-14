@@ -21,7 +21,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemTestCloak extends Item implements IBauble, IRenderBauble {
 	
-	private static final ResourceLocation texture = new ResourceLocation("testmodpleaseignore:textures/models/idunnCloak.png");
+	private static final ResourceLocation texture = new ResourceLocation("testmodpleaseignore:textures/models/idunncloak.png");
 	
 	@SideOnly(Side.CLIENT)
 	private static ModelCloak model;

@@ -40,9 +40,9 @@ public class CustomTeleporter extends Teleporter {
 	 * Teleports a player to a given X, Y, Z and dimension ID.
 	 */
 	public static void teleportToDimension(EntityPlayer player, int dimension, double x, double y, double z) {
-		int oldDimension = player.worldObj.provider.getDimension();
+		int oldDimension = player.world.provider.getDimension();
 		EntityPlayerMP entityPlayerMP = (EntityPlayerMP) player;
-		MinecraftServer server = ((EntityPlayerMP) player).worldObj.getMinecraftServer();
+		MinecraftServer server = ((EntityPlayerMP) player).world.getMinecraftServer();
 		WorldServer worldServer = server.worldServerForDimension(dimension);
 		player.addExperienceLevel(0);
 
@@ -58,7 +58,7 @@ public class CustomTeleporter extends Teleporter {
 			// For some reason teleporting out of the end does weird things.
 			// Compensate for that
 			player.setPositionAndUpdate(x, y, z);
-			worldServer.spawnEntityInWorld(player);
+			worldServer.spawnEntity(player);
 			worldServer.updateEntityWithOptionalForce(player, false);
 		}
 	}

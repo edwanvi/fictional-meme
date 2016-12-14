@@ -1,3 +1,6 @@
+entity.entityGeminus_M.name=Geminus
+entity.entityGeminus_F.name=Gemina
+
 itemGroup.testModPleaseIgnore=Test Mod Please Ignore
 
 item.testmodpleaseignore.firstitem.name=Withered Powder
@@ -32,3 +35,12 @@ mouseovertext.sling_ring=A ring which enables the bearer to return to a previous
 item.testmodpleaseignore.itemTestCloak.name=Test Cloak Please Ignore
 
 item.testmodpleaseignore.bladeCaster.name=Novice's Blade Caster
+
+item.testmodpleaseignore.halfCaster_Main.name=Half-Blade Caster
+mouseovertext.half_caster=The main hand component of the Half-Blade Caster. Hits light and extremely fast.
+item.testmodpleaseignore.halfCaster_Off.name=Half-Blade Caster (Offhand)
+mouseovertext.half_caster_off=The offhand component of the Half-Blade Caster. Hits light, fast, and at a distance. Unfortunately, it can't retain magically-added sharpness in flight.
+
+item.testmodpleaseignore.explosivecaster.name=Explosive Caster
+
+item.testmodpleaseignore.introspective_mirror.name=Introspective Mirror
