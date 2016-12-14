@@ -36,14 +36,15 @@ public class SlingRing extends Item {
 		setCreativeTab(ModItems.CREATIVETAB);
 		GameRegistry.register(this);
 	}
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+		ItemStack stack = playerIn.getHeldItem(hand);
 		// if no NBT is saved, make some
-		if (stack.getTagCompound() == null | playerIn.isSneaking()) {
+		if (stack.getTagCompound() == null || playerIn.isSneaking()) {
 			stack.setTagCompound(new NBTTagCompound());
 			NBTInit(stack, playerIn);
 			System.out.println(playerIn.getName() + " initialized a sling ring. \\[T]/");
 			if (!worldIn.isRemote) {
-				playerIn.sendStatusMessage(new TextComponentString(TextFormatting.GREEN + "Sling Ring initialized."), true);
+				playerIn.sendStatusMessage(new TextComponentString(TextFormatting.GREEN + "Sling Ring initialized."), false);
 			}
 		} else {
 			NBTTagCompound compound = stack.getTagCompound();

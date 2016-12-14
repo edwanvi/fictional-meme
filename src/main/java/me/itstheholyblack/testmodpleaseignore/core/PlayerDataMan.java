@@ -1,12 +1,22 @@
 package me.itstheholyblack.testmodpleaseignore.core;
 
+import javax.annotation.Nonnull;
+
 import me.itstheholyblack.testmodpleaseignore.network.MessageDataSync;
 import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
@@ -18,8 +28,7 @@ public class PlayerDataMan {
 	public static final String FocusTag = DataTag + "focusLevel";
 	// yes mana is stupidly generic get over it
 	public static final String ManaPool = DataTag + "manaPool";
-	
-	@SubscribeEvent
+	@SubscribeEvent(priority=EventPriority.HIGH)
 	public void onPlayerTick(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			// for some reason onPlayerTick isn't always gonna give us a player
@@ -66,22 +75,66 @@ public class PlayerDataMan {
 						addFocus(persist, 20.0F);
 					}
 					if (player.isSneaking()) {
-						addFocus(persist, 20.0F);
+						addFocus(persist, 1.0F);
 					}
 				}
+			}
+		}
+	}
+	@SubscribeEvent(priority=EventPriority.HIGH)
+	public void ItemUse(LivingEntityUseItemEvent.Tick event) {
+		if(event.getEntityLiving() instanceof EntityPlayer) {
+			EntityPlayer e = (EntityPlayer) event.getEntityLiving();
+			if (!e.world.isRemote) {
+				ItemStack heldstack = event.getItem();
+				Item helditem = heldstack.getItem();
+				if (helditem == Items.BOW) {
+					NBTTagCompound data = e.getEntityData();
+					// detect if player has NBT saved
+					// if they don't, remedy the situation
+					if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
+						data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
+					}
+					// save into variable
+					NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+					// float f = event.getDuration() * event.getDuration();
+					addFocus(persist, 2.5F);
+				}
+			}
+		}
+	}
+	/**
+	 * The actual mana calculation. This must happen after all focus calculations.
+	 * @author Edwan Vi
+	 */
+	@SubscribeEvent(priority=EventPriority.LOWEST)
+	public void manaCalc(LivingUpdateEvent event) {
+		if (event.getEntity() instanceof EntityPlayer) {
+			EntityPlayer e = (EntityPlayer) event.getEntity();
+			if (!e.world.isRemote) {
+				NBTTagCompound data = e.getEntityData();
+				// detect if player has NBT saved
+				// if they don't, remedy the situation
+				if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
+					data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
+				}
+				// save into variable
+				NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 				if (!persist.hasKey(ManaPool)) {
 					persist.setDouble(ManaPool, 0.0D);
 				} else {
 					if (persist.getFloat(FocusTag) >= 0 && persist.getFloat(ManaPool) < 100000.0F) {
-						double value = Math.sqrt(persist.getFloat(FocusTag));
+						double value = (persist.getFloat(FocusTag) * persist.getFloat(FocusTag))/100.0D;
 						addMana(persist, value);
 					}
 				}
-				// player.sendStatusMessage(new TextComponentString("Focus: " + Float.toString(persist.getFloat(FocusTag))), true);
-				player.sendStatusMessage(new TextComponentString("Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
+				if (persist.getDouble(ManaPool) < 0) {
+					persist.setDouble(ManaPool, 0.0D);
+					e.attackEntityFrom(DamageSource.MAGIC, 2.0F);
+				}
+				// e.sendStatusMessage(new TextComponentString(TextFormatting.BLUE + "Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
 				// System.out.println(Double.toString(persist.getDouble(ManaPool)));
-				System.out.println("Sending MessageDataSync");
-				PacketHandler.sendToPlayer(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) player);
+				PacketHandler.sendToPlayer(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) e);
 			}
 		}
 	}

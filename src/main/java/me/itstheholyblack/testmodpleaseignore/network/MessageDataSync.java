@@ -36,7 +36,6 @@ public class MessageDataSync implements IMessage {
 		public IMessage onMessage(MessageDataSync message, MessageContext ctx) {
 			// sync from server -> client
 			if (ctx != null && ctx.side.isClient()) {
-				System.out.println("Recieved MessageDataSync");
 				EntityPlayerSP player = Minecraft.getMinecraft().player;
 				IThreadListener threadListen = Minecraft.getMinecraft();
 				threadListen.addScheduledTask(() -> {

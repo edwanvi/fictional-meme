@@ -10,6 +10,7 @@ import me.itstheholyblack.testmodpleaseignore.crafting.brewing.AddBrewing;
 import me.itstheholyblack.testmodpleaseignore.effect.ModEffects;
 import me.itstheholyblack.testmodpleaseignore.entity.ModEntities;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
+import me.itstheholyblack.testmodpleaseignore.items.casters.CasterTicker;
 import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLLog;
@@ -22,6 +23,7 @@ public class CommonProxy {
 		FMLLog.info("Registering Event handles for TMPI", "");
 		MinecraftForge.EVENT_BUS.register(new EventHandles());
 		MinecraftForge.EVENT_BUS.register(new PlayerDataMan());
+		MinecraftForge.EVENT_BUS.register(new CasterTicker());
 		System.out.println("Registering packet handles...");
 		PacketHandler.init();
 		System.out.println("Creating items...");
