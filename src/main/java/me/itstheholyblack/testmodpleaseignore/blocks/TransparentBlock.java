@@ -1,6 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -31,6 +32,7 @@ public class TransparentBlock extends Block {
 
     public TransparentBlock(String unlocalizedName) {
         this(unlocalizedName, 2.0f, 10.0f);
+        setSoundType(SoundType.GLASS);
     }
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
