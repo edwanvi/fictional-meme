@@ -3,6 +3,7 @@ package me.itstheholyblack.testmodpleaseignore.blocks;
 import me.itstheholyblack.testmodpleaseignore.mod;
 import me.itstheholyblack.testmodpleaseignore.blocks.tile_entities.TileEntitySpellweaver;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -33,6 +34,8 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 		super(Material.CARPET, "spellweaver");
 		setCreativeTab(ModItems.CREATIVETAB);
 		GameRegistry.register(this);
+		// why isn't this f*cking implied
+		setSoundType(SoundType.CLOTH);
         GameRegistry.register(new ItemBlock(this), getRegistryName());
 	}
 

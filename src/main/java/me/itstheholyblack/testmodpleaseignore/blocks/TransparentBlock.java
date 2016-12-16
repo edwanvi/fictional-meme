@@ -22,6 +22,7 @@ public class TransparentBlock extends Block {
         setHardness(hardness);
         setResistance(resistance);
         setRegistryName(unlocalizedName);
+        setSoundType(SoundType.GLASS);
         GameRegistry.register(this);
         GameRegistry.register(new ItemBlock(this), getRegistryName());
     }
@@ -32,7 +33,6 @@ public class TransparentBlock extends Block {
 
     public TransparentBlock(String unlocalizedName) {
         this(unlocalizedName, 2.0f, 10.0f);
-        setSoundType(SoundType.GLASS);
     }
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
