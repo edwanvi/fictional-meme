@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraft.util.text.translation.I18n;
 
 public class CommonProxy {
 	public void preInit(FMLPreInitializationEvent e) {
@@ -51,5 +52,9 @@ public class CommonProxy {
 
 	public void postInit(FMLPostInitializationEvent e) {
 
+	}
+	// localization method
+	public String localize(String unlocalized, Object... args) {
+		return I18n.translateToLocalFormatted(unlocalized, args);
 	}
 }
