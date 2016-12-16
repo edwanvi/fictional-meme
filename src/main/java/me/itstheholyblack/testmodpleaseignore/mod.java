@@ -1,8 +1,11 @@
 package me.itstheholyblack.testmodpleaseignore;
 
+import org.apache.logging.log4j.Level;
+
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
 import me.itstheholyblack.testmodpleaseignore.proxy.CommonProxy;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -14,27 +17,28 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @Mod(modid = Reference.MODID, version = Reference.VERSION, name = Reference.MODNAME, acceptedMinecraftVersions = Reference.ACCPETED_MINECRAFT_VERSION, dependencies = Reference.DEPENDENCIES)
 public class mod {
 	@Instance
-    public static mod instance = new mod();
+	public static mod instance = new mod();
 
-	@SidedProxy(clientSide="me.itstheholyblack.testmodpleaseignore.proxy.ClientProxy", serverSide="me.itstheholyblack.testmodpleaseignore.proxy.ServerProxy")
+	@SidedProxy(clientSide = "me.itstheholyblack.testmodpleaseignore.proxy.ClientProxy", serverSide = "me.itstheholyblack.testmodpleaseignore.proxy.ServerProxy")
 	public static CommonProxy proxy;
-	// this.proxy.stage(e) calls the method stage for the client or server proxy depending on what we're running on
-    @EventHandler
-    public void preInit(FMLPreInitializationEvent e) {
-      System.out.println("Entering preInit");
-      // Register our event manager so we can flyyyyyy
-      proxy.preInit(e);
-    }
 
-    @EventHandler
-    public void init(FMLInitializationEvent e) {
-      System.out.println("Entering init");
-      proxy.init(e);
-    }
+	// proxy.stage(e) calls the method stage for the client or server proxy
+	// depending on what we're running on
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent e) {
+		FMLLog.log(Level.INFO, "Entering pre init");
+		proxy.preInit(e);
+	}
 
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent e) {
-      System.out.println("Entering postInit");
-      proxy.postInit(e);
-    }
+	@EventHandler
+	public void init(FMLInitializationEvent e) {
+		FMLLog.log(Level.INFO, "Entering init");
+		proxy.init(e);
+	}
+
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent e) {
+		FMLLog.log(Level.INFO, "Entering post init");
+		proxy.postInit(e);
+	}
 }
