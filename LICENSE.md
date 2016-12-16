@@ -24,6 +24,7 @@ The data or text under this license is therefore called the object.
  4. The licensee is given the right to redistribute work including any licensor copyrights originally contained in the object but not to use it on its own behalf.
  5. All of the above clauses are void if the licensee fails to accomplish his obligations established in clause 1.
  6. If the 1.5 clause becomes true the licensee must pay for any costs the licensor may have with juridical actions against him.
+
 ## The liability of the licensor (clause 2)
   1. The licensor is liable only for what himself wrote regarding juridical issues related to injury, racism or offense and any other crimes.
   2. The licensor is not liable for the content that was edited by third parties and the liability for such cases falls over the licensee as described in 1.3.5.
