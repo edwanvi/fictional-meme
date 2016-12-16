@@ -18,10 +18,10 @@ public class ModEntities {
 	public static void init() {
 		// Every entity in our mod has an ID (local to this mod)
 		int id = 1;
-		EntityRegistry.registerModEntity(new ResourceLocation("Missile"), EntityMissile.class, "Missile", id++, mod.instance, 64, 3, true);
-		EntityRegistry.registerModEntity(new ResourceLocation("entityGeminus_M"), EntityGeminus_M.class, "entityGeminus_M", id++, mod.instance, 128, 6, true, 0x996600, 0x00ff00);
-		EntityRegistry.registerModEntity(new ResourceLocation("entityGeminus_F"), EntityGeminus_F.class, "entityGeminus_F", id++, mod.instance, 128, 6, true, 0x003399, 0xff00ff);
-		EntityRegistry.registerModEntity(new ResourceLocation("shulkerMinion"), EntityShulkerMinion.class, "shulkerMinion", id++, mod.instance, 128, 3, true);
+		EntityRegistry.registerModEntity(new ResourceLocation("Missile"), EntityMissile.class, "testmodpleaseignore:Missile", id++, mod.instance, 64, 3, true);
+		EntityRegistry.registerModEntity(new ResourceLocation("entityGeminus_M"), EntityGeminus_M.class, "testmodpleaseignore:entityGeminus_M", id++, mod.instance, 128, 6, true, 0x996600, 0x00ff00);
+		EntityRegistry.registerModEntity(new ResourceLocation("entityGeminus_F"), EntityGeminus_F.class, "testmodpleaseignore:entityGeminus_F", id++, mod.instance, 128, 6, true, 0x003399, 0xff00ff);
+		EntityRegistry.registerModEntity(new ResourceLocation("shulkerMinion"), EntityShulkerMinion.class, "testmodpleaseignore:shulkerMinion", id++, mod.instance, 128, 3, true);
 	}
 	@SideOnly(Side.CLIENT)
     public static void initModels() {
