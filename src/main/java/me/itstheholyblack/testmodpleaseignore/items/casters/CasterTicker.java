@@ -40,9 +40,13 @@ public class CasterTicker {
 					manapoollevel = manapoollevel - 1.0D;
 				} else if (offhelditem == ModItems.halfCaster_Off && ((ItemHalfCaster_Off) offhelditem).getActivated(offheldstack)) {
 					manapoollevel = manapoollevel - 2.5D;
+				} else if (mainhelditem == ModItems.explosivecaster && ((ItemExplosiveCaster) mainhelditem).getActivated(mainheldstack)) {
+					manapoollevel = manapoollevel - 5.0D;
 				}
 				if (mainhelditem instanceof ItemBladeCaster && ((ItemBladeCaster) mainhelditem).getActivated(mainheldstack) && persist.getDouble(ManaPool) <= 0) {
 					NBTHelper.checkNBT(mainheldstack).getTagCompound().setBoolean("isActive", false);
+				} else if (mainhelditem instanceof ItemExplosiveCaster && ((ItemExplosiveCaster) mainhelditem).getActivated(mainheldstack) && persist.getDouble(ManaPool) <= 0) {
+					NBTHelper.checkNBT(mainheldstack).getTagCompound().setBoolean("isactive", false);
 				} else if (mainhelditem == ModItems.halfCaster_Off && ((ItemHalfCaster_Off) mainhelditem).getActivated(mainheldstack) && persist.getDouble(ManaPool) <= 0) {
 					NBTHelper.checkNBT(mainheldstack).getTagCompound().setBoolean("isActive", false);
 				} else if (mainhelditem == ModItems.halfCaster_Main && ((ItemHalfCaster_Main) mainhelditem).getActivated(mainheldstack) && persist.getDouble(ManaPool) <= 0) {

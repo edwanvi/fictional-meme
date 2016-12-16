@@ -27,6 +27,7 @@ public class ItemIntrospectiveMirror extends Item {
 		setRegistryName(unlocalizedName);
 		setUnlocalizedName(Reference.MODID + "." + unlocalizedName);
 		setCreativeTab(ModItems.CREATIVETAB);
+		setMaxStackSize(1);
 		GameRegistry.register(this);
 	}
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
