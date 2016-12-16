@@ -17,7 +17,7 @@ The data or text under this license is therefore called the object.
  2. It is a right of the licensee to redistribute unaltered copies of the object although commercial use is utterly forbidden (except with licensor express written consent). Commercial use includes, but is by no means not limited to: Attempting to sell the source code of the object, attempting to sell compiled versions of the object, linking to the object (source or compiled) via adf.ly or similar services, and (re)uploading the object to services such as Curse Forge while enrolled in the Curse Points system.
  3. The licensee is given the right to adapt or modify the object to suit his needs and to redistribute the modified version subject to the following conditions:
   1. You must keep the following notice in any copy of the object that you may create: Written originally by Edwan Vi in {date YYYY-MM-DD}.
-  2. You must keep a changelog somewhere inside the modified object in the following format: {version} {YYYY-MM-DD HH:MM (24 hours cycle)} {Description} {pages changed list}.
+  2. You must keep a changelog somewhere inside the modified object in the following format: {version} {YYYY-MM-DD HH:MM (24 hours cycle)} {Description} {pages/files changed list}.
   3. The same rules about commercial use stated in clause 1.1 applies here.
   4. You must include the following notice in any object-modified copies you redistribute: This document or data is a derivative of Test Mod Please Ignore and the information contained here may or may not represent the original document or data.
   5. In case of juridical problems that may arise from licensee edits the licensee is liable instead of the licensor.
