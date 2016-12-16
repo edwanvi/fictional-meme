@@ -21,6 +21,7 @@ public class MethodHandles {
 	
 	static {
 		try {
+			FMLLog.log(Level.INFO, "Attempting to register method handles, hold on to your butts!");
 			Method m = ReflectionHelper.findMethod(PotionHelper.class, null, POTIONHELPER_REGISTERPOTIONTYPECONVERSION,
 				PotionType.class, Predicate.class, PotionType.class);
 			registerPotionTypeConversion = publicLookup().unreflect(m);

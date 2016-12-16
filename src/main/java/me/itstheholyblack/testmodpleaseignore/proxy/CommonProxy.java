@@ -1,5 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.proxy;
 
+import org.apache.logging.log4j.Level;
+
 import me.itstheholyblack.testmodpleaseignore.EventHandles;
 import me.itstheholyblack.testmodpleaseignore.blocks.ModBlocks;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
@@ -20,26 +22,26 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class CommonProxy {
 	public void preInit(FMLPreInitializationEvent e) {
-		FMLLog.info("Registering Event handles for TMPI", "");
+		FMLLog.log(Level.INFO, "Registering TMPI event handlers...");
 		MinecraftForge.EVENT_BUS.register(new EventHandles());
 		MinecraftForge.EVENT_BUS.register(new PlayerDataMan());
 		MinecraftForge.EVENT_BUS.register(new CasterTicker());
-		System.out.println("Registering packet handles...");
+		FMLLog.log(Level.INFO, "Registering TMPI packets...");
 		PacketHandler.init();
-		System.out.println("Creating items...");
+		FMLLog.log(Level.INFO, "Creating TMPI items...");
 		ModItems.createItems();
-		System.out.println("Creating blocks...");
+		FMLLog.log(Level.INFO, "Creating TMPI blocks...");
 		ModBlocks.createBlocks();
-		FMLLog.info("", "Creating potion effects...");
+		FMLLog.log(Level.INFO, "Creating TMPI potion effects...");
 		ModEffects.initEffects();
-		FMLLog.info("", "Creating potion items...");
+		FMLLog.log(Level.INFO, "Creating TMPI potion items...");
 		ModEffects.initItems();
-		FMLLog.info("Creating mobs", "");
+		FMLLog.log(Level.INFO, "Creating TMPI entities...");
 		ModEntities.init();
 	}
 
 	public void init(FMLInitializationEvent e) {
-		System.out.println("initializing recipies");
+		FMLLog.log(Level.INFO, "Creating TMPI recipies...");
 		ShapelessRecipes.initRecipes();
 		Smelting.initRecipies();
 		// Forge borked brewing
