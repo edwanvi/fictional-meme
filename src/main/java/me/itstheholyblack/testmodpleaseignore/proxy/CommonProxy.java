@@ -4,6 +4,7 @@ import org.apache.logging.log4j.Level;
 
 import me.itstheholyblack.testmodpleaseignore.EventHandles;
 import me.itstheholyblack.testmodpleaseignore.blocks.ModBlocks;
+import me.itstheholyblack.testmodpleaseignore.core.ManaCalc;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
 import me.itstheholyblack.testmodpleaseignore.crafting.ShapedRecipes;
 import me.itstheholyblack.testmodpleaseignore.crafting.ShapelessRecipes;
@@ -26,6 +27,7 @@ public class CommonProxy {
 		FMLLog.log(Level.INFO, "Registering TMPI event handlers...");
 		MinecraftForge.EVENT_BUS.register(new EventHandles());
 		MinecraftForge.EVENT_BUS.register(new PlayerDataMan());
+		MinecraftForge.EVENT_BUS.register(new ManaCalc());
 		MinecraftForge.EVENT_BUS.register(new CasterTicker());
 		FMLLog.log(Level.INFO, "Registering TMPI packets...");
 		PacketHandler.init();

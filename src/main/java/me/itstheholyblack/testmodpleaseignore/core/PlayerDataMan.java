@@ -2,6 +2,8 @@ package me.itstheholyblack.testmodpleaseignore.core;
 
 import javax.annotation.Nonnull;
 
+import org.apache.logging.log4j.Level;
+
 import me.itstheholyblack.testmodpleaseignore.network.MessageDataSync;
 import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,6 +18,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -81,7 +84,7 @@ public class PlayerDataMan {
 			}
 		}
 	}
-	@SubscribeEvent(priority=EventPriority.HIGH)
+	// @SubscribeEvent(priority=EventPriority.HIGH)
 	public void ItemUse(LivingEntityUseItemEvent.Tick event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer e = (EntityPlayer) event.getEntityLiving();
@@ -97,47 +100,14 @@ public class PlayerDataMan {
 					}
 					// save into variable
 					NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-					// float f = event.getDuration() * event.getDuration();
+					float f = event.getDuration() * event.getDuration();
+					FMLLog.log(Level.INFO, Float.toString(f));
 					addFocus(persist, 2.5F);
 				}
 			}
 		}
 	}
-	/**
-	 * The actual mana calculation. This must happen after all focus calculations.
-	 * @author Edwan Vi
-	 */
-	@SubscribeEvent(priority=EventPriority.LOWEST)
-	public void manaCalc(LivingUpdateEvent event) {
-		if (event.getEntity() instanceof EntityPlayer) {
-			EntityPlayer e = (EntityPlayer) event.getEntity();
-			if (!e.world.isRemote) {
-				NBTTagCompound data = e.getEntityData();
-				// detect if player has NBT saved
-				// if they don't, remedy the situation
-				if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
-					data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
-				}
-				// save into variable
-				NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-				if (!persist.hasKey(ManaPool)) {
-					persist.setDouble(ManaPool, 0.0D);
-				} else {
-					if (persist.getFloat(FocusTag) >= 0 && persist.getFloat(ManaPool) < 100000.0F) {
-						double value = (persist.getFloat(FocusTag) * persist.getFloat(FocusTag))/100.0D;
-						addMana(persist, value);
-					}
-				}
-				if (persist.getDouble(ManaPool) < 0) {
-					persist.setDouble(ManaPool, 0.0D);
-					e.attackEntityFrom(DamageSource.MAGIC, 2.0F);
-				}
-				// e.sendStatusMessage(new TextComponentString(TextFormatting.BLUE + "Mana: " + Double.toString(persist.getDouble(ManaPool))), true);
-				// System.out.println(Double.toString(persist.getDouble(ManaPool)));
-				PacketHandler.sendToPlayer(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) e);
-			}
-		}
-	}
+	
 	public void setFocus(NBTTagCompound tagcomp, float value) {
 		tagcomp.setFloat(FocusTag, value);
 	}
@@ -145,7 +115,7 @@ public class PlayerDataMan {
 		float oldFocus = tagcomp.getFloat(FocusTag);
 		tagcomp.setFloat(FocusTag, oldFocus + value);
 	}
-	public void addMana(NBTTagCompound tagcomp, double value) {
+	public static void addMana(NBTTagCompound tagcomp, double value) {
 		double oldMana = tagcomp.getFloat(ManaPool);
 		tagcomp.setDouble(ManaPool, oldMana + value);
 	}
