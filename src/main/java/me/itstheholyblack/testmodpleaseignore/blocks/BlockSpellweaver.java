@@ -12,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -91,13 +92,26 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
     }
-    @Override
-    public boolean isOpaqueCube(IBlockState state) {
-    	return false;
+	/**
+     * Used to determine ambient occlusion and culling when rebuilding chunks for render
+     */
+    public boolean isOpaqueCube(IBlockState state)
+    {
+        return false;
     }
-    @Override
-    public boolean isFullBlock(IBlockState state) {
-    	return false;
+
+    public boolean isFullCube(IBlockState state)
+    {
+        return false;
+    }
+
+    /**
+     * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
+     * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
+     */
+    public EnumBlockRenderType getRenderType(IBlockState state)
+    {
+        return EnumBlockRenderType.MODEL;
     }
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return BED_AABB;

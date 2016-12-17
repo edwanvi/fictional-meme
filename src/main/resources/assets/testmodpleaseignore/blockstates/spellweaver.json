@@ -1,10 +1,6 @@
 {
   "forge_marker": 1,
-  "defaults": {
-    "model": "testmodpleaseignore:spellweaver"
-  },
   "variants": {
-    "normal": [{}],
-    "inventory": [{}]
+    "normal": {"model": "testmodpleaseignore:spellweaver"}
   }
 }

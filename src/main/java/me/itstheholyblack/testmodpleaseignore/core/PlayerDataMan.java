@@ -31,7 +31,7 @@ public class PlayerDataMan {
 	public static final String FocusTag = DataTag + "focusLevel";
 	// yes mana is stupidly generic get over it
 	public static final String ManaPool = DataTag + "manaPool";
-	@SubscribeEvent(priority=EventPriority.HIGH)
+	@SubscribeEvent(priority=EventPriority.HIGHEST)
 	public void onPlayerTick(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			// for some reason onPlayerTick isn't always gonna give us a player
@@ -84,7 +84,7 @@ public class PlayerDataMan {
 			}
 		}
 	}
-	// @SubscribeEvent(priority=EventPriority.HIGH)
+	@SubscribeEvent(priority=EventPriority.HIGH)
 	public void ItemUse(LivingEntityUseItemEvent.Tick event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer e = (EntityPlayer) event.getEntityLiving();
@@ -101,7 +101,6 @@ public class PlayerDataMan {
 					// save into variable
 					NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 					float f = event.getDuration() * event.getDuration();
-					FMLLog.log(Level.INFO, Float.toString(f));
 					addFocus(persist, 2.5F);
 				}
 			}
