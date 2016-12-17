@@ -20,5 +20,6 @@ public final class ModBlocks {
     public static void initModels() {
 		tutorialBlock.initModel();
 		s_accel.initModel();
+		s_weaver.initModel();
 	}
 }
