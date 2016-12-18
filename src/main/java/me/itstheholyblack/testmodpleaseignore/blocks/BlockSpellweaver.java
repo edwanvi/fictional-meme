@@ -60,8 +60,8 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 			if (!player.isSneaking()) {
 				if (heldItem.isEmpty()) {
 					player.setHeldItem(hand, itemHandler.extractItem(0, 64, false));
-				} else {
-					player.setHeldItem(hand, itemHandler.insertItem(0, heldItem, false));
+				} else if (heldItem.getItem().equals(ModItems.introMirror)) {
+					
 				}
 				tile.markDirty();
 			} else {

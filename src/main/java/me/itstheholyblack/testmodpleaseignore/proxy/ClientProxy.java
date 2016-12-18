@@ -1,9 +1,12 @@
 package me.itstheholyblack.testmodpleaseignore.proxy;
 
 import me.itstheholyblack.testmodpleaseignore.blocks.ModBlocks;
+import me.itstheholyblack.testmodpleaseignore.blocks.tile_entities.TileEntitySpellweaver;
+import me.itstheholyblack.testmodpleaseignore.client.TileEntitySpellweaverRenderer;
 import me.itstheholyblack.testmodpleaseignore.entity.ModEntities;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import net.minecraft.client.resources.I18n;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -16,6 +19,8 @@ public class ClientProxy extends CommonProxy {
         ModItems.initModels();
         ModBlocks.initModels();
         ModEntities.initModels();
+        // bind enchant render
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySpellweaver.class, new TileEntitySpellweaverRenderer());
     }
 
     @Override
