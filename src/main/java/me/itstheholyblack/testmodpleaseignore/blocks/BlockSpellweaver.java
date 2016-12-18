@@ -2,6 +2,7 @@ package me.itstheholyblack.testmodpleaseignore.blocks;
 
 import me.itstheholyblack.testmodpleaseignore.mod;
 import me.itstheholyblack.testmodpleaseignore.blocks.tile_entities.TileEntitySpellweaver;
+import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -66,6 +67,7 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 					// M A G I C
 					ItemStack stack = itemHandler.getStackInSlot(0);
 					if (stack.getItem() == Items.FLINT) {
+						PlayerDataMan.addMana(player, -10.0D, true);
 						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.bladeCaster, 1));
 					}
 				} else {

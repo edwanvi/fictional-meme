@@ -118,4 +118,19 @@ public class PlayerDataMan {
 		double oldMana = tagcomp.getFloat(ManaPool);
 		tagcomp.setDouble(ManaPool, oldMana + value);
 	}
+	/**
+	 * Adds {@code value} mana to {@code player}'s mana pool. Also takes care of the data desync issue that might arise from that.
+	 * @author Edwan Vi
+	 */
+	public static void addMana(EntityPlayer player, double value, boolean sync) {
+		NBTTagCompound data = player.getEntityData();
+		if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
+			data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
+		}
+		NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+		addMana(persist, value);
+		if (sync) {
+			PacketHandler.sendToPlayer(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) player);
+		}
+	}
 }
