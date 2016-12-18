@@ -29,7 +29,7 @@ import net.minecraftforge.items.IItemHandler;
 
 public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 	
-	protected static final AxisAlignedBB BED_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5625D, 1.0D);
+	protected static final AxisAlignedBB BED_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D);
 	
 	public BlockSpellweaver() {
 		super(Material.CARPET, "spellweaver");
@@ -60,8 +60,8 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 			if (!player.isSneaking()) {
 				if (heldItem.isEmpty()) {
 					player.setHeldItem(hand, itemHandler.extractItem(0, 64, false));
-				} else if (heldItem.getItem().equals(ModItems.introMirror)) {
-					
+				} else {
+					player.setHeldItem(hand, itemHandler.insertItem(0, heldItem, false));
 				}
 				tile.markDirty();
 			} else {

@@ -17,7 +17,7 @@ public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<Til
     public void renderTileEntityAt(TileEntitySpellweaver te, double x, double y, double z, float partialTicks, int destroyStage)
     {
         GlStateManager.pushMatrix();
-        GlStateManager.translate((float)x + 0.5F, (float)y + 0.5F, (float)z + 1.0F);
+        GlStateManager.translate((float)x + 0.5F, (float)y + 0.6F, (float)z + 0.5F);
         float f = (float)te.tickCount + partialTicks;
         GlStateManager.translate(0.0F, 0.1F + MathHelper.sin(f * 0.1F) * 0.01F, 0.0F);
         float f1;
