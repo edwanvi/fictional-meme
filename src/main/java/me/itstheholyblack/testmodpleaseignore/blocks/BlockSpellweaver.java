@@ -9,6 +9,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -26,6 +27,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 
 public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 	
@@ -60,6 +62,12 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 			if (!player.isSneaking()) {
 				if (heldItem.isEmpty()) {
 					player.setHeldItem(hand, itemHandler.extractItem(0, 64, false));
+				} else if (heldItem.getItem() == ModItems.introMirror) {
+					// M A G I C
+					ItemStack stack = itemHandler.getStackInSlot(0);
+					if (stack.getItem() == Items.FLINT) {
+						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.bladeCaster, 1));
+					}
 				} else {
 					player.setHeldItem(hand, itemHandler.insertItem(0, heldItem, false));
 				}
