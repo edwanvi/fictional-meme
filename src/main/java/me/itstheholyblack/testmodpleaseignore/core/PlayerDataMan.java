@@ -58,14 +58,14 @@ public class PlayerDataMan {
 						addFocus(persist, -10);
 					}
 					if (player.isWet()) {
-						FMLLog.log(Level.INFO, (player.getName() + " is wet"));
+						FMLLog.log(Level.DEBUG, (player.getName() + " is wet"));
 						addFocus(persist, -2);
 					}
 					if (player.motionX != 0 || player.motionZ != 0) {
 						// addFocus(persist, 0.0F);
 					}
 					if (player.isBurning()) {
-						System.out.println(player.getName() + " is burning");
+						FMLLog.log(Level.DEBUG, (player.getName() + " is burning"));
 						addFocus(persist, -15.0F);
 					}
 					if (player.isPlayerSleeping()) {
