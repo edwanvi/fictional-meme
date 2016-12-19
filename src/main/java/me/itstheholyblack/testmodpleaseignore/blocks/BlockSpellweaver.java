@@ -69,6 +69,10 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 					if (stack.getItem() == Items.FLINT) {
 						PlayerDataMan.addMana(player, -10.0D, true);
 						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.bladeCaster, 1));
+					} 
+					else {
+						PlayerDataMan.addMana(player, -15.0D, true);
+						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.manaWaste, 1));
 					}
 				} else {
 					player.setHeldItem(hand, itemHandler.insertItem(0, heldItem, false));
