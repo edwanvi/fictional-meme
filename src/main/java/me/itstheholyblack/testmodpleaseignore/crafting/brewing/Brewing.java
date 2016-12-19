@@ -42,7 +42,7 @@ public class Brewing {
 	 * @param normalType The output potion. This is the effect that will be used for a potion that has not had redstone/glowstone/other modifiers applied.
 	 * @param longType The potion type to use if the potion has been lengthened with Redstone.
 	 * @param strongType The potion type to use if the potion has been strengthened with Glowstone.
-	 * */
+	 */
 	public static void addCompletePotionRecipes(Predicate<ItemStack> predicate, PotionType fromType, PotionType normalType, @Nullable PotionType longType, @Nullable PotionType strongType) {
 	    if (fromType == PotionTypes.AWKWARD) {
 	        MethodHandles.registerPotionTypeConversion(PotionTypes.WATER, predicate, PotionTypes.MUNDANE);
