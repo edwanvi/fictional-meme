@@ -121,6 +121,9 @@ public class PlayerDataMan {
 	/**
 	 * Adds {@code value} mana to {@code player}'s mana pool. Also takes care of the data desync issue that might arise from that.
 	 * @author Edwan Vi
+	 * @param player The {@code EntityPlayer} to add mana to.
+	 * @param value The amount of mana to add to the player's mana pool. Negative amounts subtract.
+	 * @param sync Whether or not to sync the player's mana after adding it. 
 	 */
 	public static void addMana(EntityPlayer player, double value, boolean sync) {
 		NBTTagCompound data = player.getEntityData();
