@@ -1,30 +1,41 @@
-# Simple non code license (SNCL)
+# Simple Non Code License (SNCL)
 
-Version 1.10.0
+Version 2.0.2
 
-Copyright (C) 2016 Edwan Vi.
+License Copyright (C) 2016 Alexandre Quoniou
 
-The original creator(s) of the data or text under this license is thereby called the licensor.
+Object copyright (C) 2016 Edwan Vi
+The original creator of the data or text under this license is thereby called the licensor.
 
 The person physical or juridical obtaining a copy of the data or text under this license is thereby called the licensee.
 
 The data or text under this license is therefore called the object.
+## The licensee rights and obligations
 
-[A better formatted version is posted here.](https://tldrlegal.com/license/simple-non-code-license-%28sncl%29#fulltext)
+1. The licensee has the right to obtain a free copy of the object.
+2. It is the right of the licensee to redistribute unaltered copies of the object although commercial use is utterly forbidden (except with the original licensor express written consent). Commercial use includes but is by no means limited to: Attempting to sell the source code of the object, in whole or in part, attempting to sell compiled versions of the object ("jars"), linking to the object (compiled or source) via services such as adf.ly. **IN THE EVENT YOU ARE UNSURE IF YOUR USE OF THE OBJECT IS COMMERCIAL, PLEASE CONTACT THE LICENSOR.**
+3. The licensee is given the right to adapt or modify the object to suit his needs and to redistribute the modified version subject to the following conditions:
+ 1. You must add the following notice in any copy of the object that you may create : Written originally by Edwan Vi in {year of latest commit}.
+ 2. You must not remove the license informations present in the object.
+ 3. You must keep a changelog somewhere inside the modified object in the following format : {Version} {YYYY-MM-DD HH:MM (24-hour cycle)} {Description} {Pages/files changed list}.
+ 4. The same rules about commercial use stated in clause 1.1 applies here.
+ 5. You must include the following notice in any object-modified copies you redistribute : This document or data is a derivative of {Name} and the information contained here may or may not represent the original document or data.
+ 6. You must include this file along with any object-modified copies you redistribute.
+ 7. In case of juridical problems that may arise from licensee edits the licensee is liable instead of the licensor.
+4. The licensee is given the right to redistribute work including any licensor copyrights originally contained in the object but not to use it on its own behalf.
 
-## The licensee rights and obligations (clause 1)
- 1. The licensee have the right to obtain a free copy of the object.
- 2. It is a right of the licensee to redistribute unaltered copies of the object although commercial use is utterly forbidden (except with licensor express written consent). Commercial use includes, but is by no means not limited to: Attempting to sell the source code of the object, attempting to sell compiled versions of the object, linking to the object (source or compiled) via adf.ly or similar services, and (re)uploading the object to services such as Curse Forge while enrolled in the Curse Points system.
- 3. The licensee is given the right to adapt or modify the object to suit his needs and to redistribute the modified version subject to the following conditions:
-  1. You must keep the following notice in any copy of the object that you may create: Written originally by Edwan Vi in {date YYYY-MM-DD}.
-  2. You must keep a changelog somewhere inside the modified object in the following format: {version} {YYYY-MM-DD HH:MM (24 hours cycle)} {Description} {pages/files changed list}.
-  3. The same rules about commercial use stated in clause 1.1 applies here.
-  4. You must include the following notice in any object-modified copies you redistribute: This document or data is a derivative of Test Mod Please Ignore and the information contained here may or may not represent the original document or data.
-  5. In case of juridical problems that may arise from licensee edits the licensee is liable instead of the licensor.
- 4. The licensee is given the right to redistribute work including any licensor copyrights originally contained in the object but not to use it on its own behalf.
- 5. All of the above clauses are void if the licensee fails to accomplish his obligations established in clause 1.
- 6. If the 1.5 clause becomes true the licensee must pay for any costs the licensor may have with juridical actions against him.
+## The liability of the licensor and of the licensee
 
-## The liability of the licensor (clause 2)
-  1. The licensor is liable only for what himself wrote regarding juridical issues related to injury, racism or offense and any other crimes.
-  2. The licensor is not liable for the content that was edited by third parties and the liability for such cases falls over the licensee as described in 1.3.5.
+1. The licensor offers the object as-is and as-available, and makes no representations or warranties of any kind concerning the object. Thus, the licensor is not liable for any use made of the object.
+2. The licensee only is liable for any juridical issue related to the use of the object, edited by third parties or not.
+
+## Termination
+
+1. All of the clauses stated in section 1 are void if the licensee fails to accomplish his obligations established in section 1.
+2. If the 3.1 clause becomes true the licensee must pay for any costs the licensor may have with juridical actions against him.
+
+## Other terms and conditions
+
+1. The licensor shall not be bound by any additional or different terms or conditions communicated by the licensee unless expressly agreed.
+2. The licensor has the right to edit at any time the content of this license, however, its effects will not be retroactive.
+3. Any modification made by the licensor shall not affect the already published versions of the object, only the future ones.
