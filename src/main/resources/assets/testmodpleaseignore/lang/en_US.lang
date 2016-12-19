@@ -1,5 +1,5 @@
-entity.entityGeminus_M.name=Geminus
-entity.entityGeminus_F.name=Gemina
+entity.testmodpleaseignore:entityGeminus_M.name=Geminus
+entity.testmodpleaseignore:entityGeminus_F.name=Gemina
 
 itemGroup.testModPleaseIgnore=Test Mod Please Ignore
 
