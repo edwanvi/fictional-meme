@@ -3,8 +3,6 @@ package me.itstheholyblack.testmodpleaseignore.network;
 import io.netty.buffer.ByteBuf;
 import me.itstheholyblack.testmodpleaseignore.items.armor.LeapingBoots;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;

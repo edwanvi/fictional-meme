@@ -2,8 +2,6 @@ package me.itstheholyblack.testmodpleaseignore.core;
 
 import java.util.Random;
 
-import javax.annotation.Nullable;
-
 /**
  * Class for various random operations.
  * 

@@ -4,11 +4,9 @@ import java.util.List;
 
 import com.google.common.base.Predicates;
 
-import me.itstheholyblack.testmodpleaseignore.core.Vector3;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.MoverType;
-import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.nbt.NBTTagCompound;

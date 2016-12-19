@@ -15,12 +15,12 @@ import me.itstheholyblack.testmodpleaseignore.entity.ModEntities;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import me.itstheholyblack.testmodpleaseignore.items.casters.CasterTicker;
 import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraft.util.text.translation.I18n;
 
 public class CommonProxy {
 	public void preInit(FMLPreInitializationEvent e) {

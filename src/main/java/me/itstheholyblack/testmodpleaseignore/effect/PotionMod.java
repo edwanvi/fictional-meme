@@ -1,7 +1,5 @@
 package me.itstheholyblack.testmodpleaseignore.effect;
 
-import org.apache.logging.log4j.Level;
-
 import me.itstheholyblack.testmodpleaseignore.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;

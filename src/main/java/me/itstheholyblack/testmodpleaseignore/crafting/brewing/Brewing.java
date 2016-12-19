@@ -1,17 +1,16 @@
 package me.itstheholyblack.testmodpleaseignore.crafting.brewing;
 
 import java.util.List;
+
 import javax.annotation.Nullable;
+
 import com.google.common.base.Predicate;
+
 import me.itstheholyblack.testmodpleaseignore.MethodHandles;
-import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class Brewing {

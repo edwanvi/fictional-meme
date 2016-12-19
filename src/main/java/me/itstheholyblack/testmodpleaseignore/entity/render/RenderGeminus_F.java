@@ -1,8 +1,6 @@
 package me.itstheholyblack.testmodpleaseignore.entity.render;
 
 import me.itstheholyblack.testmodpleaseignore.entity.EntityGeminus_F;
-import me.itstheholyblack.testmodpleaseignore.entity.EntityGeminus_M;
-import me.itstheholyblack.testmodpleaseignore.entity.render.RenderGeminus_M.Factory;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;

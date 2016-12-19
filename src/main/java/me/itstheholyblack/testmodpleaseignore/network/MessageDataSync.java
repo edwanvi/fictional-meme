@@ -1,7 +1,6 @@
 package me.itstheholyblack.testmodpleaseignore.network;
 
 import io.netty.buffer.ByteBuf;
-import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;

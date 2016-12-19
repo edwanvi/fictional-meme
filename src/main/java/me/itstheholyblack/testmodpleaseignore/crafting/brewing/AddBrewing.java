@@ -4,7 +4,6 @@ import com.google.common.base.Predicate;
 
 import me.itstheholyblack.testmodpleaseignore.effect.ModEffects;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
-import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;

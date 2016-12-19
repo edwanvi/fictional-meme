@@ -1,10 +1,10 @@
 package me.itstheholyblack.testmodpleaseignore.effect;
 
 import me.itstheholyblack.testmodpleaseignore.Reference;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Class to make new potion types, NOT new effects
