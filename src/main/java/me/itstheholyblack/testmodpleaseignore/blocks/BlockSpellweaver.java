@@ -14,6 +14,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -70,9 +71,10 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 						PlayerDataMan.addMana(player, -10.0D, true);
 						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.bladeCaster, 1));
 					} 
-					else {
+					else if (!stack.isEmpty()) {
 						PlayerDataMan.addMana(player, -15.0D, true);
-						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.manaWaste, 1));
+						int numberOfItems = itemHandler.getStackInSlot(0).getCount();
+						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.manaWaste, numberOfItems));
 					}
 				} else {
 					player.setHeldItem(hand, itemHandler.insertItem(0, heldItem, false));
@@ -109,22 +111,22 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 	/**
      * Used to determine ambient occlusion and culling when rebuilding chunks for render
      */
-    public boolean isOpaqueCube(IBlockState state)
-    {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
-
-    public boolean isFullCube(IBlockState state)
-    {
+    public boolean isFullCube(IBlockState state) {
         return false;
+    }
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getBlockLayer() {
+        return BlockRenderLayer.CUTOUT;
     }
 
     /**
      * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
      * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
      */
-    public EnumBlockRenderType getRenderType(IBlockState state)
-    {
+    public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.MODEL;
     }
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
