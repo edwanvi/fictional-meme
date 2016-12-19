@@ -33,7 +33,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 
 public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 	
-	protected static final AxisAlignedBB BED_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D);
+	protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D);
 	
 	public BlockSpellweaver() {
 		super(Material.CARPET, "spellweaver");
@@ -130,6 +130,6 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
         return EnumBlockRenderType.MODEL;
     }
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        return BED_AABB;
+        return CARPET_AABB;
     }
 }
