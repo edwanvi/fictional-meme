@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public final class ModItems {
-	
+
 	public static AutoItem testingItem;
 	public static AutoItem endHide;
 	public static AutoItem manaWaste;
@@ -26,11 +26,12 @@ public final class ModItems {
 	public static ItemExplosiveCaster explosivecaster;
 	public static ItemIntrospectiveMirror introMirror;
 	public static final CreativeTabs CREATIVETAB = new CreativeTabs("testModPleaseIgnore") {
-	    @Override public ItemStack getTabIconItem() {
-	        return new ItemStack(endHide);
-	    }
+		@Override
+		public ItemStack getTabIconItem() {
+			return new ItemStack(endHide);
+		}
 	};
-	
+
 	public static void createItems() {
 		testingItem = new AutoItem("firstitem");
 		endHide = new AutoItem("end_hide");
@@ -44,19 +45,20 @@ public final class ModItems {
 		explosivecaster = new ItemExplosiveCaster();
 		introMirror = new ItemIntrospectiveMirror();
 	}
+
 	@SideOnly(Side.CLIENT)
-    public static void initModels() {
+	public static void initModels() {
 		System.out.println("Loading item models");
-        testingItem.initModel();
-        leapingboots.initModel();
-        manaWaste.initModel();
-        endHide.initModel();
-        slingRing.initModel();
-        testCloak.initModel();
-        bladeCaster.initModel();
-        halfCaster_Main.initModel();
-        halfCaster_Off.initModel();
-        explosivecaster.initModel();
-        introMirror.initModel();
-    }
+		testingItem.initModel();
+		leapingboots.initModel();
+		manaWaste.initModel();
+		endHide.initModel();
+		slingRing.initModel();
+		testCloak.initModel();
+		bladeCaster.initModel();
+		halfCaster_Main.initModel();
+		halfCaster_Off.initModel();
+		explosivecaster.initModel();
+		introMirror.initModel();
+	}
 }

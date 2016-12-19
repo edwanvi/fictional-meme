@@ -16,11 +16,12 @@ public class AcceleratorTileEntity extends TileEntity implements ITickable {
 	private int count;
 	private boolean safe;
 	private BlockPos pos = getPos();
+
 	@Override
 	public void update() {
 		// safe = test_all_faces();
-		//if (worldObj.isRemote) {
-		if(count > 100 && !safe) {
+		// if (worldObj.isRemote) {
+		if (count > 100 && !safe) {
 			this.world.newExplosion(null, getPos().getX(), getPos().getY(), getPos().getZ(), 4.0F, true, true);
 			markDirty();
 		} else {
@@ -33,34 +34,39 @@ public class AcceleratorTileEntity extends TileEntity implements ITickable {
 			markDirty();
 		}
 	}
+
 	public int increase() {
 		count++;
 		markDirty();
 		return count;
 	}
+
 	public int decrease() {
 		count--;
 		markDirty();
 		return count;
 	}
+
 	// read and write NBT data
 	@Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
-        count = compound.getInteger("counter");
-    }
+	public void readFromNBT(NBTTagCompound compound) {
+		super.readFromNBT(compound);
+		count = compound.getInteger("counter");
+	}
 
-    @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
-        compound.setInteger("counter", count);
-        return compound;
-    }
-    public boolean test_all_faces() {
-    	for (EnumFacing facing : EnumFacing.VALUES) {
-            IBlockState state = getWorld().getBlockState(getPos().offset(facing));
-            if (state.getBlock() == ModBlocks.tutorialBlock) return true;
-        }
-        return false;
-    }
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+		super.writeToNBT(compound);
+		compound.setInteger("counter", count);
+		return compound;
+	}
+
+	public boolean test_all_faces() {
+		for (EnumFacing facing : EnumFacing.VALUES) {
+			IBlockState state = getWorld().getBlockState(getPos().offset(facing));
+			if (state.getBlock() == ModBlocks.tutorialBlock)
+				return true;
+		}
+		return false;
+	}
 }

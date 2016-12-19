@@ -32,16 +32,16 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
-	
+
 	protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D);
-	
+
 	public BlockSpellweaver() {
 		super(Material.CARPET, "spellweaver");
 		setCreativeTab(ModItems.CREATIVETAB);
 		GameRegistry.register(this);
 		// why isn't this f*cking implied
 		setSoundType(SoundType.CLOTH);
-        GameRegistry.register(new ItemBlock(this), getRegistryName());
+		GameRegistry.register(new ItemBlock(this), getRegistryName());
 	}
 
 	@Override
@@ -69,12 +69,13 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 					ItemStack stack = itemHandler.getStackInSlot(0);
 					if (stack.getItem() == Items.FLINT) {
 						PlayerDataMan.addMana(player, -10.0D, true);
-						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.bladeCaster, 1));
-					} 
-					else if (!stack.isEmpty()) {
+						((IItemHandlerModifiable) itemHandler).setStackInSlot(0,
+								new ItemStack(ModItems.bladeCaster, 1));
+					} else if (!stack.isEmpty()) {
 						PlayerDataMan.addMana(player, -15.0D, true);
 						int numberOfItems = itemHandler.getStackInSlot(0).getCount();
-						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.manaWaste, numberOfItems));
+						((IItemHandlerModifiable) itemHandler).setStackInSlot(0,
+								new ItemStack(ModItems.manaWaste, numberOfItems));
 					}
 				} else {
 					player.setHeldItem(hand, itemHandler.insertItem(0, heldItem, false));
@@ -92,6 +93,7 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 		}
 		return true;
 	}
+
 	// various vanilla overrides
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
@@ -104,32 +106,40 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 		}
 		super.breakBlock(world, pos, state);
 	}
-	@SideOnly(Side.CLIENT)
-    public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
-    }
-	/**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     */
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
-    public boolean isFullCube(IBlockState state) {
-        return false;
-    }
-    @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.CUTOUT;
-    }
 
-    /**
-     * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
-     * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
-     */
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
-    }
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        return CARPET_AABB;
-    }
+	@SideOnly(Side.CLIENT)
+	public void initModel() {
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0,
+				new ModelResourceLocation(getRegistryName(), "inventory"));
+	}
+
+	/**
+	 * Used to determine ambient occlusion and culling when rebuilding chunks
+	 * for render
+	 */
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
+
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.CUTOUT;
+	}
+
+	/**
+	 * The type of render function called. MODEL for mixed tesr and static
+	 * model, MODELBLOCK_ANIMATED for TESR-only, LIQUID for vanilla liquids,
+	 * INVISIBLE to skip all rendering
+	 */
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.MODEL;
+	}
+
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		return CARPET_AABB;
+	}
 }

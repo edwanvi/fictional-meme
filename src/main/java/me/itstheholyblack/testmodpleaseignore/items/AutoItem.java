@@ -17,8 +17,9 @@ public class AutoItem extends Item {
 		setCreativeTab(ModItems.CREATIVETAB);
 		GameRegistry.register(this);
 	}
+
 	@SideOnly(Side.CLIENT)
-    public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
-    }
+	public void initModel() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+	}
 }

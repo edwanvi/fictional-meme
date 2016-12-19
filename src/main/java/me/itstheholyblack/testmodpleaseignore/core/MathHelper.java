@@ -17,12 +17,12 @@ public class MathHelper {
 	public static float sin(float value) {
 		return SIN_TABLE[(int) (value * 10430.378F) & 65535];
 	}
+
 	/**
-     * Returns the value of the first parameter, clamped to be within the lower and upper limits given by the second and
-     * third parameters.
-     */
-    public static int clamp(int num, int min, int max)
-    {
-        return num < min ? min : (num > max ? max : num);
-    }
+	 * Returns the value of the first parameter, clamped to be within the lower
+	 * and upper limits given by the second and third parameters.
+	 */
+	public static int clamp(int num, int min, int max) {
+		return num < min ? min : (num > max ? max : num);
+	}
 }

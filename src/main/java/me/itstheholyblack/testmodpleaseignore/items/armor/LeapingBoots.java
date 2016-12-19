@@ -64,10 +64,11 @@ public class LeapingBoots extends ItemArmor {
 	public int getMaxAllowedJumps() {
 		return 6;
 	}
+
 	@SideOnly(Side.CLIENT)
-    @Override
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-        tooltip.add(I18n.format("mouseovertext.endboots"));
-        super.addInformation(stack, playerIn, tooltip, advanced);
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+		tooltip.add(I18n.format("mouseovertext.endboots"));
+		super.addInformation(stack, playerIn, tooltip, advanced);
 	}
 }

@@ -30,26 +30,30 @@ public class EventHandles {
 			}
 		}
 	}
+
 	// loot tables
 	@SubscribeEvent
 	public void lootLoad(LootTableLoadEvent evt) {
 		String prefix = "minecraft:chests/";
-        String name = evt.getName().toString();
+		String name = evt.getName().toString();
 
-        if (name.startsWith(prefix)) {
-            String file = name.substring(name.indexOf(prefix) + prefix.length());
-            if (file.equals("simple_dungeon")) {
-                evt.getTable().addPool(getInjectPool("simple_dungeon"));
-            }
-            else if (file.equals("stronghold_library")) {
-            	evt.getTable().addPool(getInjectPool("simple_dungeon"));
-            }
-        }
+		if (name.startsWith(prefix)) {
+			String file = name.substring(name.indexOf(prefix) + prefix.length());
+			if (file.equals("simple_dungeon")) {
+				evt.getTable().addPool(getInjectPool("simple_dungeon"));
+			} else if (file.equals("stronghold_library")) {
+				evt.getTable().addPool(getInjectPool("simple_dungeon"));
+			}
+		}
 	}
+
 	private LootPool getInjectPool(String entryName) {
-		return new LootPool(new LootEntry[] { getInjectEntry(entryName, 1) }, new LootCondition[0], new RandomValueRange(1), new RandomValueRange(0, 1), "tmpiInjectedPool");
+		return new LootPool(new LootEntry[] { getInjectEntry(entryName, 1) }, new LootCondition[0],
+				new RandomValueRange(1), new RandomValueRange(0, 1), "tmpiInjectedPool");
 	}
+
 	private LootEntryTable getInjectEntry(String name, int weight) {
-        return new LootEntryTable(new ResourceLocation(Reference.MODID, "inject/" + name), weight, 0, new LootCondition[0], "tmpiInjectedLoot");
+		return new LootEntryTable(new ResourceLocation(Reference.MODID, "inject/" + name), weight, 0,
+				new LootCondition[0], "tmpiInjectedLoot");
 	}
 }

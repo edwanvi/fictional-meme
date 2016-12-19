@@ -55,6 +55,7 @@ public class CommonProxy {
 	public void postInit(FMLPostInitializationEvent e) {
 
 	}
+
 	// localization method
 	public String localize(String unlocalized, Object... args) {
 		return I18n.translateToLocalFormatted(unlocalized, args);

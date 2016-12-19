@@ -24,6 +24,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * Class for managing player data.
+ * 
  * @author Edwan Vi
  */
 public class PlayerDataMan {
@@ -31,9 +32,10 @@ public class PlayerDataMan {
 	public static final String FocusTag = DataTag + "focusLevel";
 	// yes mana is stupidly generic get over it
 	public static final String ManaPool = DataTag + "manaPool";
-	@SubscribeEvent(priority=EventPriority.HIGHEST)
+
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onPlayerTick(LivingUpdateEvent event) {
-		if(event.getEntityLiving() instanceof EntityPlayer) {
+		if (event.getEntityLiving() instanceof EntityPlayer) {
 			// for some reason onPlayerTick isn't always gonna give us a player
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			// save the player's data
@@ -51,7 +53,8 @@ public class PlayerDataMan {
 					// no focus
 					persist.setFloat(FocusTag, 0);
 				} else {
-					// various condition/response things, PRs to this list welcome
+					// various condition/response things, PRs to this list
+					// welcome
 					persist.setFloat(FocusTag, 0);
 					if (player.isInLava()) {
 						FMLLog.log(Level.DEBUG, (player.getName() + " is in lava"));
@@ -84,9 +87,10 @@ public class PlayerDataMan {
 			}
 		}
 	}
-	@SubscribeEvent(priority=EventPriority.HIGH)
+
+	@SubscribeEvent(priority = EventPriority.HIGH)
 	public void ItemUse(LivingEntityUseItemEvent.Tick event) {
-		if(event.getEntityLiving() instanceof EntityPlayer) {
+		if (event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer e = (EntityPlayer) event.getEntityLiving();
 			if (!e.world.isRemote) {
 				ItemStack heldstack = event.getItem();
@@ -106,24 +110,33 @@ public class PlayerDataMan {
 			}
 		}
 	}
-	
+
 	public void setFocus(NBTTagCompound tagcomp, float value) {
 		tagcomp.setFloat(FocusTag, value);
 	}
+
 	public void addFocus(NBTTagCompound tagcomp, float value) {
 		float oldFocus = tagcomp.getFloat(FocusTag);
 		tagcomp.setFloat(FocusTag, oldFocus + value);
 	}
+
 	public static void addMana(NBTTagCompound tagcomp, double value) {
 		double oldMana = tagcomp.getFloat(ManaPool);
 		tagcomp.setDouble(ManaPool, oldMana + value);
 	}
+
 	/**
-	 * Adds {@code value} mana to {@code player}'s mana pool. Also takes care of the data desync issue that might arise from that.
+	 * Adds {@code value} mana to {@code player}'s mana pool. Also takes care of
+	 * the data desync issue that might arise from that.
+	 * 
 	 * @author Edwan Vi
-	 * @param player The {@code EntityPlayer} to add mana to.
-	 * @param value The amount of mana to add to the player's mana pool. Negative amounts subtract.
-	 * @param sync Whether or not to sync the player's mana after adding it. 
+	 * @param player
+	 *            The {@code EntityPlayer} to add mana to.
+	 * @param value
+	 *            The amount of mana to add to the player's mana pool. Negative
+	 *            amounts subtract.
+	 * @param sync
+	 *            Whether or not to sync the player's mana after adding it.
 	 */
 	public static void addMana(EntityPlayer player, double value, boolean sync) {
 		NBTTagCompound data = player.getEntityData();

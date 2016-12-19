@@ -10,14 +10,16 @@ public final class ModBlocks {
 	public static TransparentBlock tutorialBlock;
 	private static StellarAccelerator s_accel;
 	private static BlockSpellweaver s_weaver;
+
 	public static void createBlocks() {
 		tutorialBlock = new TransparentBlock("firstblock");
 		s_accel = new StellarAccelerator();
 		s_weaver = new BlockSpellweaver();
 		GameRegistry.registerTileEntity(TileEntitySpellweaver.class, s_weaver.getRegistryName().toString());
 	}
+
 	@SideOnly(Side.CLIENT)
-    public static void initModels() {
+	public static void initModels() {
 		tutorialBlock.initModel();
 		s_accel.initModel();
 		s_weaver.initModel();
