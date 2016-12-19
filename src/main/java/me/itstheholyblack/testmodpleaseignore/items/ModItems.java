@@ -16,6 +16,7 @@ public final class ModItems {
 	
 	public static AutoItem testingItem;
 	public static AutoItem endHide;
+	public static AutoItem manaWaste;
 	public static LeapingBoots leapingboots;
 	public static SlingRing slingRing;
 	public static ItemTestCloak testCloak;
@@ -33,6 +34,7 @@ public final class ModItems {
 	public static void createItems() {
 		testingItem = new AutoItem("firstitem");
 		endHide = new AutoItem("end_hide");
+		manaWaste = new AutoItem("manawaste");
 		leapingboots = new LeapingBoots(EntityEquipmentSlot.FEET, "leapingboots");
 		slingRing = new SlingRing();
 		testCloak = new ItemTestCloak();
@@ -47,6 +49,7 @@ public final class ModItems {
 		System.out.println("Loading item models");
         testingItem.initModel();
         leapingboots.initModel();
+        manaWaste.initModel();
         endHide.initModel();
         slingRing.initModel();
         testCloak.initModel();
