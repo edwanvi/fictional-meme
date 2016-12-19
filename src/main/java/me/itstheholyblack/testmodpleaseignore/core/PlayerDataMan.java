@@ -54,11 +54,11 @@ public class PlayerDataMan {
 					// various condition/response things, PRs to this list welcome
 					persist.setFloat(FocusTag, 0);
 					if (player.isInLava()) {
-						System.out.println(player.getName() + " is in lava");
+						FMLLog.log(Level.DEBUG, (player.getName() + " is in lava"));
 						addFocus(persist, -10);
 					}
 					if (player.isWet()) {
-						System.out.println(player.getName() + " is wet");
+						FMLLog.log(Level.INFO, (player.getName() + " is wet"));
 						addFocus(persist, -2);
 					}
 					if (player.motionX != 0 || player.motionZ != 0) {
