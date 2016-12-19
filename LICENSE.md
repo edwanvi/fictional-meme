@@ -1,15 +1,12 @@
 # Simple Non Code License (SNCL)
 
-Version 2.0.2
-
-License Copyright (C) 2016 Alexandre Quoniou
-
-Object copyright (C) 2016 Edwan Vi
-The original creator of the data or text under this license is thereby called the licensor.
-
-The person physical or juridical obtaining a copy of the data or text under this license is thereby called the licensee.
-
+Version 2.0.2<br>
+License Copyright (C) 2016 Alexandre Quoniou<br>
+Object copyright (C) 2016 Edwan Vi<br>
+The original creator of the data or text under this license is thereby called the licensor.<br>
+The person physical or juridical obtaining a copy of the data or text under this license is thereby called the licensee.<br>
 The data or text under this license is therefore called the object.
+
 ## The licensee rights and obligations
 
 1. The licensee has the right to obtain a free copy of the object.
