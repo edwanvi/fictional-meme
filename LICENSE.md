@@ -16,7 +16,7 @@ The data or text under this license is therefore called the object.
 2. It is the right of the licensee to redistribute unaltered copies of the object although commercial use is utterly forbidden (except with the original licensor express written consent). Commercial use includes but is by no means limited to: Attempting to sell the source code of the object, in whole or in part, attempting to sell compiled versions of the object ("jars"), linking to the object (compiled or source) via services such as adf.ly. **IN THE EVENT YOU ARE UNSURE IF YOUR USE OF THE OBJECT IS COMMERCIAL, PLEASE CONTACT THE LICENSOR.**
 3. The licensee is given the right to adapt or modify the object to suit his needs and to redistribute the modified version subject to the following conditions:
  1. You must add the following notice in any copy of the object that you may create : Written originally by Edwan Vi in {year of latest commit}.
- 2. You must not remove the license informations present in the object.
+ 2. You must not remove the license information present in the object.
  3. You must keep a changelog somewhere inside the modified object in the following format : {Version} {YYYY-MM-DD HH:MM (24-hour cycle)} {Description} {Pages/files changed list}.
  4. The same rules about commercial use stated in clause 1.1 applies here.
  5. You must include the following notice in any object-modified copies you redistribute : This document or data is a derivative of {Name} and the information contained here may or may not represent the original document or data.
