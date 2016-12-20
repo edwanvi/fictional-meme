@@ -34,6 +34,7 @@ public class ItemExplosiveCaster extends Item {
 		setCreativeTab(ModItems.CREATIVETAB);
 		// set property for multitexture
 		this.addPropertyOverride(new ResourceLocation("deployed"), new IItemPropertyGetter() {
+			@Override
 			@SideOnly(Side.CLIENT)
 			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
 				return entityIn != null && entityIn instanceof EntityPlayer
@@ -46,6 +47,7 @@ public class ItemExplosiveCaster extends Item {
 	// right click
 	// I :clap: stole :clap: this :clap: code :clap: from :clap: blood :clap:
 	// magic
+	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
 		// save itemstack so w can work on it. Why isn't it an arg anymore n o b
 		// o d y k n o w s

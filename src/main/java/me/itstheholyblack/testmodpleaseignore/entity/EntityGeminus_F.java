@@ -45,7 +45,7 @@ public class EntityGeminus_F extends EntityLiving {
 	private static final DataParameter<Boolean> SPAWNING = EntityDataManager.createKey(EntityGeminus_F.class,
 			DataSerializers.BOOLEAN);
 	// boss bar
-	private final BossInfoServer bossInfo = (BossInfoServer) (new BossInfoServer(this.getDisplayName(),
+	private final BossInfoServer bossInfo = (new BossInfoServer(this.getDisplayName(),
 			BossInfo.Color.PINK, BossInfo.Overlay.NOTCHED_20));
 	private static final DataParameter<BlockPos> HOME = EntityDataManager.createKey(EntityGeminus_F.class,
 			DataSerializers.BLOCK_POS);
@@ -80,6 +80,7 @@ public class EntityGeminus_F extends EntityLiving {
 		dataManager.register(HOME, BlockPos.ORIGIN);
 	}
 
+	@Override
 	protected void initEntityAI() {
 		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, TELEPORT_RANGE_INT));
 		this.applyEntityAI();
@@ -138,6 +139,7 @@ public class EntityGeminus_F extends EntityLiving {
 		super.onLivingUpdate();
 	}
 
+	@Override
 	protected void updateAITasks() {
 		if (this.closestPlayer != null && this.closestPlayer.getDistanceSqToEntity(this) < 2.0D) {
 			this.teleportRandomly();
@@ -225,6 +227,7 @@ public class EntityGeminus_F extends EntityLiving {
 	 * instance, a player may track a boss in order to view its associated boss
 	 * bar.
 	 */
+	@Override
 	public void addTrackingPlayer(EntityPlayerMP player) {
 		super.addTrackingPlayer(player);
 		this.bossInfo.addPlayer(player);
@@ -234,6 +237,7 @@ public class EntityGeminus_F extends EntityLiving {
 	 * Removes the given player from the list of players tracking this entity.
 	 * See {@link Entity#addTrackingPlayer} for more information on tracking.
 	 */
+	@Override
 	public void removeTrackingPlayer(EntityPlayerMP player) {
 		super.removeTrackingPlayer(player);
 		this.bossInfo.removePlayer(player);
@@ -242,6 +246,7 @@ public class EntityGeminus_F extends EntityLiving {
 	/**
 	 * Returns false if this Entity is a boss, true otherwise.
 	 */
+	@Override
 	public boolean isNonBoss() {
 		return false;
 	}
@@ -269,12 +274,12 @@ public class EntityGeminus_F extends EntityLiving {
 	 */
 	protected boolean teleportToEntity(Entity p_70816_1_) {
 		Vec3d vec3d = new Vec3d(this.posX - p_70816_1_.posX, this.getEntityBoundingBox().minY
-				+ (double) (this.height / 2.0F) - p_70816_1_.posY + (double) p_70816_1_.getEyeHeight(),
+				+ this.height / 2.0F - p_70816_1_.posY + p_70816_1_.getEyeHeight(),
 				this.posZ - p_70816_1_.posZ);
 		vec3d = vec3d.normalize();
 		double d0 = 16.0D;
 		double d1 = this.posX + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.xCoord * 16.0D;
-		double d2 = this.posY + (double) (this.rand.nextInt(16) - 8) - vec3d.yCoord * 16.0D;
+		double d2 = this.posY + (this.rand.nextInt(16) - 8) - vec3d.yCoord * 16.0D;
 		double d3 = this.posZ + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.zCoord * 16.0D;
 		return this.teleportTo(d1, d2, d3);
 	}

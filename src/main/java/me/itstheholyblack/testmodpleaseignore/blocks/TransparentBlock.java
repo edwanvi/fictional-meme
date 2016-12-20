@@ -35,11 +35,13 @@ public class TransparentBlock extends Block {
 		this(unlocalizedName, 2.0f, 10.0f);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
 
+	@Override
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}

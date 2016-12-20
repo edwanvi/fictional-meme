@@ -15,11 +15,12 @@ public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<Til
 			"textures/entity/enchanting_table_book.png");
 	private final ModelBook modelBook = new ModelBook();
 
+	@Override
 	public void renderTileEntityAt(TileEntitySpellweaver te, double x, double y, double z, float partialTicks,
 			int destroyStage) {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float) x + 0.5F, (float) y + 0.6F, (float) z + 0.5F);
-		float f = (float) te.tickCount + partialTicks;
+		float f = te.tickCount + partialTicks;
 		GlStateManager.translate(0.0F, 0.1F + MathHelper.sin(f * 0.1F) * 0.01F, 0.0F);
 		float f1;
 
@@ -37,8 +38,8 @@ public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<Til
 		this.bindTexture(TEXTURE_BOOK);
 		float f3 = te.pageFlipPrev + (te.pageFlip - te.pageFlipPrev) * partialTicks + 0.25F;
 		float f4 = te.pageFlipPrev + (te.pageFlip - te.pageFlipPrev) * partialTicks + 0.75F;
-		f3 = (f3 - (float) MathHelper.fastFloor((double) f3)) * 1.6F - 0.3F;
-		f4 = (f4 - (float) MathHelper.fastFloor((double) f4)) * 1.6F - 0.3F;
+		f3 = (f3 - MathHelper.fastFloor(f3)) * 1.6F - 0.3F;
+		f4 = (f4 - MathHelper.fastFloor(f4)) * 1.6F - 0.3F;
 
 		if (f3 < 0.0F) {
 			f3 = 0.0F;

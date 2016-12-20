@@ -57,12 +57,12 @@ public class TileEntitySpellweaver extends TileEntity implements ITickable {
 	public void update() {
 		this.bookSpreadPrev = this.bookSpread;
 		this.bookRotationPrev = this.bookRotation;
-		EntityPlayer entityplayer = this.world.getClosestPlayer((double) ((float) this.pos.getX() + 0.5F),
-				(double) ((float) this.pos.getY() + 0.5F), (double) ((float) this.pos.getZ() + 0.5F), 3.0D, false);
+		EntityPlayer entityplayer = this.world.getClosestPlayer(this.pos.getX() + 0.5F,
+				this.pos.getY() + 0.5F, this.pos.getZ() + 0.5F, 3.0D, false);
 
 		if (entityplayer != null) {
-			double d0 = entityplayer.posX - (double) ((float) this.pos.getX() + 0.5F);
-			double d1 = entityplayer.posZ - (double) ((float) this.pos.getZ() + 0.5F);
+			double d0 = entityplayer.posX - (this.pos.getX() + 0.5F);
+			double d1 = entityplayer.posZ - (this.pos.getZ() + 0.5F);
 			this.tRot = (float) net.minecraft.util.math.MathHelper.atan2(d1, d0);
 			this.bookSpread += 0.1F;
 
@@ -70,7 +70,7 @@ public class TileEntitySpellweaver extends TileEntity implements ITickable {
 				float f1 = this.flipT;
 
 				while (true) {
-					this.flipT += (float) (rand.nextInt(4) - rand.nextInt(4));
+					this.flipT += rand.nextInt(4) - rand.nextInt(4);
 
 					if (f1 != this.flipT) {
 						break;
