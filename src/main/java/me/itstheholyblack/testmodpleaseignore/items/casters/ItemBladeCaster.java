@@ -38,6 +38,7 @@ public class ItemBladeCaster extends ItemSword {
 		setCreativeTab(ModItems.CREATIVETAB);
 		// set property for multitexture
 		this.addPropertyOverride(new ResourceLocation("deployed"), new IItemPropertyGetter() {
+			@Override
 			@SideOnly(Side.CLIENT)
 			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
 				return entityIn != null && entityIn instanceof EntityPlayer
@@ -50,6 +51,7 @@ public class ItemBladeCaster extends ItemSword {
 	// right click
 	// I :clap: stole :clap: this :clap: code :clap: from :clap: blood :clap:
 	// magic
+	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
 		ItemStack stack = playerIn.getHeldItem(hand);
 		if (hand == EnumHand.MAIN_HAND) {

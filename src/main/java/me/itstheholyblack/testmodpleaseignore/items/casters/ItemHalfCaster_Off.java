@@ -45,6 +45,7 @@ public class ItemHalfCaster_Off extends ItemSword {
 		setCreativeTab(ModItems.CREATIVETAB);
 		// set property for multitexture
 		this.addPropertyOverride(new ResourceLocation("deployed"), new IItemPropertyGetter() {
+			@Override
 			@SideOnly(Side.CLIENT)
 			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
 				boolean condidtion = entityIn != null && entityIn instanceof EntityPlayer
@@ -58,6 +59,7 @@ public class ItemHalfCaster_Off extends ItemSword {
 	// right click
 	// I :clap: stole :clap: this :clap: code :clap: from :clap: blood :clap:
 	// magic
+	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
 		ItemStack stack = playerIn.getHeldItem(hand);
 		// this caster will *only* activate in the off hand

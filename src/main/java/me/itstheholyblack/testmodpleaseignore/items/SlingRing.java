@@ -38,6 +38,7 @@ public class SlingRing extends Item {
 		GameRegistry.register(this);
 	}
 
+	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
 		ItemStack stack = playerIn.getHeldItem(hand);
 		// if no NBT is saved, make some
@@ -54,7 +55,7 @@ public class SlingRing extends Item {
 			particles(worldIn, playerIn);
 			if (playerIn instanceof EntityPlayerMP
 					&& compound.getInteger("dim") != playerIn.world.provider.getDimension()) {
-				CustomTeleporter.teleportToDimension((EntityPlayer) playerIn, compound.getInteger("dim"),
+				CustomTeleporter.teleportToDimension(playerIn, compound.getInteger("dim"),
 						compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
 			} else {
 				playerIn.setPositionAndUpdate(compound.getInteger("x"), compound.getInteger("y"),

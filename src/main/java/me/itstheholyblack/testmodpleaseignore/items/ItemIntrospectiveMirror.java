@@ -32,6 +32,7 @@ public class ItemIntrospectiveMirror extends Item {
 		GameRegistry.register(this);
 	}
 
+	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
 		NBTTagCompound data = playerIn.getEntityData();
 		if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
