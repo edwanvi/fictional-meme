@@ -1,5 +1,6 @@
 package me.itstheholyblack.testmodpleaseignore.blocks;
 
+import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.mod;
 import me.itstheholyblack.testmodpleaseignore.blocks.tile_entities.TileEntitySpellweaver;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
@@ -38,6 +39,7 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 	public BlockSpellweaver() {
 		super(Material.CARPET, "spellweaver");
 		setCreativeTab(ModItems.CREATIVETAB);
+		setUnlocalizedName(Reference.MODID + "." + "spellweaver");
 		GameRegistry.register(this);
 		// why isn't this f*cking implied
 		setSoundType(SoundType.CLOTH);
