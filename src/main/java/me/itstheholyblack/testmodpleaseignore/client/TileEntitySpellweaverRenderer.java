@@ -28,7 +28,7 @@ public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<Til
 		super();
 		this.itemRenderer = Minecraft.getMinecraft().getRenderItem();
 	}
-	
+
 	@Override
 	public void renderTileEntityAt(TileEntitySpellweaver te, double x, double y, double z, float partialTicks,
 			int destroyStage) {
@@ -77,27 +77,29 @@ public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<Til
 		GlStateManager.popMatrix();
 		this.renderItem(te);
 	}
+
 	private void renderItem(TileEntitySpellweaver te) {
 		ItemStack itemstack = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).getStackInSlot(0);
-		if (!itemstack.isEmpty())
-        {
-            EntityItem entityitem = new EntityItem(te.getWorld(), 0.0D, 0.0D, 0.0D, itemstack);
-            Item item = entityitem.getEntityItem().getItem();
-            entityitem.getEntityItem().setCount(1);
-            entityitem.hoverStart = 0.0F;
-            GlStateManager.pushMatrix();
-            GlStateManager.disableLighting();
-            int i = (int) (te.bookRotation * -1);
+		if (!itemstack.isEmpty()) {
+			EntityItem entityitem = new EntityItem(te.getWorld(), 0.0D, 0.0D, 0.0D, itemstack);
+			Item item = entityitem.getEntityItem().getItem();
+			entityitem.getEntityItem().setCount(1);
+			entityitem.hoverStart = 0.0F;
+			GlStateManager.pushMatrix();
+			GlStateManager.disableLighting();
+			int i = (int) (te.bookRotation * -1);
 
-            // net.minecraftforge.client.event.RenderItemInFrameEvent event = new net.minecraftforge.client.event.RenderItemInFrameEvent(te, this);
-            GlStateManager.scale(0.5F, 0.5F, 0.5F);
-            GlStateManager.pushAttrib();
-            RenderHelper.enableStandardItemLighting();
-            this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED);
-            RenderHelper.disableStandardItemLighting();
-            GlStateManager.popAttrib();
-            GlStateManager.enableLighting();
-            GlStateManager.popMatrix();
-        }
+			// net.minecraftforge.client.event.RenderItemInFrameEvent event =
+			// new net.minecraftforge.client.event.RenderItemInFrameEvent(te,
+			// this);
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			GlStateManager.pushAttrib();
+			RenderHelper.enableStandardItemLighting();
+			this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED);
+			RenderHelper.disableStandardItemLighting();
+			GlStateManager.popAttrib();
+			GlStateManager.enableLighting();
+			GlStateManager.popMatrix();
+		}
 	}
 }
