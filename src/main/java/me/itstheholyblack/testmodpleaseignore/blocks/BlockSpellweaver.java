@@ -73,6 +73,9 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 						PlayerDataMan.addMana(player, -10.0D, true);
 						((IItemHandlerModifiable) itemHandler).setStackInSlot(0,
 								new ItemStack(ModItems.bladeCaster, 1));
+					} else if (stack.getItem().equals(ModItems.manaWaste)) {
+						// you really shouldn't do this
+						this.getTileEntity(world, pos).wrathOfGod();
 					} else if (!stack.isEmpty()) {
 						PlayerDataMan.addMana(player, -15.0D, true);
 						int numberOfItems = itemHandler.getStackInSlot(0).getCount();
