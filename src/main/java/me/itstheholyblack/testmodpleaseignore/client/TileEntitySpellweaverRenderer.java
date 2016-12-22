@@ -75,10 +75,9 @@ public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<Til
 		GlStateManager.enableCull();
 		this.modelBook.render((Entity) null, f, f3, f4, f5, 0.0F, 0.0625F);
 		GlStateManager.popMatrix();
-		this.renderItem(te, x, y, z, partialTicks, destroyStage);
-		GlStateManager.popMatrix();
+		this.renderItem(te);
 	}
-	private void renderItem(TileEntitySpellweaver te, double x, double y, double z, float partialTicks, int destroyStage) {
+	private void renderItem(TileEntitySpellweaver te) {
 		ItemStack itemstack = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).getStackInSlot(0);
 		if (!itemstack.isEmpty())
         {
@@ -90,20 +89,15 @@ public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<Til
             GlStateManager.disableLighting();
             int i = (int) (te.bookRotation * -1);
 
-            if (item instanceof net.minecraft.item.ItemMap)
-            {
-                i = i % 4 * 2;
-            }
-
-            GlStateManager.rotate((float)i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
-
             // net.minecraftforge.client.event.RenderItemInFrameEvent event = new net.minecraftforge.client.event.RenderItemInFrameEvent(te, this);
             GlStateManager.scale(0.5F, 0.5F, 0.5F);
             GlStateManager.pushAttrib();
             RenderHelper.enableStandardItemLighting();
-            this.itemRenderer.renderItem(entityitem.getEntityItem(), ItemCameraTransforms.TransformType.FIXED);
+            this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED);
             RenderHelper.disableStandardItemLighting();
             GlStateManager.popAttrib();
+            GlStateManager.enableLighting();
+            GlStateManager.popMatrix();
         }
 	}
 }
