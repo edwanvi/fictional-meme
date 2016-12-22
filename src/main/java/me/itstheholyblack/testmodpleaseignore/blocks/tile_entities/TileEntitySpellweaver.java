@@ -53,6 +53,9 @@ public class TileEntitySpellweaver extends TileEntity implements ITickable {
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (T) inventory
 				: super.getCapability(capability, facing);
 	}
+	public ItemStackHandler getInv() {
+		return inventory;
+	} 
 
 	// ~~ BEGIN TileEntityEnchantmentTable CODE ~~
 	@Override
