@@ -195,10 +195,8 @@ public class EntityGeminus_F extends EntityLiving {
 		// set missile position to ours, give or take some random values
 		missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1),
 				posZ + (Math.random() - 0.5 * 0.1));
-		if (missile.getTarget()) {
-			// add the missile to the world
-			world.spawnEntity(missile);
-		}
+		// add the missile to the world
+		world.spawnEntity(missile);
 	}
 
 	// setters and getters below this line *only*
