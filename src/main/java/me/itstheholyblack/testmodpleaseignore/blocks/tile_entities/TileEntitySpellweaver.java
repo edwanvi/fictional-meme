@@ -138,6 +138,9 @@ public class TileEntitySpellweaver extends TileEntity implements ITickable {
 	// Data syncing
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+    	if (oldState.getBlock() != newState.getBlock()) {
+    		System.out.println("Should refresh = true");
+    	}
         return oldState.getBlock() != newState.getBlock();
     }
 
