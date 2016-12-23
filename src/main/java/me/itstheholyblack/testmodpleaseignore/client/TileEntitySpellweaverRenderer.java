@@ -15,15 +15,17 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemStackHandler;
 
-// @SideOnly(Side.CLIENT)
+@SideOnly(Side.CLIENT)
 public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<TileEntitySpellweaver> {
 	/** The texture for the book above the enchantment table. */
 	private static final ResourceLocation TEXTURE_BOOK = new ResourceLocation(
 			"textures/entity/enchanting_table_book.png");
 	private final ModelBook modelBook = new ModelBook();
-	private final RenderItem itemRenderer;
+	private RenderItem itemRenderer;
 	private final RenderManager renderManager;
 	private final Minecraft mc = Minecraft.getMinecraft();
 	private static final ResourceLocation MAP_BACKGROUND_TEXTURES = new ResourceLocation(
@@ -86,21 +88,17 @@ public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<Til
 
 	private void renderItem(TileEntitySpellweaver te, double x, double y, double z) {
 		ItemStackHandler itemHandler = te.getInv();
-		// System.out.println(itemHandler.getStackInSlot(0));
 		ItemStack itemstack = itemHandler.getStackInSlot(0);
 
 		if (!itemstack.isEmpty()) {
 			System.out.println("ItemStack not empty");
-			EntityItem entityitem = new EntityItem(te.getWorld(), 0.0D, 0.0D, 0.0D, itemstack);
-			Item item = entityitem.getEntityItem().getItem();
-			entityitem.getEntityItem().setCount(1);
-			entityitem.hoverStart = 0.0F;
+			System.out.println(itemHandler.getStackInSlot(0));
 			GlStateManager.pushMatrix();
 			GlStateManager.translate((float) x + 0.5F, (float) y + 0.6F, (float) z + 0.5F);
 			GlStateManager.disableLighting();
 			int i = (int) te.bookRotation;
 
-			if (item instanceof net.minecraft.item.ItemMap) {
+			if (itemstack.getItem() instanceof net.minecraft.item.ItemMap) {
 				i = i % 4 * 2;
 			}
 
@@ -110,7 +108,7 @@ public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<Til
 			GlStateManager.pushAttrib();
 			RenderHelper.enableStandardItemLighting();
 			System.out.println("Calling renderItem");
-			this.itemRenderer.renderItem(entityitem.getEntityItem(), ItemCameraTransforms.TransformType.FIXED);
+			this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED);
 			RenderHelper.disableStandardItemLighting();
 			GlStateManager.popAttrib();
 
