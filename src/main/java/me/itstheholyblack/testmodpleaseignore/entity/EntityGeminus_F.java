@@ -45,8 +45,8 @@ public class EntityGeminus_F extends EntityLiving {
 	private static final DataParameter<Boolean> SPAWNING = EntityDataManager.createKey(EntityGeminus_F.class,
 			DataSerializers.BOOLEAN);
 	// boss bar
-	private final BossInfoServer bossInfo = (new BossInfoServer(this.getDisplayName(),
-			BossInfo.Color.PINK, BossInfo.Overlay.NOTCHED_20));
+	private final BossInfoServer bossInfo = (new BossInfoServer(this.getDisplayName(), BossInfo.Color.PINK,
+			BossInfo.Overlay.NOTCHED_20));
 	private static final DataParameter<BlockPos> HOME = EntityDataManager.createKey(EntityGeminus_F.class,
 			DataSerializers.BLOCK_POS);
 	// brother geminus, may be null
@@ -273,8 +273,8 @@ public class EntityGeminus_F extends EntityLiving {
 	 * @author Notch
 	 */
 	protected boolean teleportToEntity(Entity p_70816_1_) {
-		Vec3d vec3d = new Vec3d(this.posX - p_70816_1_.posX, this.getEntityBoundingBox().minY
-				+ this.height / 2.0F - p_70816_1_.posY + p_70816_1_.getEyeHeight(),
+		Vec3d vec3d = new Vec3d(this.posX - p_70816_1_.posX,
+				this.getEntityBoundingBox().minY + this.height / 2.0F - p_70816_1_.posY + p_70816_1_.getEyeHeight(),
 				this.posZ - p_70816_1_.posZ);
 		vec3d = vec3d.normalize();
 		double d0 = 16.0D;

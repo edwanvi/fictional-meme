@@ -92,8 +92,7 @@ public class EntityMissile extends EntityThrowable {
 		}
 		if (this.closestPlayer != null) {
 			double d1 = (this.closestPlayer.posX - this.posX) / 8.0D;
-			double d2 = (this.closestPlayer.posY + this.closestPlayer.getEyeHeight() / 2.0D - this.posY)
-					/ 8.0D;
+			double d2 = (this.closestPlayer.posY + this.closestPlayer.getEyeHeight() / 2.0D - this.posY) / 8.0D;
 			double d3 = (this.closestPlayer.posZ - this.posZ) / 8.0D;
 			double d4 = Math.sqrt(d1 * d1 + d2 * d2 + d3 * d3);
 			double d5 = 1.0D - d4;

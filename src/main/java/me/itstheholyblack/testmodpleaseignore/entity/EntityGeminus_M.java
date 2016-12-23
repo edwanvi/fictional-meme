@@ -58,8 +58,8 @@ public class EntityGeminus_M extends EntityLiving {
 	// rand gen
 	private static Random rand_gen = new Random();
 	// boss bar
-	private final BossInfoServer bossInfo = (new BossInfoServer(this.getDisplayName(),
-			BossInfo.Color.BLUE, BossInfo.Overlay.NOTCHED_20));
+	private final BossInfoServer bossInfo = (new BossInfoServer(this.getDisplayName(), BossInfo.Color.BLUE,
+			BossInfo.Overlay.NOTCHED_20));
 	// closest player
 	private EntityPlayer closestPlayer;
 	// home point
@@ -352,8 +352,8 @@ public class EntityGeminus_M extends EntityLiving {
 	 * @author Notch
 	 */
 	protected boolean teleportToEntity(Entity p_70816_1_) {
-		Vec3d vec3d = new Vec3d(this.posX - p_70816_1_.posX, this.getEntityBoundingBox().minY
-				+ this.height / 2.0F - p_70816_1_.posY + p_70816_1_.getEyeHeight(),
+		Vec3d vec3d = new Vec3d(this.posX - p_70816_1_.posX,
+				this.getEntityBoundingBox().minY + this.height / 2.0F - p_70816_1_.posY + p_70816_1_.getEyeHeight(),
 				this.posZ - p_70816_1_.posZ);
 		vec3d = vec3d.normalize();
 		double d0 = 16.0D;

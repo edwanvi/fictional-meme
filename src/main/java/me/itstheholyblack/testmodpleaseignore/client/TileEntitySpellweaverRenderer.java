@@ -26,7 +26,8 @@ public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<Til
 	private final RenderItem itemRenderer;
 	private final RenderManager renderManager;
 	private final Minecraft mc = Minecraft.getMinecraft();
-	private static final ResourceLocation MAP_BACKGROUND_TEXTURES = new ResourceLocation("textures/map/map_background.png");
+	private static final ResourceLocation MAP_BACKGROUND_TEXTURES = new ResourceLocation(
+			"textures/map/map_background.png");
 
 	public TileEntitySpellweaverRenderer() {
 		super();
@@ -88,33 +89,33 @@ public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<Til
 		// System.out.println(itemHandler.getStackInSlot(0));
 		ItemStack itemstack = itemHandler.getStackInSlot(0);
 
-        if (!itemstack.isEmpty()) {
-        	System.out.println("ItemStack not empty");
-            EntityItem entityitem = new EntityItem(te.getWorld(), 0.0D, 0.0D, 0.0D, itemstack);
-            Item item = entityitem.getEntityItem().getItem();
-            entityitem.getEntityItem().setCount(1);
-            entityitem.hoverStart = 0.0F;
-            GlStateManager.pushMatrix();
-            GlStateManager.translate((float) x + 0.5F, (float) y + 0.6F, (float) z + 0.5F);
-            GlStateManager.disableLighting();
-            int i = (int) te.bookRotation;
+		if (!itemstack.isEmpty()) {
+			System.out.println("ItemStack not empty");
+			EntityItem entityitem = new EntityItem(te.getWorld(), 0.0D, 0.0D, 0.0D, itemstack);
+			Item item = entityitem.getEntityItem().getItem();
+			entityitem.getEntityItem().setCount(1);
+			entityitem.hoverStart = 0.0F;
+			GlStateManager.pushMatrix();
+			GlStateManager.translate((float) x + 0.5F, (float) y + 0.6F, (float) z + 0.5F);
+			GlStateManager.disableLighting();
+			int i = (int) te.bookRotation;
 
-            if (item instanceof net.minecraft.item.ItemMap) {
-                i = i % 4 * 2;
-            }
+			if (item instanceof net.minecraft.item.ItemMap) {
+				i = i % 4 * 2;
+			}
 
-            GlStateManager.rotate((float)i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
+			GlStateManager.rotate((float) i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
 
-            GlStateManager.scale(0.5F, 0.5F, 0.5F);
-            GlStateManager.pushAttrib();
-            RenderHelper.enableStandardItemLighting();
-            System.out.println("Calling renderItem");
-            this.itemRenderer.renderItem(entityitem.getEntityItem(), ItemCameraTransforms.TransformType.FIXED);
-            RenderHelper.disableStandardItemLighting();
-            GlStateManager.popAttrib();
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			GlStateManager.pushAttrib();
+			RenderHelper.enableStandardItemLighting();
+			System.out.println("Calling renderItem");
+			this.itemRenderer.renderItem(entityitem.getEntityItem(), ItemCameraTransforms.TransformType.FIXED);
+			RenderHelper.disableStandardItemLighting();
+			GlStateManager.popAttrib();
 
-            GlStateManager.enableLighting();
-            GlStateManager.popMatrix();
-        }
+			GlStateManager.enableLighting();
+			GlStateManager.popMatrix();
+		}
 	}
 }

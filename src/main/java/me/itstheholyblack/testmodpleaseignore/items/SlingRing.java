@@ -55,8 +55,8 @@ public class SlingRing extends Item {
 			particles(worldIn, playerIn);
 			if (playerIn instanceof EntityPlayerMP
 					&& compound.getInteger("dim") != playerIn.world.provider.getDimension()) {
-				CustomTeleporter.teleportToDimension(playerIn, compound.getInteger("dim"),
-						compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
+				CustomTeleporter.teleportToDimension(playerIn, compound.getInteger("dim"), compound.getInteger("x"),
+						compound.getInteger("y"), compound.getInteger("z"));
 			} else {
 				playerIn.setPositionAndUpdate(compound.getInteger("x"), compound.getInteger("y"),
 						compound.getInteger("z"));
