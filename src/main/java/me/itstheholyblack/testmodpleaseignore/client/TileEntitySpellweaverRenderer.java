@@ -11,12 +11,10 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.storage.MapData;
 import net.minecraftforge.items.ItemStackHandler;
 
 // @SideOnly(Side.CLIENT)
@@ -87,7 +85,7 @@ public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<Til
 
 	private void renderItem(TileEntitySpellweaver te, double x, double y, double z) {
 		ItemStackHandler itemHandler = te.getInv();
-		System.out.println(itemHandler.getStackInSlot(0));
+		// System.out.println(itemHandler.getStackInSlot(0));
 		ItemStack itemstack = itemHandler.getStackInSlot(0);
 
         if (!itemstack.isEmpty()) {
@@ -107,29 +105,13 @@ public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<Til
 
             GlStateManager.rotate((float)i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
 
-            // net.minecraftforge.client.event.RenderItemInFrameEvent event = new net.minecraftforge.client.event.RenderItemInFrameEvent(itemFrame, this);
-            if (item instanceof net.minecraft.item.ItemMap) {
-                this.renderManager.renderEngine.bindTexture(MAP_BACKGROUND_TEXTURES);
-                GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
-                float f = 0.0078125F;
-                GlStateManager.scale(0.0078125F, 0.0078125F, 0.0078125F);
-                GlStateManager.translate(-64.0F, -64.0F, 0.0F);
-                MapData mapdata = Items.FILLED_MAP.getMapData(entityitem.getEntityItem(), te.getWorld());
-                GlStateManager.translate(0.0F, 0.0F, -1.0F);
-
-                if (mapdata != null) {
-                    this.mc.entityRenderer.getMapItemRenderer().renderMap(mapdata, true);
-                }
-            }
-            else {
-                GlStateManager.scale(0.5F, 0.5F, 0.5F);
-                GlStateManager.pushAttrib();
-                RenderHelper.enableStandardItemLighting();
-                System.out.println("Calling renderItem");
-                this.itemRenderer.renderItem(entityitem.getEntityItem(), ItemCameraTransforms.TransformType.FIXED);
-                RenderHelper.disableStandardItemLighting();
-                GlStateManager.popAttrib();
-            }
+            GlStateManager.scale(0.5F, 0.5F, 0.5F);
+            GlStateManager.pushAttrib();
+            RenderHelper.enableStandardItemLighting();
+            System.out.println("Calling renderItem");
+            this.itemRenderer.renderItem(entityitem.getEntityItem(), ItemCameraTransforms.TransformType.FIXED);
+            RenderHelper.disableStandardItemLighting();
+            GlStateManager.popAttrib();
 
             GlStateManager.enableLighting();
             GlStateManager.popMatrix();

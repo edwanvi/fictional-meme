@@ -97,6 +97,9 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 				}
 			}
 		}
+		TileEntitySpellweaver tile = getTileEntity(world, pos);
+		IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
+		System.out.println(itemHandler.getStackInSlot(0));
 		return true;
 	}
 
