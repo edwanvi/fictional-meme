@@ -47,34 +47,7 @@ public class EntityMissile extends EntityThrowable {
 	public EntityMissile(EntityLivingBase thrower) {
 		this(thrower.world);
 	}
-
-	/**
-	 * Simple method to set the missile's target.
-	 * 
-	 * @author Vazkii
-	 */
-	public void setTarget(EntityLivingBase e) {
-		dataManager.set(TARGET, e == null ? -1 : e.getEntityId());
-	}
-
-	/**
-	 * Simple method to get the missile's target. Returns null if that entity
-	 * doesn't exist or the missile has no target.
-	 * 
-	 * @author Vazkii
-	 */
-	public EntityLivingBase getTargetEntity() {
-		int id = dataManager.get(TARGET);
-		Entity e = world.getEntityByID(id);
-		if (e != null && e instanceof EntityLivingBase) {
-			return (EntityLivingBase) e;
-		}
-		return null;
-	}
-
-	/**
-	 * @author Vazkii (minor edits by Edwan Vi)
-	 */
+	
 	@Override
 	public void onUpdate() {
 		double lastTickPosX = this.lastTickPosX;
@@ -129,40 +102,15 @@ public class EntityMissile extends EntityThrowable {
 	protected void onImpact(RayTraceResult result) {
 		if (result.typeOfHit == RayTraceResult.Type.ENTITY) {
 			Entity e = result.entityHit;
-			if (e == this.closestPlayer)
+			if (e instanceof EntityMissile || e instanceof EntityGeminus_M || e instanceof EntityGeminus_F) {
+				// no-op
+			} else {
 				e.attackEntityFrom(DamageSource.MAGIC, 1.0F);
-		}
-	}
-
-	/**
-	 * @author Vazkii
-	 */
-	public boolean getTarget() {
-		EntityLivingBase target = getTargetEntity();
-		if (target != null && target.getHealth() > 0 && !target.isDead && world.loadedEntityList.contains(target))
-			return true;
-		if (target != null)
-			setTarget(null);
-
-		double range = 12;
-		List entities = world.getEntitiesWithinAABB(Entity.class,
-				new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range),
-				Predicates.instanceOf(EntityPlayer.class));
-		while (entities.size() > 0) {
-			int rand_index = world.rand.nextInt(entities.size());
-			Entity e = (Entity) entities.get(rand_index);
-			if (!(e instanceof EntityLivingBase) || e.isDead) { // Just in
-																// case...
-				entities.remove(e);
-				continue;
 			}
-			target = (EntityLivingBase) e;
-			setTarget(target);
-			break;
+			this.kill();
 		}
-		return target != null;
 	}
-
+	
 	@Override
 	protected float getGravityVelocity() {
 		return 0.0F;
