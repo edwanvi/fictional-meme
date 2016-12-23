@@ -55,7 +55,7 @@ public class EntityGeminus_F extends EntityLiving {
 	private EntityPlayer closestPlayer;
 	private static final double TELEPORT_RANGE_DOUBLE = 64.0D;
 	private static final int TELEPORT_RANGE_INT = (int) TELEPORT_RANGE_DOUBLE;
-	public static final PotionEffect blindness = new PotionEffect(MobEffects.BLINDNESS, 600);
+	public static final PotionEffect blindness = new PotionEffect(MobEffects.BLINDNESS, 900);
 
 	public EntityGeminus_F(World worldIn) {
 		super(worldIn);
@@ -173,8 +173,8 @@ public class EntityGeminus_F extends EntityLiving {
 			player.isOnLadder();
 			player.isInWater();
 			// blindness because fuck you
-			if (player.getHeldItemMainhand().getItem() instanceof ItemSword
-					|| player.getHeldItemMainhand() == ItemStack.EMPTY) {
+			if ((player.getHeldItemMainhand().getItem() instanceof ItemSword
+					|| player.getHeldItemMainhand() == ItemStack.EMPTY) && !world.isRemote) {
 				player.addPotionEffect(blindness);
 			}
 			player.isRiding();

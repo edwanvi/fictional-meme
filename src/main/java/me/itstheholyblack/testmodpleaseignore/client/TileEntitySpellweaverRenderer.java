@@ -7,11 +7,8 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -95,7 +92,7 @@ public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<Til
 			if (itemstack.getItem() instanceof net.minecraft.item.ItemMap) {
 				i = i % 4 * 2;
 			}
-			
+
 			GlStateManager.rotate(i * 360.0F, 1.0F, 0.0F, 0.0F);
 			GlStateManager.rotate(i * 360.0F, 0.0F, 1.0F, 0.0F);
 			GlStateManager.rotate(i * 360.0F, 0.0F, 0.0F, 1.0F);

@@ -1,9 +1,5 @@
 package me.itstheholyblack.testmodpleaseignore.entity;
 
-import java.util.List;
-
-import com.google.common.base.Predicates;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.MoverType;
@@ -14,7 +10,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
@@ -47,7 +42,7 @@ public class EntityMissile extends EntityThrowable {
 	public EntityMissile(EntityLivingBase thrower) {
 		this(thrower.world);
 	}
-	
+
 	@Override
 	public void onUpdate() {
 		double lastTickPosX = this.lastTickPosX;
@@ -110,7 +105,7 @@ public class EntityMissile extends EntityThrowable {
 			this.kill();
 		}
 	}
-	
+
 	@Override
 	protected float getGravityVelocity() {
 		return 0.0F;

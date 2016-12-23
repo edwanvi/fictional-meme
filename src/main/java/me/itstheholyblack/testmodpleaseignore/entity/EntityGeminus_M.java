@@ -69,7 +69,7 @@ public class EntityGeminus_M extends EntityLiving {
 	private EntityGeminus_F sister;
 	private static final DataParameter<Boolean> hellosis = EntityDataManager.createKey(EntityGeminus_M.class,
 			DataSerializers.BOOLEAN);
-	public static final PotionEffect blindness = new PotionEffect(MobEffects.BLINDNESS, 600);
+	public static final PotionEffect blindness = new PotionEffect(MobEffects.BLINDNESS, 900);
 
 	public EntityGeminus_M(World worldIn) {
 		super(worldIn);
@@ -123,8 +123,8 @@ public class EntityGeminus_M extends EntityLiving {
 			}
 			player.isOnLadder();
 			player.isInWater();
-			if (player.getHeldItemMainhand().getItem() instanceof ItemSword
-					|| player.getHeldItemMainhand() == ItemStack.EMPTY) {
+			if ((player.getHeldItemMainhand().getItem() instanceof ItemSword
+					|| player.getHeldItemMainhand() == ItemStack.EMPTY) && !world.isRemote) {
 				player.addPotionEffect(blindness);
 			}
 			player.isRiding();

@@ -5,7 +5,6 @@ import me.itstheholyblack.testmodpleaseignore.mod;
 import me.itstheholyblack.testmodpleaseignore.blocks.tile_entities.TileEntitySpellweaver;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
-import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -94,9 +93,10 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 					WorldServer ws = (WorldServer) world;
 					for (EntityPlayer wsplayer : ws.playerEntities) {
 						EntityPlayerMP playerMP = (EntityPlayerMP) wsplayer;
-						 if ((playerMP.getDistanceSq(pos) < 64 * 64) && ws.getPlayerChunkMap().isPlayerWatchingChunk(playerMP, pos.getX() >> 4, pos.getZ() >> 4)) {
-							 playerMP.connection.sendPacket(tile.getUpdatePacket()); 
-						 }
+						if ((playerMP.getDistanceSq(pos) < 64 * 64) && ws.getPlayerChunkMap()
+								.isPlayerWatchingChunk(playerMP, pos.getX() >> 4, pos.getZ() >> 4)) {
+							playerMP.connection.sendPacket(tile.getUpdatePacket());
+						}
 					}
 				}
 			} else {
