@@ -59,17 +59,18 @@ public class TileEntitySpellweaver extends TileEntity implements ITickable {
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (T) inventory
 				: super.getCapability(capability, facing);
 	}
+
 	public ItemStackHandler getInv() {
 		return inventory;
-	} 
+	}
 
 	// ~~ BEGIN TileEntityEnchantmentTable CODE ~~
 	@Override
 	public void update() {
 		this.bookSpreadPrev = this.bookSpread;
 		this.bookRotationPrev = this.bookRotation;
-		EntityPlayer entityplayer = this.world.getClosestPlayer(this.pos.getX() + 0.5F,
-				this.pos.getY() + 0.5F, this.pos.getZ() + 0.5F, 3.0D, false);
+		EntityPlayer entityplayer = this.world.getClosestPlayer(this.pos.getX() + 0.5F, this.pos.getY() + 0.5F,
+				this.pos.getZ() + 0.5F, 3.0D, false);
 
 		if (entityplayer != null) {
 			double d0 = entityplayer.posX - (this.pos.getX() + 0.5F);
@@ -129,40 +130,41 @@ public class TileEntitySpellweaver extends TileEntity implements ITickable {
 		this.flipA += (f - this.flipA) * 0.9F;
 		this.pageFlip += this.flipA;
 	}
+
 	// ~~ END TileEntityEnchantmentTable CODE ~~
 	public void wrathOfGod() {
 		BlockPos pos = this.getPos();
 		world.addWeatherEffect(new EntityLightningBolt(world, pos.getX(), pos.getY(), pos.getZ(), false));
 	}
-	
+
 	// Data syncing
-    @Override
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-    	if (oldState.getBlock() != newState.getBlock()) {
-    		System.out.println("Should refresh = true");
-    	}
-        return oldState.getBlock() != newState.getBlock();
-    }
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+		if (oldState.getBlock() != newState.getBlock()) {
+			System.out.println("Should refresh = true");
+		}
+		return oldState.getBlock() != newState.getBlock();
+	}
 
-    @Override
-    public final SPacketUpdateTileEntity getUpdatePacket() {
-        return new SPacketUpdateTileEntity(getPos(), -999, writeToNBT(new NBTTagCompound()));
-    }
+	@Override
+	public final SPacketUpdateTileEntity getUpdatePacket() {
+		return new SPacketUpdateTileEntity(getPos(), -999, writeToNBT(new NBTTagCompound()));
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public final void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-        super.onDataPacket(net, pkt);
-        readFromNBT(pkt.getNbtCompound());
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public final void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+		super.onDataPacket(net, pkt);
+		readFromNBT(pkt.getNbtCompound());
+	}
 
-    @Override
-    public final NBTTagCompound getUpdateTag() {
-        return writeToNBT(new NBTTagCompound());
-    }
+	@Override
+	public final NBTTagCompound getUpdateTag() {
+		return writeToNBT(new NBTTagCompound());
+	}
 
-    @Override
-    public final void handleUpdateTag(NBTTagCompound tag) {
-        readFromNBT(tag);
-    }
+	@Override
+	public final void handleUpdateTag(NBTTagCompound tag) {
+		readFromNBT(tag);
+	}
 }
