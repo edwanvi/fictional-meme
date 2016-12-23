@@ -170,14 +170,11 @@ public class EntityGeminus_F extends EntityLiving {
 					brother.setPlayerCount(brother.getPlayerCount() + 1);
 				}
 			}
-			player.isOnLadder();
-			player.isInWater();
 			// blindness because fuck you
 			if ((player.getHeldItemMainhand().getItem() instanceof ItemSword
 					|| player.getHeldItemMainhand() == ItemStack.EMPTY) && !world.isRemote) {
 				player.addPotionEffect(blindness);
 			}
-			player.isRiding();
 
 			int cap = 25;
 			return super.attackEntityFrom(source, Math.min(cap, par2));
