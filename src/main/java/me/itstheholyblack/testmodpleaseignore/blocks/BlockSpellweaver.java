@@ -1,5 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.blocks;
 
+import java.util.Random;
+
 import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.mod;
 import me.itstheholyblack.testmodpleaseignore.blocks.tile_entities.TileEntitySpellweaver;
@@ -71,10 +73,18 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 				} else if (heldItem.getItem() == ModItems.introMirror) {
 					// M A G I C
 					ItemStack stack = itemHandler.getStackInSlot(0);
-					if (stack.getItem() == Items.FLINT) {
+					if (stack.getItem() == Items.EMERALD) {
 						PlayerDataMan.addMana(player, -10.0D, true);
 						((IItemHandlerModifiable) itemHandler).setStackInSlot(0,
 								new ItemStack(ModItems.bladeCaster, 1));
+					} else if (stack.getItem() == Items.FLINT) {
+						Random rand = new Random();
+						boolean main = rand.nextBoolean();
+						if (main) {
+							((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.halfCaster_Main, 1));
+						} else {
+							((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.halfCaster_Off, 1));
+						}
 					} else if (stack.getItem().equals(ModItems.manaWaste)) {
 						// you really shouldn't do this
 						this.getTileEntity(world, pos).wrathOfGod();
