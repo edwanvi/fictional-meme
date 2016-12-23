@@ -5,12 +5,14 @@ import me.itstheholyblack.testmodpleaseignore.mod;
 import me.itstheholyblack.testmodpleaseignore.blocks.tile_entities.TileEntitySpellweaver;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
+import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -24,6 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -87,6 +90,15 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 					player.setHeldItem(hand, itemHandler.insertItem(0, heldItem, false));
 				}
 				tile.markDirty();
+				if (world instanceof WorldServer) {
+					WorldServer ws = (WorldServer) world;
+					for (EntityPlayer wsplayer : ws.playerEntities) {
+						EntityPlayerMP playerMP = (EntityPlayerMP) wsplayer;
+						 if ((playerMP.getDistanceSq(pos) < 64 * 64) && ws.getPlayerChunkMap().isPlayerWatchingChunk(playerMP, pos.getX() >> 4, pos.getZ() >> 4)) {
+							 playerMP.connection.sendPacket(tile.getUpdatePacket()); 
+						 }
+					}
+				}
 			} else {
 				ItemStack stack = itemHandler.getStackInSlot(0);
 				if (!stack.isEmpty()) {
