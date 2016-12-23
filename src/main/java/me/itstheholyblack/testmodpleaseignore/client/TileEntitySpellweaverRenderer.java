@@ -87,23 +87,21 @@ public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<Til
 		ItemStack itemstack = itemHandler.getStackInSlot(0);
 
 		if (!itemstack.isEmpty()) {
-			System.out.println("ItemStack not empty");
-			System.out.println(itemHandler.getStackInSlot(0));
 			GlStateManager.pushMatrix();
 			GlStateManager.translate((float) x + 0.5F, (float) y + 0.6F, (float) z + 0.5F);
 			GlStateManager.disableLighting();
-			int i = (int) te.bookRotation;
+			float i = te.bookRotation * -1.0F;
 
 			if (itemstack.getItem() instanceof net.minecraft.item.ItemMap) {
 				i = i % 4 * 2;
 			}
-
-			GlStateManager.rotate(i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
+			
+			GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+			GlStateManager.rotate(i * 360.0F, 0.0F, 1.0F, 0.0F);
 
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 			GlStateManager.pushAttrib();
 			RenderHelper.enableStandardItemLighting();
-			System.out.println("Calling renderItem");
 			this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED);
 			RenderHelper.disableStandardItemLighting();
 			GlStateManager.popAttrib();
