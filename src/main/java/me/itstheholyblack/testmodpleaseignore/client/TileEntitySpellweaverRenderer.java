@@ -25,21 +25,17 @@ public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<Til
 	private static final ResourceLocation TEXTURE_BOOK = new ResourceLocation(
 			"textures/entity/enchanting_table_book.png");
 	private final ModelBook modelBook = new ModelBook();
-	private RenderItem itemRenderer;
-	private final RenderManager renderManager;
 	private final Minecraft mc = Minecraft.getMinecraft();
+	private RenderItem itemRenderer;
 	private static final ResourceLocation MAP_BACKGROUND_TEXTURES = new ResourceLocation(
 			"textures/map/map_background.png");
-
-	public TileEntitySpellweaverRenderer() {
-		super();
-		this.itemRenderer = Minecraft.getMinecraft().getRenderItem();
-		this.renderManager = mc.getRenderManager();
-	}
 
 	@Override
 	public void renderTileEntityAt(TileEntitySpellweaver te, double x, double y, double z, float partialTicks,
 			int destroyStage) {
+		if (this.itemRenderer == null) {
+			this.itemRenderer = mc.getRenderItem();
+		}
 		this.renderItem(te, x, y, z);
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float) x + 0.5F, (float) y + 0.6F, (float) z + 0.5F);
