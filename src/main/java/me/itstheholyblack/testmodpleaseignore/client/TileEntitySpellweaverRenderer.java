@@ -104,7 +104,7 @@ public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<Til
 				i = i % 4 * 2;
 			}
 
-			GlStateManager.rotate((float) i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
+			GlStateManager.rotate(i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
 
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 			GlStateManager.pushAttrib();
