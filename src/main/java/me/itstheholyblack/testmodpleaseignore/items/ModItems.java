@@ -24,6 +24,7 @@ public final class ModItems {
 	public static ItemHalfCaster_Off halfCaster_Off;
 	public static ItemExplosiveCaster explosivecaster;
 	public static ItemIntrospectiveMirror introMirror;
+	public static ItemEdibleHat ediblehat;
 	public static final CreativeTabs CREATIVETAB = new CreativeTabs("testModPleaseIgnore") {
 		@Override
 		public ItemStack getTabIconItem() {
@@ -43,6 +44,7 @@ public final class ModItems {
 		halfCaster_Off = new ItemHalfCaster_Off();
 		explosivecaster = new ItemExplosiveCaster();
 		introMirror = new ItemIntrospectiveMirror();
+		ediblehat = new ItemEdibleHat();
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -59,5 +61,6 @@ public final class ModItems {
 		halfCaster_Off.initModel();
 		explosivecaster.initModel();
 		introMirror.initModel();
+		ediblehat.initModel();
 	}
 }
