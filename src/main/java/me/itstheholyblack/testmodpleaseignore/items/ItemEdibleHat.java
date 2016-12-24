@@ -1,7 +1,10 @@
 package me.itstheholyblack.testmodpleaseignore.items;
 
+import java.util.List;
+
 import me.itstheholyblack.testmodpleaseignore.Reference;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemFood;
@@ -23,6 +26,7 @@ public class ItemEdibleHat extends ItemFood {
 		super(1, false);
 		setRegistryName("hat");
 		setUnlocalizedName(Reference.MODID + ".hat");
+		setCreativeTab(ModItems.CREATIVETAB);
 		GameRegistry.register(this);
 	}
 	@Override
@@ -35,5 +39,11 @@ public class ItemEdibleHat extends ItemFood {
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
 		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+	}
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+		tooltip.add(I18n.format("mouseovertext.hat"));
+		super.addInformation(stack, playerIn, tooltip, advanced);
 	}
 }
