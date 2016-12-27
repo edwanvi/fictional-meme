@@ -5,6 +5,7 @@ import java.util.Random;
 import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.mod;
 import me.itstheholyblack.testmodpleaseignore.blocks.tile_entities.TileEntitySpellweaver;
+import me.itstheholyblack.testmodpleaseignore.core.ParticleEffects;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import net.minecraft.block.SoundType;
@@ -14,6 +15,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -22,6 +24,7 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
@@ -71,12 +74,10 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 				if (heldItem.isEmpty()) {
 					player.setHeldItem(hand, itemHandler.extractItem(0, 64, false));
 				} else if (heldItem.getItem() == ModItems.introMirror) {
-					// M A G I C
 					ItemStack stack = itemHandler.getStackInSlot(0);
-					if (stack.getItem() == Items.EMERALD) {
+					if (stack.getItem() == Items.DIAMOND) {
 						PlayerDataMan.addMana(player, -10.0D, true);
-						((IItemHandlerModifiable) itemHandler).setStackInSlot(0,
-								new ItemStack(ModItems.bladeCaster, 1));
+						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.bladeCaster, 1));
 					} else if (stack.getItem() == Items.FLINT) {
 						Random rand = new Random();
 						boolean main = rand.nextBoolean();
@@ -85,8 +86,12 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 						} else {
 							((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.halfCaster_Off, 1));
 						}
+						PlayerDataMan.addMana(player, -15.0D, true);
+					} else if (stack.getItem().equals(Item.getItemFromBlock(Blocks.TNT))) {
+						ParticleEffects.particles(world, pos.getX(), pos.getY(), pos.getZ(), EnumParticleTypes.EXPLOSION_HUGE, 100);
+						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.explosivecaster, 1));
+						PlayerDataMan.addMana(player, -20.0D, true);
 					} else if (stack.getItem().equals(ModItems.manaWaste)) {
-						// you really shouldn't do this
 						this.getTileEntity(world, pos).wrathOfGod();
 						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, ItemStack.EMPTY);
 					} else if (!stack.isEmpty()) {
