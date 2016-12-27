@@ -34,17 +34,23 @@ public class ItemExplosiveCaster extends Item {
 		setCreativeTab(ModItems.CREATIVETAB);
 		// set property for multitexture
 		this.addPropertyOverride(new ResourceLocation("deployed"), new IItemPropertyGetter() {
+			@Override
 			@SideOnly(Side.CLIENT)
-		    public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-		        return entityIn != null && entityIn instanceof EntityPlayer && NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isactive") ? 1.0F : 0.0F;
-		    }
+			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+				return entityIn != null && entityIn instanceof EntityPlayer
+						&& NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isactive") ? 1.0F : 0.0F;
+			}
 		});
 		GameRegistry.register(this);
 	}
+
 	// right click
-	// I :clap: stole :clap: this :clap: code :clap: from :clap: blood :clap: magic
+	// I :clap: stole :clap: this :clap: code :clap: from :clap: blood :clap:
+	// magic
+	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
-		// save itemstack so w can work on it. Why isn't it an arg anymore n o b o d y k n o w s
+		// save itemstack so w can work on it. Why isn't it an arg anymore n o b
+		// o d y k n o w s
 		ItemStack stack = playerIn.getHeldItem(hand);
 		if (hand == EnumHand.OFF_HAND) {
 			return new ActionResult<>(EnumActionResult.FAIL, stack);
@@ -84,16 +90,22 @@ public class ItemExplosiveCaster extends Item {
 			return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 		}
 	}
+
 	/**
 	 * Gets whether or not stack is active
-	 * @param stack - the ItemStack we want to look at
-	 * @return The boolean stored in key "isactive" for `stack`. False if the stack has no such key.
+	 * 
+	 * @param stack
+	 *            - the ItemStack we want to look at
+	 * @return The boolean stored in key "isactive" for `stack`. False if the
+	 *         stack has no such key.
 	 */
-	boolean getActivated(ItemStack stack){
-		return stack != null && stack != ItemStack.EMPTY && NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isactive");
+	boolean getActivated(ItemStack stack) {
+		return stack != null && stack != ItemStack.EMPTY
+				&& NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isactive");
 	}
+
 	@SideOnly(Side.CLIENT)
-    public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
-    }
+	public void initModel() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+	}
 }

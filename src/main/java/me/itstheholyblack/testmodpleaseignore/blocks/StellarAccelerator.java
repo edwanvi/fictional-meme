@@ -21,49 +21,56 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class StellarAccelerator extends Block implements ITileEntityProvider{
+public class StellarAccelerator extends Block implements ITileEntityProvider {
 	// property to store facing
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
+
 	public StellarAccelerator() {
 		super(Material.IRON);
 		setUnlocalizedName("acceleratorblock");
-        setRegistryName("acceleratorblock");
-        GameRegistry.register(this);
-        GameRegistry.register(new ItemBlock(this), getRegistryName());
-        // register tile entity
-        GameRegistry.registerTileEntity(AcceleratorTileEntity.class, Reference.MODID + "_acceleratorblock");
-        // set default face as north
-        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-        setCreativeTab(ModItems.CREATIVETAB);
+		setRegistryName("acceleratorblock");
+		GameRegistry.register(this);
+		GameRegistry.register(new ItemBlock(this), getRegistryName());
+		// register tile entity
+		GameRegistry.registerTileEntity(AcceleratorTileEntity.class, Reference.MODID + "_acceleratorblock");
+		// set default face as north
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		setCreativeTab(ModItems.CREATIVETAB);
 	}
+
 	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0,
+				new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
+
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new AcceleratorTileEntity();
 	}
-	@Override
-    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        world.setBlockState(pos, state.withProperty(FACING, getFacingFromEntity(pos, placer)), 2);
-    }
-	public static EnumFacing getFacingFromEntity(BlockPos clickedBlock, EntityLivingBase entity) {
-        return EnumFacing.getFacingFromVector(
-             (float) (entity.posX - clickedBlock.getX()),
-             (float) (entity.posY - clickedBlock.getY()),
-             (float) (entity.posZ - clickedBlock.getZ()));
-    }
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7));
-    }
 
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getIndex();
-    }
 	@Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING);
-    }
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer,
+			ItemStack stack) {
+		world.setBlockState(pos, state.withProperty(FACING, getFacingFromEntity(pos, placer)), 2);
+	}
+
+	public static EnumFacing getFacingFromEntity(BlockPos clickedBlock, EntityLivingBase entity) {
+		return EnumFacing.getFacingFromVector((float) (entity.posX - clickedBlock.getX()),
+				(float) (entity.posY - clickedBlock.getY()), (float) (entity.posZ - clickedBlock.getZ()));
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7));
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(FACING).getIndex();
+	}
+
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, FACING);
+	}
 }

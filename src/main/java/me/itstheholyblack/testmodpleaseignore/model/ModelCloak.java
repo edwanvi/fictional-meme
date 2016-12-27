@@ -5,12 +5,14 @@ import net.minecraft.client.model.ModelRenderer;
 
 /**
  * A cloak model, ripped outta Botania.
- * @author wiiv*/
+ * 
+ * @author wiiv
+ */
 public class ModelCloak extends ModelBase {
 	public ModelRenderer armRpauldron;
 	public ModelRenderer armLpauldron;
 	public ModelRenderer helm;
-	
+
 	public ModelCloak() {
 		textureWidth = 64;
 		textureHeight = 64;

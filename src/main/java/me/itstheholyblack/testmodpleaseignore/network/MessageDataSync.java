@@ -1,7 +1,6 @@
 package me.itstheholyblack.testmodpleaseignore.network;
 
 import io.netty.buffer.ByteBuf;
-import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,21 +15,27 @@ public class MessageDataSync implements IMessage {
 	public static final String FocusTag = DataTag + "focusLevel";
 	// yes mana is stupidly generic get over it
 	public static final String ManaPool = DataTag + "manaPool";
+
 	// A default constructor is always required
-	public MessageDataSync(){}
+	public MessageDataSync() {
+	}
 
 	private double toSend;
+
 	public MessageDataSync(double toSend) {
-	    this.toSend = toSend;
+		this.toSend = toSend;
 	}
+
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		toSend = buf.readDouble();
 	}
+
 	@Override
 	public void toBytes(ByteBuf buf) {
 		buf.writeDouble(toSend);
 	}
+
 	public static class Handler implements IMessageHandler<MessageDataSync, IMessage> {
 		@Override
 		public IMessage onMessage(MessageDataSync message, MessageContext ctx) {
@@ -49,6 +54,6 @@ public class MessageDataSync implements IMessage {
 				});
 			}
 			return null;
-		}	
+		}
 	}
 }

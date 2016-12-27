@@ -1,5 +1,8 @@
-entity.entityGeminus_M.name=Geminus
-entity.entityGeminus_F.name=Gemina
+item.testmodpleaseignore.hat.name=magi093's hat
+mouseovertext.hat=Don't ask. Please don't ask.
+
+entity.testmodpleaseignore:entityGeminus_M.name=Geminus
+entity.testmodpleaseignore:entityGeminus_F.name=Gemina
 
 itemGroup.testModPleaseIgnore=Test Mod Please Ignore
 
@@ -44,3 +47,6 @@ mouseovertext.half_caster_off=The offhand component of the Half-Blade Caster. Hi
 item.testmodpleaseignore.explosivecaster.name=Explosive Caster
 
 item.testmodpleaseignore.introspective_mirror.name=Introspective Mirror
+item.testmodpleaseignore.manawaste.name=Manawaste
+tile.testmodpleaseignore.spellweaver.name=Spellweaver
+
