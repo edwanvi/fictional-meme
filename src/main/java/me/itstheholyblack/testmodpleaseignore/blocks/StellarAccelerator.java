@@ -50,7 +50,7 @@ public class StellarAccelerator extends BlockTileEntity<AcceleratorTileEntity> i
 		float mana = this.getTileEntity(worldIn, pos).getMana();
 		if (heldstack.getItem().equals(ModItems.introMirror) && !worldIn.isRemote) {
 			String manastr = Float.toString(mana);
-			playerIn.sendStatusMessage(new TextComponentString(TextFormatting.BLUE + "" + TextFormatting.OBFUSCATED + "Accelerator" + TextFormatting.RESET + ": " + manastr), false);
+			playerIn.sendStatusMessage(new TextComponentString("<" + TextFormatting.BLUE + "" + TextFormatting.OBFUSCATED + "Accelerator" + TextFormatting.RESET + "> " + manastr), false);
 		}
 		return false;
 	}
