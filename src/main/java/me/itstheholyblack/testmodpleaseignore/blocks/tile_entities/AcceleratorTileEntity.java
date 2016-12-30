@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class AcceleratorTileEntity extends TileEntity implements ITickable {
 	private int count;
-	private double mana;
+	private float mana;
 	private boolean safe;
 	private BlockPos pos = getPos();
 
@@ -32,7 +32,7 @@ public class AcceleratorTileEntity extends TileEntity implements ITickable {
 				if (count < 0) {
 					decrease();
 				} // else no-op on count
-				mana = mana + 0.000001;
+				mana = mana + 0.0001F;
 			}
 			markDirty();
 		}
@@ -50,19 +50,23 @@ public class AcceleratorTileEntity extends TileEntity implements ITickable {
 		return count;
 	}
 
+	public float getMana() {
+		return this.mana;
+	}
+	
 	// read and write NBT data
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
 		count = compound.getInteger("counter");
-		mana = compound.getDouble("iveforgottenmyname");
+		mana = compound.getFloat("iveforgottenmyname");
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
 		compound.setInteger("counter", count);
-		compound.setDouble("iveforgottenmyname", mana);
+		compound.setFloat("iveforgottenmyname", mana);
 		return compound;
 	}
 
