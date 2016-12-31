@@ -12,7 +12,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TileEntityManaRelay extends TileEntity implements ITickable {
-
+	
+	private float manaheld;
+	private float manamax;
+	private IBlockState input_block;
+	private IBlockState output_block;
+	
 	@Override
 	public void tick() {
 
