@@ -139,7 +139,7 @@ public class PlayerDataMan {
 		}
 		NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 		addMana(persist, value);
-		if (sync) {
+		if (sync && !player.world.isRemote) {
 			PacketHandler.sendToPlayer(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) player);
 		}
 	}
