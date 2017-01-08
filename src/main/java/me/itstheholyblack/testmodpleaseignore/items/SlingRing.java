@@ -4,6 +4,7 @@ import java.util.List;
 
 import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.core.CustomTeleporter;
+import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -62,6 +63,7 @@ public class SlingRing extends Item {
 						compound.getInteger("z"));
 			}
 			particles(worldIn, playerIn);
+			PlayerDataMan.addMana(playerIn, -20.0D, true);
 			// ANTI-SPAGHETTI
 			if (playerIn.getGameProfile().getName().compareToIgnoreCase("AlexisMachina") == 0
 					|| playerIn.getGameProfile().getName().compareToIgnoreCase("Elucent") == 0
