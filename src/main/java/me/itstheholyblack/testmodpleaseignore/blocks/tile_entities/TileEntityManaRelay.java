@@ -15,12 +15,30 @@ public class TileEntityManaRelay extends TileEntity implements ITickable {
 	
 	private float manaheld;
 	private float manamax;
-	private IBlockState input_block;
-	private IBlockState output_block;
+	private BlockPos input_block;
+	private BlockPos output_block;
 	
 	@Override
 	public void tick() {
-
+		if (input_block == null || output_block == null) {
+			return;
+		} else {
+			// i'm going to trust that you gave me a valid te here
+		}
+	}
+	
+	public void setIn(BlockPos in) {
+		this.input_block = in;
+	}
+	public BlockPos getIn() {
+		return this.input_block;
+	}
+	
+	public void setOut(BlockPos out) {
+		output_block = out;
+	}
+	public BlockPos getOut() {
+		return output_block;
 	}
 	
 	// data sync code
