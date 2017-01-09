@@ -1,6 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.blocks.tile_entities;
 
 import me.itstheholyblack.testmodpleaseignore.blocks.ModBlocks;
+import me.itstheholyblack.testmodpleaseignore.core.IMana;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -13,7 +14,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class AcceleratorTileEntity extends TileEntity implements ITickable {
+public class AcceleratorTileEntity extends TileEntity implements ITickable, IMana {
 	private int count;
 	private float mana;
 	private boolean safe;
@@ -103,5 +104,39 @@ public class AcceleratorTileEntity extends TileEntity implements ITickable {
 	@Override
 	public final void handleUpdateTag(NBTTagCompound tag) {
 		readFromNBT(tag);
+	}
+
+	@Override
+	public int receiveEnergy(int maxReceive, boolean simulate) {
+		return 0;
+	}
+
+	@Override
+	public int extractEnergy(int maxExtract, boolean simulate) {
+		int extracted = (int) Math.abs(mana - maxExtract);
+		if (!simulate) {
+			mana -= Math.min(mana, maxExtract);
+		}
+		return extracted;
+	}
+
+	@Override
+	public int getEnergyStored() {
+		return (int) mana;
+	}
+
+	@Override
+	public int getMaxEnergyStored() {
+		return (int) Float.MAX_VALUE;
+	}
+
+	@Override
+	public boolean canExtract() {
+		return true;
+	}
+
+	@Override
+	public boolean canReceive() {
+		return false;
 	}
 }

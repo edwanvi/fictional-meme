@@ -1,5 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.blocks.tile_entities;
 
+import me.itstheholyblack.testmodpleaseignore.core.IMana;
+import me.itstheholyblack.testmodpleaseignore.core.LibMisc;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,6 +26,11 @@ public class TileEntityManaRelay extends TileEntity implements ITickable {
 			return;
 		} else {
 			// i'm going to trust that you gave me a valid te here
+			TileEntity in_te = LibMisc.getTileEntitySafely(world, input_block);
+			TileEntity out_te = LibMisc.getTileEntitySafely(world, output_block);
+			if (in_te instanceof IMana) {
+				((IMana) in_te).extractEnergy(10, false);
+			}
 		}
 	}
 	
