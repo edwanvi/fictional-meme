@@ -89,19 +89,16 @@ public class StellarAccelerator extends BlockTileEntity<AcceleratorTileEntity> i
 
 	@Override
 	public Class<AcceleratorTileEntity> getTileEntityClass() {
-		// TODO Auto-generated method stub
 		return AcceleratorTileEntity.class;
 	}
 
 	@Override
 	public AcceleratorTileEntity createTileEntity(World world, IBlockState state) {
-		// TODO Auto-generated method stub
 		return new AcceleratorTileEntity();
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		// TODO Auto-generated method stub
 		return new AcceleratorTileEntity();
 	}
 }
