@@ -31,6 +31,9 @@ public class TileEntityManaRelay extends TileEntity implements ITickable {
 			if (in_te instanceof IMana) {
 				((IMana) in_te).extractEnergy(10, false);
 			}
+			if (out_te instanceof IMana) {
+				((IMana) out_te).receiveEnergy(10, false);
+			}
 		}
 	}
 	
