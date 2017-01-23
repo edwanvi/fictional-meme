@@ -43,18 +43,20 @@ public class StellarAccelerator extends BlockTileEntity<AcceleratorTileEntity> i
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		setCreativeTab(ModItems.CREATIVETAB);
 	}
-	
+
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		ItemStack heldstack = playerIn.getHeldItem(hand);
 		float mana = this.getTileEntity(worldIn, pos).getMana();
 		if (heldstack.getItem().equals(ModItems.introMirror) && !worldIn.isRemote) {
 			String manastr = Float.toString(mana);
-			playerIn.sendStatusMessage(new TextComponentString("<" + TextFormatting.BLUE + "" + TextFormatting.OBFUSCATED + "Accelerator" + TextFormatting.RESET + "> " + manastr), false);
+			playerIn.sendStatusMessage(new TextComponentString("<" + TextFormatting.BLUE + ""
+					+ TextFormatting.OBFUSCATED + "Accelerator" + TextFormatting.RESET + "> " + manastr), false);
 		}
 		return false;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0,

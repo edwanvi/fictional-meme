@@ -54,7 +54,7 @@ public class AcceleratorTileEntity extends TileEntity implements ITickable, IMan
 	public float getMana() {
 		return this.mana;
 	}
-	
+
 	// read and write NBT data
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
@@ -79,6 +79,7 @@ public class AcceleratorTileEntity extends TileEntity implements ITickable, IMan
 		}
 		return false;
 	}
+
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
 		return oldState.getBlock() != newState.getBlock();

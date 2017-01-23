@@ -14,12 +14,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TileEntityManaRelay extends TileEntity implements ITickable {
-	
+
 	private float manaheld;
 	private float manamax;
 	private BlockPos input_block;
 	private BlockPos output_block;
-	
+
 	@Override
 	public void tick() {
 		if (input_block == null || output_block == null) {
@@ -36,21 +36,23 @@ public class TileEntityManaRelay extends TileEntity implements ITickable {
 			}
 		}
 	}
-	
+
 	public void setIn(BlockPos in) {
 		this.input_block = in;
 	}
+
 	public BlockPos getIn() {
 		return this.input_block;
 	}
-	
+
 	public void setOut(BlockPos out) {
 		output_block = out;
 	}
+
 	public BlockPos getOut() {
 		return output_block;
 	}
-	
+
 	// data sync code
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
