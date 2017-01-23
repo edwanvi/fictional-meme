@@ -11,12 +11,14 @@ public final class ModBlocks {
 	private static StellarAccelerator s_accel;
 	private static BlockSpellweaver s_weaver;
 	private static BlockManaRelay m_relay;
+	public static BlockPoisonGas m_fumes;
 
 	public static void createBlocks() {
 		tutorialBlock = new TransparentBlock("firstblock");
 		s_accel = new StellarAccelerator();
 		s_weaver = new BlockSpellweaver();
 		m_relay = new BlockManaRelay();
+		m_fumes = new BlockPoisonGas();
 		GameRegistry.registerTileEntity(s_weaver.getTileEntityClass(), s_weaver.getRegistryName().toString());
 		GameRegistry.registerTileEntity(m_relay.getTileEntityClass(), m_relay.getRegistryName().toString());
 	}
