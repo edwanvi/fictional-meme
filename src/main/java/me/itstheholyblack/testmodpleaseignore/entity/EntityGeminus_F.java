@@ -6,8 +6,12 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
+import me.itstheholyblack.testmodpleaseignore.blocks.BlockPoisonGas;
+import me.itstheholyblack.testmodpleaseignore.blocks.ModBlocks;
+import me.itstheholyblack.testmodpleaseignore.core.LibMisc;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDetection;
 import me.itstheholyblack.testmodpleaseignore.core.Randomizer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -113,8 +117,10 @@ public class EntityGeminus_F extends EntityLiving {
 			this.playersWhoAttacked = new ArrayList<>();
 		}
 		if (this.brother != null && brother.isDead) {
+			this.world.createExplosion(null, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ(), 5.0F, false);
 			this.kill();
 		}
+		// stop limbs swing
 		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
 		this.closestPlayer = this.world.getClosestPlayerToEntity(this, TELEPORT_RANGE_DOUBLE);
@@ -134,6 +140,8 @@ public class EntityGeminus_F extends EntityLiving {
 				spawnMissile();
 			dataManager.set(SPAWNING, false);
 			setCooldown(COOLDOWN);
+		} else if (this.getDistanceToEntity(closestPlayer) <= 10.0F && this.getHealth() < this.getMaxHealth() / 2 && this.getEntityWorld().rand.nextBoolean()) {
+			LibMisc.makeSphere(this.getEntityWorld(), this.closestPlayer.getPosition(), ModBlocks.m_fumes.getDefaultState(), 5);
 		}
 		this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
 		super.onLivingUpdate();
