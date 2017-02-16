@@ -46,7 +46,7 @@ public class BlockPoisonGas extends BlockBreakable {
 	 */
 	@Override
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-		
+
 		if (entityIn instanceof EntityLiving) {
 			if (!entityIn.isEntityInvulnerable(DamageSource.MAGIC)) {
 				entityIn.attackEntityFrom(DamageSource.MAGIC, 0.5F);
