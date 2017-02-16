@@ -117,7 +117,8 @@ public class EntityGeminus_F extends EntityLiving {
 			this.playersWhoAttacked = new ArrayList<>();
 		}
 		if (this.brother != null && brother.isDead) {
-			this.world.createExplosion(null, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ(), 5.0F, false);
+			this.world.createExplosion(null, this.getPosition().getX(), this.getPosition().getY(),
+					this.getPosition().getZ(), 5.0F, false);
 			this.kill();
 		}
 		// stop limbs swing
@@ -135,13 +136,20 @@ public class EntityGeminus_F extends EntityLiving {
 		if (!spawning && getCooldown() < 1) {
 			spawning = !(Randomizer.getRandomBoolean(this.getHealth() / this.getMaxHealth()));
 		}
+		boolean close;
+		try {
+			close = this.getDistanceToEntity(closestPlayer) <= 10.0F;
+		} catch (NullPointerException e) {
+			close = false;
+		}
 		if (spawning) {
 			for (int i = 0; i < playersWhoAttacked.size(); i++)
 				spawnMissile();
 			dataManager.set(SPAWNING, false);
 			setCooldown(COOLDOWN);
-		} else if (this.getDistanceToEntity(closestPlayer) <= 10.0F && this.getHealth() < this.getMaxHealth() / 2 && this.getEntityWorld().rand.nextBoolean()) {
-			LibMisc.makeSphere(this.getEntityWorld(), this.closestPlayer.getPosition(), ModBlocks.m_fumes.getDefaultState(), 5);
+		} else if (close && this.getHealth() < this.getMaxHealth() / 2 && this.getEntityWorld().rand.nextBoolean()) {
+			LibMisc.makeSphere(this.getEntityWorld(), this.closestPlayer.getPosition(),
+					ModBlocks.m_fumes.getDefaultState(), 5);
 		}
 		this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
 		super.onLivingUpdate();

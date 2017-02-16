@@ -28,5 +28,6 @@ public final class ModBlocks {
 		tutorialBlock.initModel();
 		s_accel.initModel();
 		s_weaver.initModel();
+		m_fumes.initModel();
 	}
 }
