@@ -11,6 +11,9 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+/**
+ * oh god
+ */
 public class CasterTicker {
 	public static final String DataTag = PlayerDataMan.DataTag;
 	public static final String ManaPool = PlayerDataMan.ManaPool;
