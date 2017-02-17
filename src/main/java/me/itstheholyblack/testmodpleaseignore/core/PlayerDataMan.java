@@ -4,14 +4,17 @@ import org.apache.logging.log4j.Level;
 
 import me.itstheholyblack.testmodpleaseignore.network.MessageDataSync;
 import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -141,6 +144,37 @@ public class PlayerDataMan {
 		addMana(persist, value);
 		if (sync && !player.world.isRemote) {
 			PacketHandler.sendToPlayer(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) player);
+		}
+	}
+
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public static void onDMG(LivingHurtEvent e) {
+		String key = "TMPIData.shielded";
+		if (e.getEntity() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) e.getEntity();
+			if (!e.getEntity().world.isRemote) {
+				NBTTagCompound data = player.getEntityData();
+				// detect if player has NBT saved
+				// if they don't, remedy the situation
+				if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
+					data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
+				}
+				// save into variable
+				NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+				if (!persist.hasKey("TMPIData.shielded")) {
+					persist.setBoolean("TMPIData.shielded", false);
+				} else {
+					if (persist.getBoolean("TMPIData.shielded")) {
+						e.setCanceled(true);
+						PlayerDataMan.addMana(player, -1 * (e.getAmount() / 2), true);
+						DamageSource s = e.getSource();
+						if (s.getEntity() instanceof EntityLiving) {
+							EntityLiving es = (EntityLiving) s.getEntity();
+							es.setHealth(es.getHealth() - e.getAmount());
+						}
+					}
+				}
+			}
 		}
 	}
 }
