@@ -1,9 +1,14 @@
 package me.itstheholyblack.testmodpleaseignore.items.casters;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.core.NBTHelper;
+import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.IItemPropertyGetter;
@@ -15,6 +20,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -62,8 +68,12 @@ public class ItemCasterShield extends Item {
 				String key = "TMPIData.shielded";
 				if (!persist.hasKey(key)) {
 					persist.setBoolean(key, true);
+					PlayerDataMan.addMana(persist, -1);
 				} else {
 					boolean shield = persist.getBoolean(key);
+					if (!shield) {
+						PlayerDataMan.addMana(playerIn, -1, true);
+					}
 					persist.setBoolean(key, !shield);
 				}
 			}
@@ -75,5 +85,24 @@ public class ItemCasterShield extends Item {
 
 	boolean getActivated(ItemStack stack) {
 		return stack != null && NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isActive");
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+		tooltip.add(I18n.format("mouseovertext.hat"));
+		super.addInformation(stack, playerIn, tooltip, advanced);
+	}
+
+	// cause re-equip
+	@Override
+	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+		return NBTHelper.checkNBT(oldStack).getTagCompound().getBoolean("isActive") != NBTHelper.checkNBT(newStack)
+				.getTagCompound().getBoolean("isActive") || oldStack.getItem() != newStack.getItem();
+	}
+
+	@SideOnly(Side.CLIENT)
+	public void initModel() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 }
