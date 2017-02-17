@@ -66,5 +66,6 @@ public final class ModItems {
 		explosivecaster.initModel();
 		introMirror.initModel();
 		ediblehat.initModel();
+		shieldCast.initModel();
 	}
 }
