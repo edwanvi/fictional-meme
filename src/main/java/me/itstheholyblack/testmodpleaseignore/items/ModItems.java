@@ -2,6 +2,7 @@ package me.itstheholyblack.testmodpleaseignore.items;
 
 import me.itstheholyblack.testmodpleaseignore.items.armor.LeapingBoots;
 import me.itstheholyblack.testmodpleaseignore.items.casters.ItemBladeCaster;
+import me.itstheholyblack.testmodpleaseignore.items.casters.ItemCasterShield;
 import me.itstheholyblack.testmodpleaseignore.items.casters.ItemExplosiveCaster;
 import me.itstheholyblack.testmodpleaseignore.items.casters.ItemHalfCaster_Main;
 import me.itstheholyblack.testmodpleaseignore.items.casters.ItemHalfCaster_Off;
@@ -25,6 +26,8 @@ public final class ModItems {
 	public static ItemExplosiveCaster explosivecaster;
 	public static ItemIntrospectiveMirror introMirror;
 	public static ItemEdibleHat ediblehat;
+	public static ItemCasterShield shieldCast;
+
 	public static final CreativeTabs CREATIVETAB = new CreativeTabs("testModPleaseIgnore") {
 		@Override
 		public ItemStack getTabIconItem() {
@@ -45,6 +48,7 @@ public final class ModItems {
 		explosivecaster = new ItemExplosiveCaster();
 		introMirror = new ItemIntrospectiveMirror();
 		ediblehat = new ItemEdibleHat();
+		shieldCast = new ItemCasterShield();
 	}
 
 	@SideOnly(Side.CLIENT)
