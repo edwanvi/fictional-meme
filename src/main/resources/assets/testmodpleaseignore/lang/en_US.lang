@@ -46,6 +46,8 @@ mouseovertext.half_caster_off=The offhand component of the Half-Blade Caster. Hi
 
 item.testmodpleaseignore.explosivecaster.name=Explosive Caster
 
+mouseovertext.shieldcaster=The universe kneels to sorcery first, and all else second,
+
 item.testmodpleaseignore.introspective_mirror.name=Introspective Mirror
 item.testmodpleaseignore.manawaste.name=Manawaste
 tile.testmodpleaseignore.spellweaver.name=Spellweaver
