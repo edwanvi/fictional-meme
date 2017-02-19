@@ -7,10 +7,13 @@ import javax.annotation.Nullable;
 import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.core.NBTHelper;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
+import me.itstheholyblack.testmodpleaseignore.network.MessageDataSync;
+import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -54,27 +57,29 @@ public class ItemCasterShield extends Item {
 				NBTTagCompound compound = stack.getTagCompound();
 				compound.setBoolean("isActive", false);
 			}
-			NBTTagCompound compound = stack.getTagCompound();
-			compound.setBoolean("isActive", !getActivated(stack));
-			if (getActivated(stack)) {
-				setFull3D();
-				NBTTagCompound data = playerIn.getEntityData();
-				// detect if player has NBT saved
-				// if they don't, remedy the situation
-				if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
-					data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
-				}
-				NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-				String key = "TMPIData.shielded";
-				if (!persist.hasKey(key)) {
-					persist.setBoolean(key, true);
-					PlayerDataMan.addMana(persist, -1);
-				} else {
-					boolean shield = persist.getBoolean(key);
-					if (!shield) {
-						PlayerDataMan.addMana(playerIn, -1, true);
+			if (!worldIn.isRemote) {
+				NBTTagCompound compound = stack.getTagCompound();
+				compound.setBoolean("isActive", !getActivated(stack));
+				if (getActivated(stack)) {
+					setFull3D();
+					NBTTagCompound data = playerIn.getEntityData();
+					// detect if player has NBT saved
+					// if they don't, remedy the situation
+					if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
+						data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
 					}
-					persist.setBoolean(key, !shield);
+					NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+					String key = "TMPIData.shielded";
+					if (!persist.hasKey(key)) {
+						persist.setBoolean(key, true);
+						PlayerDataMan.addMana(persist, -1);
+					} else {
+						boolean shield = persist.getBoolean(key);
+						if (!shield) {
+							PlayerDataMan.addMana(playerIn, -1, true);
+						}
+						persist.setBoolean(key, !shield);
+					}
 				}
 			}
 			return new ActionResult<>(EnumActionResult.SUCCESS, stack);

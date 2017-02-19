@@ -4,6 +4,7 @@ import org.apache.logging.log4j.Level;
 
 import me.itstheholyblack.testmodpleaseignore.network.MessageDataSync;
 import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -151,6 +152,7 @@ public class PlayerDataMan {
 	public static void onDMG(LivingHurtEvent e) {
 		String key = "TMPIData.shielded";
 		if (e.getEntity() instanceof EntityPlayer) {
+			System.out.println("Intercepting player damage");
 			EntityPlayer player = (EntityPlayer) e.getEntity();
 			if (!e.getEntity().world.isRemote) {
 				NBTTagCompound data = player.getEntityData();
@@ -161,17 +163,13 @@ public class PlayerDataMan {
 				}
 				// save into variable
 				NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+				System.out.println(persist.getBoolean("TMPIData.shielded"));
 				if (!persist.hasKey("TMPIData.shielded")) {
 					persist.setBoolean("TMPIData.shielded", false);
 				} else {
 					if (persist.getBoolean("TMPIData.shielded")) {
+						System.out.println("blocking dmg");
 						e.setCanceled(true);
-						PlayerDataMan.addMana(player, -1 * (e.getAmount() / 2), true);
-						DamageSource s = e.getSource();
-						if (s.getEntity() instanceof EntityLiving) {
-							EntityLiving es = (EntityLiving) s.getEntity();
-							es.setHealth(es.getHealth() - e.getAmount());
-						}
 					}
 				}
 			}
