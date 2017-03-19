@@ -59,28 +59,27 @@ public class ItemCasterShield extends Item {
 			}
 			if (!worldIn.isRemote) {
 				NBTTagCompound compound = stack.getTagCompound();
+				NBTTagCompound data = playerIn.getEntityData();
+				if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
+					data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
+				}
+				NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+				String key = "TMPIData.shielded";
 				compound.setBoolean("isActive", !getActivated(stack));
+				if (!persist.hasKey(key)) {
+					persist.setBoolean(key, true);
+					PlayerDataMan.addMana(persist, -1);
+				} else {
+					boolean shield = persist.getBoolean(key);
+					if (!shield) {
+						PlayerDataMan.addMana(playerIn, -1, true);
+					}
+					persist.setBoolean(key, !shield);
+				}
 				if (getActivated(stack)) {
 					setFull3D();
-					NBTTagCompound data = playerIn.getEntityData();
-					// detect if player has NBT saved
-					// if they don't, remedy the situation
-					if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
-						data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
-					}
-					NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-					String key = "TMPIData.shielded";
-					if (!persist.hasKey(key)) {
-						persist.setBoolean(key, true);
-						PlayerDataMan.addMana(persist, -1);
-					} else {
-						boolean shield = persist.getBoolean(key);
-						if (!shield) {
-							PlayerDataMan.addMana(playerIn, -1, true);
-						}
-						persist.setBoolean(key, !shield);
-					}
 				}
+				System.out.println(persist.getBoolean(key));
 			}
 			return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 		} else {
