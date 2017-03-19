@@ -147,32 +147,4 @@ public class PlayerDataMan {
 			PacketHandler.sendToPlayer(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) player);
 		}
 	}
-
-	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public static void onDMG(LivingHurtEvent e) {
-		String key = "TMPIData.shielded";
-		if (e.getEntity() instanceof EntityPlayer) {
-			System.out.println("Intercepting player damage");
-			EntityPlayer player = (EntityPlayer) e.getEntity();
-			if (!e.getEntity().world.isRemote) {
-				NBTTagCompound data = player.getEntityData();
-				// detect if player has NBT saved
-				// if they don't, remedy the situation
-				if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
-					data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
-				}
-				// save into variable
-				NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-				System.out.println(persist.getBoolean("TMPIData.shielded"));
-				if (!persist.hasKey("TMPIData.shielded")) {
-					persist.setBoolean("TMPIData.shielded", false);
-				} else {
-					if (persist.getBoolean("TMPIData.shielded")) {
-						System.out.println("blocking dmg");
-						e.setCanceled(true);
-					}
-				}
-			}
-		}
-	}
 }
