@@ -119,7 +119,7 @@ public class EntityGeminus_F extends EntityLiving {
 		if (this.brother != null && brother.isDead) {
 			this.world.createExplosion(null, this.getPosition().getX(), this.getPosition().getY(),
 					this.getPosition().getZ(), 5.0F, false);
-			this.kill();
+			this.setDead();
 		}
 		// stop limbs swing
 		this.limbSwingAmount = 0.0F;

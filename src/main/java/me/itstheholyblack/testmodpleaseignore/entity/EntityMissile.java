@@ -75,7 +75,7 @@ public class EntityMissile extends EntityThrowable {
 
 		this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
 		if (time > 40)
-			this.kill();
+			this.setDead();
 		// increment tick counter
 		time++;
 	}
@@ -102,7 +102,7 @@ public class EntityMissile extends EntityThrowable {
 			} else {
 				e.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this.getThrower()), 1.0F);
 			}
-			this.kill();
+			this.setDead();
 		}
 	}
 
