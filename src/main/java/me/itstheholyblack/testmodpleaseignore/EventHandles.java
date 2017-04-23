@@ -4,6 +4,7 @@ import org.apache.logging.log4j.Level;
 
 import baubles.api.BaublesApi;
 import baubles.api.cap.IBaublesItemHandler;
+import me.itstheholyblack.testmodpleaseignore.core.ParticleEffects;
 import me.itstheholyblack.testmodpleaseignore.items.ItemTestCloak;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -13,6 +14,7 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntityShulkerBullet;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootEntryTable;
@@ -82,6 +84,8 @@ public class EventHandles {
 						if (es instanceof EntityLiving) {
 							((EntityLiving) es).setHealth(((EntityLiving) es).getHealth() - e.getAmount() / 2); // fucking
 																												// lisp
+							ParticleEffects.particles(es.world, es.getPosition().getX(), es.getPosition().getY(),
+									es.getPosition().getZ(), EnumParticleTypes.CRIT_MAGIC, 45);
 						}
 					}
 				}
