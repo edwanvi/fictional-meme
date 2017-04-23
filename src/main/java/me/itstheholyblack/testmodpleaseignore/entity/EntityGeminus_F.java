@@ -6,8 +6,12 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
+import me.itstheholyblack.testmodpleaseignore.blocks.BlockPoisonGas;
+import me.itstheholyblack.testmodpleaseignore.blocks.ModBlocks;
+import me.itstheholyblack.testmodpleaseignore.core.LibMisc;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDetection;
 import me.itstheholyblack.testmodpleaseignore.core.Randomizer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -113,8 +117,11 @@ public class EntityGeminus_F extends EntityLiving {
 			this.playersWhoAttacked = new ArrayList<>();
 		}
 		if (this.brother != null && brother.isDead) {
+			this.world.createExplosion(null, this.getPosition().getX(), this.getPosition().getY(),
+					this.getPosition().getZ(), 5.0F, false);
 			this.kill();
 		}
+		// stop limbs swing
 		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
 		this.closestPlayer = this.world.getClosestPlayerToEntity(this, TELEPORT_RANGE_DOUBLE);
@@ -129,11 +136,20 @@ public class EntityGeminus_F extends EntityLiving {
 		if (!spawning && getCooldown() < 1) {
 			spawning = !(Randomizer.getRandomBoolean(this.getHealth() / this.getMaxHealth()));
 		}
+		boolean close;
+		try {
+			close = this.getDistanceToEntity(closestPlayer) <= 10.0F;
+		} catch (NullPointerException e) {
+			close = false;
+		}
 		if (spawning) {
 			for (int i = 0; i < playersWhoAttacked.size(); i++)
 				spawnMissile();
 			dataManager.set(SPAWNING, false);
 			setCooldown(COOLDOWN);
+		} else if (close && this.getHealth() < this.getMaxHealth() / 2 && this.getEntityWorld().rand.nextBoolean()) {
+			LibMisc.makeSphere(this.getEntityWorld(), this.closestPlayer.getPosition(),
+					ModBlocks.m_fumes.getDefaultState(), 5);
 		}
 		this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
 		super.onLivingUpdate();
@@ -158,28 +174,29 @@ public class EntityGeminus_F extends EntityLiving {
 		if (source == DamageSource.OUT_OF_WORLD) {
 			// no-op
 			return super.attackEntityFrom(source, par2);
-		}
-		Entity e = source.getEntity();
-		this.teleportRandomly();
-		if (e instanceof EntityPlayer && PlayerDetection.isTruePlayer(e)) {
-			EntityPlayer player = (EntityPlayer) e;
-
-			if (!playersWhoAttacked.contains(player.getUniqueID())) {
-				playersWhoAttacked.add(player.getUniqueID());
-				if (brother != null) {
-					brother.setPlayerCount(brother.getPlayerCount() + 1);
+		} else {
+			Entity e = source.getEntity();
+			this.teleportRandomly();
+			if (e instanceof EntityPlayer && PlayerDetection.isTruePlayer(e)) {
+				EntityPlayer player = (EntityPlayer) e;
+				this.teleportToEntity(e);
+				if (!playersWhoAttacked.contains(player.getUniqueID())) {
+					playersWhoAttacked.add(player.getUniqueID());
+					dataManager.set(PLAYER_COUNT, dataManager.get(PLAYER_COUNT) + 1);
 				}
-			}
-			// blindness because fuck you
-			if ((player.getHeldItemMainhand().getItem() instanceof ItemSword
-					|| player.getHeldItemMainhand() == ItemStack.EMPTY) && !world.isRemote) {
-				player.addPotionEffect(blindness);
-			}
+				player.isOnLadder();
+				player.isInWater();
+				if ((player.getHeldItemMainhand().getItem() instanceof ItemSword
+						|| player.getHeldItemMainhand() == ItemStack.EMPTY) && !world.isRemote) {
+					player.addPotionEffect(blindness);
+				}
+				player.isRiding();
 
-			int cap = 25;
-			return super.attackEntityFrom(source, Math.min(cap, par2));
+				int cap = 25;
+				return super.attackEntityFrom(source, Math.min(cap, par2));
+			}
+			return false;
 		}
-		return false;
 	}
 
 	/**

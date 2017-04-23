@@ -77,19 +77,24 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 					ItemStack stack = itemHandler.getStackInSlot(0);
 					if (stack.getItem() == Items.DIAMOND) {
 						PlayerDataMan.addMana(player, -10.0D, true);
-						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.bladeCaster, 1));
+						((IItemHandlerModifiable) itemHandler).setStackInSlot(0,
+								new ItemStack(ModItems.bladeCaster, 1));
 					} else if (stack.getItem() == Items.FLINT) {
 						Random rand = new Random();
 						boolean main = rand.nextBoolean();
 						if (main) {
-							((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.halfCaster_Main, 1));
+							((IItemHandlerModifiable) itemHandler).setStackInSlot(0,
+									new ItemStack(ModItems.halfCaster_Main, 1));
 						} else {
-							((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.halfCaster_Off, 1));
+							((IItemHandlerModifiable) itemHandler).setStackInSlot(0,
+									new ItemStack(ModItems.halfCaster_Off, 1));
 						}
 						PlayerDataMan.addMana(player, -15.0D, true);
 					} else if (stack.getItem().equals(Item.getItemFromBlock(Blocks.TNT))) {
-						ParticleEffects.particles(world, pos.getX(), pos.getY(), pos.getZ(), EnumParticleTypes.EXPLOSION_HUGE, 100);
-						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.explosivecaster, 1));
+						ParticleEffects.particles(world, pos.getX(), pos.getY(), pos.getZ(),
+								EnumParticleTypes.EXPLOSION_HUGE, 100);
+						((IItemHandlerModifiable) itemHandler).setStackInSlot(0,
+								new ItemStack(ModItems.explosivecaster, 1));
 						PlayerDataMan.addMana(player, -20.0D, true);
 					} else if (stack.getItem().equals(ModItems.manaWaste)) {
 						this.getTileEntity(world, pos).wrathOfGod();

@@ -111,28 +111,29 @@ public class EntityGeminus_M extends EntityLiving {
 		if (source == DamageSource.OUT_OF_WORLD) {
 			// no-op
 			return super.attackEntityFrom(source, par2);
-		}
-		Entity e = source.getEntity();
-		this.teleportRandomly();
-		if (e instanceof EntityPlayer && PlayerDetection.isTruePlayer(e)) {
-			EntityPlayer player = (EntityPlayer) e;
-			this.teleportToEntity(e);
-			if (!playersWhoAttacked.contains(player.getUniqueID())) {
-				playersWhoAttacked.add(player.getUniqueID());
-				setPlayerCount(getPlayerCount() + 1);
-			}
-			player.isOnLadder();
-			player.isInWater();
-			if ((player.getHeldItemMainhand().getItem() instanceof ItemSword
-					|| player.getHeldItemMainhand() == ItemStack.EMPTY) && !world.isRemote) {
-				player.addPotionEffect(blindness);
-			}
-			player.isRiding();
+		} else {
+			Entity e = source.getEntity();
+			this.teleportRandomly();
+			if (e instanceof EntityPlayer && PlayerDetection.isTruePlayer(e)) {
+				EntityPlayer player = (EntityPlayer) e;
+				this.teleportToEntity(e);
+				if (!playersWhoAttacked.contains(player.getUniqueID())) {
+					playersWhoAttacked.add(player.getUniqueID());
+					setPlayerCount(getPlayerCount() + 1);
+				}
+				player.isOnLadder();
+				player.isInWater();
+				if ((player.getHeldItemMainhand().getItem() instanceof ItemSword
+						|| player.getHeldItemMainhand() == ItemStack.EMPTY) && !world.isRemote) {
+					player.addPotionEffect(blindness);
+				}
+				player.isRiding();
 
-			int cap = 25;
-			return super.attackEntityFrom(source, Math.min(cap, par2));
+				int cap = 25;
+				return super.attackEntityFrom(source, Math.min(cap, par2));
+			}
+			return false;
 		}
-		return false;
 	}
 
 	@Override

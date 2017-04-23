@@ -18,6 +18,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * I can't believe this <em>actually</em> happened.
+ * 
  * @author Edwan Vi
  */
 public class ItemEdibleHat extends ItemFood {
@@ -29,17 +30,20 @@ public class ItemEdibleHat extends ItemFood {
 		setCreativeTab(ModItems.CREATIVETAB);
 		GameRegistry.register(this);
 	}
+
 	@Override
 	protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
 		if (!worldIn.isRemote) {
 			player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 2400, 0));
-            player.addPotionEffect(new PotionEffect(MobEffects.POISON, 100, 1));
+			player.addPotionEffect(new PotionEffect(MobEffects.POISON, 100, 1));
 		}
 	}
+
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
 		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
+
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {

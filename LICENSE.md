@@ -15,7 +15,7 @@ The data or text under this license is therefore called the object.
  1. You must add the following notice in any copy of the object that you may create : Written originally by Edwan Vi in {year of latest commit}.
  2. You must not remove the license information present in the object.
  3. You must keep a changelog somewhere inside the modified object in the following format : {Version} {YYYY-MM-DD HH:MM (24-hour cycle)} {Description} {Pages/files changed list}.
- 4. The same rules about commercial use stated in clause 1.1 applies here.
+ 4. The same rules about commercial use stated in clause 1.2 applies here.
  5. You must include the following notice in any object-modified copies you redistribute : This document or data is a derivative of {Name} and the information contained here may or may not represent the original document or data.
  6. You must include this file along with any object-modified copies you redistribute.
  7. In case of juridical problems that may arise from licensee edits the licensee is liable instead of the licensor.
