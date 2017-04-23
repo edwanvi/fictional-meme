@@ -100,7 +100,7 @@ public class EntityMissile extends EntityThrowable {
 			if (e instanceof EntityMissile || e instanceof EntityGeminus_M || e instanceof EntityGeminus_F) {
 				// no-op
 			} else {
-				e.attackEntityFrom(DamageSource.MAGIC, 1.0F);
+				e.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this.getThrower()), 1.0F);
 			}
 			this.kill();
 		}
