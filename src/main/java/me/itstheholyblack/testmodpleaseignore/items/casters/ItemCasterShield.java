@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.core.NBTHelper;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
+import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import me.itstheholyblack.testmodpleaseignore.network.MessageDataSync;
 import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -34,6 +35,7 @@ public class ItemCasterShield extends Item {
 		this.maxStackSize = 1;
 		this.setRegistryName("shield_caster");
 		setUnlocalizedName(Reference.MODID + "." + "shield_caster");
+		this.setCreativeTab(ModItems.CREATIVETAB);
 		this.addPropertyOverride(new ResourceLocation("deployed"), new IItemPropertyGetter() {
 			@Override
 			@SideOnly(Side.CLIENT)
