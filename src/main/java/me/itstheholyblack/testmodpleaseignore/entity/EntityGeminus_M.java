@@ -9,11 +9,13 @@ import javax.annotation.Nonnull;
 
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDetection;
 import me.itstheholyblack.testmodpleaseignore.core.Randomizer;
+import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -465,5 +467,19 @@ public class EntityGeminus_M extends EntityLiving {
 	@Override
 	public boolean canDespawn() {
 		return false;
+	}
+
+	// droppin' loots
+	@Override
+	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, @Nonnull DamageSource source) {
+		if (!this.getEntityWorld().isRemote) {
+			// Create some items
+			Random rng = this.getRNG();
+			ItemStack loot = new ItemStack(ModItems.shieldCast);
+			double itemX = this.getPosition().getX() + (rng.nextDouble() * 5);
+			double itemY = this.getPosition().getY() + 15;
+			EntityItem lootentity = new EntityItem(this.getEntityWorld(), interpTargetPitch, interpTargetPitch, interpTargetPitch, loot);
+		}
+		super.dropEquipment(wasRecentlyHit, lootingModifier);
 	}
 }
