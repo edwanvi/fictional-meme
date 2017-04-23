@@ -134,10 +134,14 @@ public class TileEntitySpellweaver extends TileEntity implements ITickable {
 	}
 
 	// ~~ END TileEntityEnchantmentTable CODE ~~
-	public void wrathOfGod() {
+	public void wrathOfGod(int times) {
 		BlockPos pos = this.getPos();
-		world.addWeatherEffect(new EntityLightningBolt(world, pos.getX(), pos.getY(), pos.getZ(), false));
-		ParticleEffects.particles(world, pos.getX(), pos.getY(), pos.getZ(), EnumParticleTypes.LAVA, 100);
+		int i = 0;
+		while (i <= times) {
+			world.addWeatherEffect(new EntityLightningBolt(world, pos.getX(), pos.getY(), pos.getZ(), false));
+			ParticleEffects.particles(world, pos.getX(), pos.getY(), pos.getZ(), EnumParticleTypes.LAVA, 100);
+			i++;
+		}
 	}
 
 	// Data syncing
