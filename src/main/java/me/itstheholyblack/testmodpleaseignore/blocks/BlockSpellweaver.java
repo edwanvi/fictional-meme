@@ -97,7 +97,7 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 								new ItemStack(ModItems.explosivecaster, 1));
 						PlayerDataMan.addMana(player, -20.0D, true);
 					} else if (stack.getItem().equals(ModItems.manaWaste)) {
-						this.getTileEntity(world, pos).wrathOfGod();
+						this.getTileEntity(world, pos).wrathOfGod(stack.getCount());
 						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, ItemStack.EMPTY);
 					} else if (!stack.isEmpty()) {
 						PlayerDataMan.addMana(player, -15.0D, true);
