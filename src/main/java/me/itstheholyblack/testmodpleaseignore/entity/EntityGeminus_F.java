@@ -57,7 +57,7 @@ public class EntityGeminus_F extends EntityLiving {
 	public EntityGeminus_M brother;
 	// closest player, may be null
 	private EntityPlayer closestPlayer;
-	private static final double TELEPORT_RANGE_DOUBLE = 64.0D;
+	private static final double TELEPORT_RANGE_DOUBLE = 32.0D;
 	private static final int TELEPORT_RANGE_INT = (int) TELEPORT_RANGE_DOUBLE;
 	public static final PotionEffect blindness = new PotionEffect(MobEffects.BLINDNESS, 900);
 
