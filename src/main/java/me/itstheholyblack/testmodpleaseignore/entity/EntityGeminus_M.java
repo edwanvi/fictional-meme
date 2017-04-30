@@ -53,7 +53,7 @@ public class EntityGeminus_M extends EntityLiving {
 			DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> SHULKER_COOLDOWN = EntityDataManager.createKey(EntityGeminus_M.class,
 			DataSerializers.VARINT);
-	private static final double TELEPORT_RANGE_DOUBLE = 32.0D;
+	private static final double TELEPORT_RANGE_DOUBLE = 64.0D;
 	private static final int TELEPORT_RANGE_INT = (int) TELEPORT_RANGE_DOUBLE;
 	// list of shulkers so we don't spawn a billion of them
 	public List<EntityShulkerMinion> shulkerList = new ArrayList<>();
@@ -121,15 +121,12 @@ public class EntityGeminus_M extends EntityLiving {
 				this.teleportToEntity(e);
 				if (!playersWhoAttacked.contains(player.getUniqueID())) {
 					playersWhoAttacked.add(player.getUniqueID());
-					setPlayerCount(getPlayerCount() + 1);
+					dataManager.set(PLAYER_COUNT, dataManager.get(PLAYER_COUNT) + 1);
 				}
-				player.isOnLadder();
-				player.isInWater();
 				if ((player.getHeldItemMainhand().getItem() instanceof ItemSword
 						|| player.getHeldItemMainhand() == ItemStack.EMPTY) && !world.isRemote) {
 					player.addPotionEffect(blindness);
 				}
-				player.isRiding();
 
 				int cap = 25;
 				return super.attackEntityFrom(source, Math.min(cap, par2));
@@ -478,7 +475,8 @@ public class EntityGeminus_M extends EntityLiving {
 			ItemStack loot = new ItemStack(ModItems.shieldCast);
 			double itemX = this.getPosition().getX() + (rng.nextDouble() * 5);
 			double itemY = this.getPosition().getY() + 15;
-			EntityItem lootentity = new EntityItem(this.getEntityWorld(), interpTargetPitch, interpTargetPitch, interpTargetPitch, loot);
+			EntityItem lootentity = new EntityItem(this.getEntityWorld(), interpTargetPitch, interpTargetPitch,
+					interpTargetPitch, loot);
 		}
 		super.dropEquipment(wasRecentlyHit, lootingModifier);
 	}
