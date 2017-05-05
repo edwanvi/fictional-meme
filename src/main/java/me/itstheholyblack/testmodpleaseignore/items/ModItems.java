@@ -27,6 +27,7 @@ public final class ModItems {
 	public static ItemIntrospectiveMirror introMirror;
 	public static ItemEdibleHat ediblehat;
 	public static ItemCasterShield shieldCast;
+	public static ExplosiveArrow eArrow;
 
 	public static final CreativeTabs CREATIVETAB = new CreativeTabs("testModPleaseIgnore") {
 		@Override
@@ -49,6 +50,7 @@ public final class ModItems {
 		introMirror = new ItemIntrospectiveMirror();
 		ediblehat = new ItemEdibleHat();
 		shieldCast = new ItemCasterShield();
+		eArrow = new ExplosiveArrow();
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -67,5 +69,6 @@ public final class ModItems {
 		introMirror.initModel();
 		ediblehat.initModel();
 		shieldCast.initModel();
+		eArrow.initModel();
 	}
 }
