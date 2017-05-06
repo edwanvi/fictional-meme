@@ -4,6 +4,7 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import me.itstheholyblack.testmodpleaseignore.core.Randomizer;
 import net.minecraft.block.BlockBreakable;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -46,7 +47,6 @@ public class BlockPoisonGas extends BlockBreakable {
 	 */
 	@Override
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-
 		if (entityIn instanceof EntityLiving) {
 			if (!entityIn.isEntityInvulnerable(DamageSource.MAGIC)) {
 				entityIn.attackEntityFrom(DamageSource.MAGIC, 0.5F);
@@ -85,8 +85,11 @@ public class BlockPoisonGas extends BlockBreakable {
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-		if (worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11 && rand.nextBoolean()) {
-			worldIn.setBlockToAir(pos);
+		if ((worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11 && rand.nextBoolean())
+				|| Randomizer.getRandomBoolean(0.01)) {
+			if (!worldIn.isRemote) {
+				worldIn.setBlockToAir(pos);
+			}
 		}
 	}
 }
