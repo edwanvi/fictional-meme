@@ -5,7 +5,8 @@ License Copyright (C) 2016 Alexandre Quoniou<br>
 Object copyright (C) 2016 Edwan Vi<br>
 The original creator of the data or text under this license is thereby called the licensor.<br>
 The person physical or juridical obtaining a copy of the data or text under this license is thereby called the licensee.<br>
-The data or text under this license is therefore called the object.
+The data or text under this license is therefore called the object.<br>
+When versions of this license differ across branches, the most recent version on `develop` shall control and prevail, because I usually publish from there.<br>
 
 ## The licensee rights and obligations
 
