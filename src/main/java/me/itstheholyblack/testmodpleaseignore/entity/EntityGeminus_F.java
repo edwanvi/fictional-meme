@@ -147,7 +147,7 @@ public class EntityGeminus_F extends EntityLiving {
 				spawnMissile();
 			dataManager.set(SPAWNING, false);
 			setCooldown(COOLDOWN);
-		} else if (close && this.getHealth() < this.getMaxHealth() / 2 && this.getEntityWorld().rand.nextBoolean()) {
+		} else if (close && this.getHealth() < this.getMaxHealth() / 2 && Randomizer.getRandomBoolean(0.1)) {
 			LibMisc.makeSphere(this.getEntityWorld(), this.closestPlayer.getPosition(),
 					ModBlocks.m_fumes.getDefaultState(), 5);
 		}

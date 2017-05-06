@@ -21,8 +21,8 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -123,7 +123,7 @@ public class EntityGeminus_M extends EntityLiving {
 					playersWhoAttacked.add(player.getUniqueID());
 					dataManager.set(PLAYER_COUNT, dataManager.get(PLAYER_COUNT) + 1);
 				}
-				if ((player.getHeldItemMainhand().getItem() instanceof ItemSword
+				if ((!(player.getHeldItemMainhand().getItem() instanceof ItemBow)
 						|| player.getHeldItemMainhand() == ItemStack.EMPTY) && !world.isRemote) {
 					player.addPotionEffect(blindness);
 				}
@@ -248,6 +248,10 @@ public class EntityGeminus_M extends EntityLiving {
 			setCooldown(COOLDOWN);
 		}
 		this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
+		// check if sister is dead
+		if (this.sister.isDead) {
+			this.setDead();
+		}
 		super.onLivingUpdate();
 	}
 
