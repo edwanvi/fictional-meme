@@ -1,4 +1,4 @@
-package me.itstheholyblack.testmodpleaseignore.core;
+package me.itstheholyblack.testmodpleaseignore.util;
 
 import java.util.Random;
 
