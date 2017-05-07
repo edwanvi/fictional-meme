@@ -5,11 +5,11 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import me.itstheholyblack.testmodpleaseignore.Reference;
-import me.itstheholyblack.testmodpleaseignore.core.NBTHelper;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import me.itstheholyblack.testmodpleaseignore.network.MessageDataSync;
 import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
+import me.itstheholyblack.testmodpleaseignore.util.NBTHelper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;

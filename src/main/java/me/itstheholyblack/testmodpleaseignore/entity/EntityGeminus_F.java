@@ -10,7 +10,7 @@ import me.itstheholyblack.testmodpleaseignore.blocks.BlockPoisonGas;
 import me.itstheholyblack.testmodpleaseignore.blocks.ModBlocks;
 import me.itstheholyblack.testmodpleaseignore.core.LibMisc;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDetection;
-import me.itstheholyblack.testmodpleaseignore.core.Randomizer;
+import me.itstheholyblack.testmodpleaseignore.util.Randomizer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;

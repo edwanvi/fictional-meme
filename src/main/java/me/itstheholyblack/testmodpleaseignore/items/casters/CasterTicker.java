@@ -1,8 +1,8 @@
 package me.itstheholyblack.testmodpleaseignore.items.casters;
 
-import me.itstheholyblack.testmodpleaseignore.core.NBTHelper;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
+import me.itstheholyblack.testmodpleaseignore.util.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

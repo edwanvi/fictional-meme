@@ -1,7 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.entity;
 
-import me.itstheholyblack.testmodpleaseignore.core.Randomizer;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
+import me.itstheholyblack.testmodpleaseignore.util.Randomizer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Biomes;

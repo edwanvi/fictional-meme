@@ -4,7 +4,7 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import me.itstheholyblack.testmodpleaseignore.core.Randomizer;
+import me.itstheholyblack.testmodpleaseignore.util.Randomizer;
 import net.minecraft.block.BlockBreakable;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;

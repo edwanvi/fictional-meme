@@ -7,9 +7,11 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
+import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDetection;
-import me.itstheholyblack.testmodpleaseignore.core.Randomizer;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
+import me.itstheholyblack.testmodpleaseignore.util.Randomizer;
+import me.itstheholyblack.testmodpleaseignore.util.TerribleFate;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -151,17 +153,13 @@ public class EntityGeminus_M extends EntityLiving {
 	 */
 	public void onDeath(@Nonnull DamageSource source) {
 		super.onDeath(source);
-		if (source == DamageSource.OUT_OF_WORLD) {
-			// no-op
-			return;
-		}
 		EntityLivingBase entitylivingbase = getAttackingEntity();
 		for (int i = 0; i < playersWhoAttacked.size(); i++) {
 			UUID u = playersWhoAttacked.get(i);
 			EntityPlayer e = world.getPlayerEntityByUUID(u);
 			// I said you wouldn't survive
 			System.out.println("Killing player " + e.getName());
-			e.attackEntityFrom(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);
+			e.attackEntityFrom(TerribleFate.FATE, Float.MAX_VALUE);
 		}
 		for (int i = 0; i < shulkerList.size(); i++) {
 			EntityShulkerMinion e = shulkerList.get(i);

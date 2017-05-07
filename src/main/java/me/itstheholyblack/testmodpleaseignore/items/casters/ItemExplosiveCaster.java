@@ -3,9 +3,9 @@ package me.itstheholyblack.testmodpleaseignore.items.casters;
 import javax.annotation.Nullable;
 
 import me.itstheholyblack.testmodpleaseignore.Reference;
-import me.itstheholyblack.testmodpleaseignore.core.NBTHelper;
 import me.itstheholyblack.testmodpleaseignore.core.Raycasting;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
+import me.itstheholyblack.testmodpleaseignore.util.NBTHelper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
