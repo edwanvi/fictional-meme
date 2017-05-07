@@ -7,6 +7,7 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -40,7 +41,7 @@ public class EntityExplosiveArrow extends EntityArrow {
 		if (myPos.yCoord >= living.getPositionEyes(1).yCoord - 0.4
 				&& myPos.yCoord <= living.getPositionEyes(1).yCoord + 0.4) {
 			System.out.println("Succesful headshot!");
-			living.setDead();
+			living.attackEntityFrom(DamageSource.causeArrowDamage(this, this.shootingEntity), 40);
 		}
 		if (!this.isBurning()) {
 			world.createExplosion(this, pos.getX(), pos.getY(), pos.getZ(), 3, false);
