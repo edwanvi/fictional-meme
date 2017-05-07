@@ -272,7 +272,6 @@ public class EntityGeminus_F extends EntityLiving {
 		double d0 = posX + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
 		double d1 = posY + (rand.nextInt(TELEPORT_RANGE_INT) - 32);
 		double d2 = posZ + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
-		System.out.println("Teleporting to " + d0 + " " + +d1 + " " + d2);
 		return teleportTo(d0, d1, d2);
 	}
 
