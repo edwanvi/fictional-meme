@@ -179,7 +179,11 @@ public class EntityGeminus_F extends EntityLiving {
 			this.teleportRandomly();
 			if (e instanceof EntityPlayer && PlayerDetection.isTruePlayer(e)) {
 				EntityPlayer player = (EntityPlayer) e;
-				this.teleportToEntity(e);
+				int i = 0;
+				while (!this.teleportToEntity(e) && i < 64) {
+					i++;
+					continue;
+				}
 				if (!playersWhoAttacked.contains(player.getUniqueID())) {
 					playersWhoAttacked.add(player.getUniqueID());
 					dataManager.set(PLAYER_COUNT, dataManager.get(PLAYER_COUNT) + 1);
@@ -191,6 +195,12 @@ public class EntityGeminus_F extends EntityLiving {
 
 				int cap = 25;
 				return super.attackEntityFrom(source, Math.min(cap, par2));
+			} else {
+				int i = 0;
+				while (!this.teleportRandomly() && i < 64) {
+					i++;
+					continue;
+				}
 			}
 			return false;
 		}
