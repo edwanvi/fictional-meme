@@ -9,6 +9,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ShapelessRecipes {
 	public static void initRecipes() {
 		// Use this to declare shapeless crafting recipes
-		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.eArrow), new Object[] {Items.ARROW, Blocks.TNT});
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.eArrow), new Object[] { Items.ARROW, Blocks.TNT });
 	}
 }

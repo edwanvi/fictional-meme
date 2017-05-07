@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 // because fuck you, that's why
 public class ExplosiveArrow extends ItemArrow {
-	
+
 	public ExplosiveArrow() {
 		super();
 		setRegistryName("earrow");
@@ -25,14 +25,15 @@ public class ExplosiveArrow extends ItemArrow {
 		setCreativeTab(ModItems.CREATIVETAB);
 		GameRegistry.register(this);
 	}
-	
+
 	public EntityExplosiveArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
 		EntityExplosiveArrow entitytippedarrow = new EntityExplosiveArrow(worldIn, shooter);
 		return entitytippedarrow;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Items.ARROW.getRegistryName(), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(this, 0,
+				new ModelResourceLocation(Items.ARROW.getRegistryName(), "inventory"));
 	}
 }
