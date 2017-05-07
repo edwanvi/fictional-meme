@@ -54,3 +54,6 @@ item.testmodpleaseignore.manawaste.name=Manawaste
 tile.testmodpleaseignore.spellweaver.name=Spellweaver
 
 item.testmodpleaseignore.earrow.name=Explosive Arrow
+
+death.attack.testmodpleaseignore.t_fate=%1$s suffered a terrible fate
+death.attack.testmodpleaseignore.t_fate.player=%1$s suffered a terrible fate thanks to %2$s
