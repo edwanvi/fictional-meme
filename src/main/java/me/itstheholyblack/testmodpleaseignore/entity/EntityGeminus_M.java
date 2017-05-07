@@ -18,6 +18,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -39,7 +40,7 @@ import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
 
-public class EntityGeminus_M extends EntityLiving {
+public class EntityGeminus_M extends EntityLiving implements IMob {
 	private static final float MAX_HP = 320F;
 	// list of players who attacked the geminus pairing
 	public final List<UUID> playersWhoAttacked = new ArrayList<>();

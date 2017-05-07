@@ -16,10 +16,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.network.datasync.DataParameter;
@@ -33,7 +35,7 @@ import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.World;
 
-public class EntityGeminus_F extends EntityLiving {
+public class EntityGeminus_F extends EntityLiving implements IMob {
 	private static final float MAX_HP = 320F;
 	// list of players who attacked the geminus pairing
 	// set to null since sister inherits this from brother
@@ -176,19 +178,18 @@ public class EntityGeminus_F extends EntityLiving {
 			return super.attackEntityFrom(source, par2);
 		} else {
 			Entity e = source.getEntity();
-			this.teleportRandomly();
 			if (e instanceof EntityPlayer && PlayerDetection.isTruePlayer(e)) {
 				EntityPlayer player = (EntityPlayer) e;
+				System.out.println("Attacked by " + e.getName());
 				int i = 0;
 				while (!this.teleportToEntity(e) && i < 64) {
 					i++;
-					continue;
 				}
 				if (!playersWhoAttacked.contains(player.getUniqueID())) {
 					playersWhoAttacked.add(player.getUniqueID());
 					dataManager.set(PLAYER_COUNT, dataManager.get(PLAYER_COUNT) + 1);
 				}
-				if ((player.getHeldItemMainhand().getItem() instanceof ItemSword
+				if ((!(player.getHeldItemMainhand().getItem() instanceof ItemBow)
 						|| player.getHeldItemMainhand() == ItemStack.EMPTY) && !world.isRemote) {
 					player.addPotionEffect(blindness);
 				}
@@ -199,10 +200,9 @@ public class EntityGeminus_F extends EntityLiving {
 				int i = 0;
 				while (!this.teleportRandomly() && i < 64) {
 					i++;
-					continue;
 				}
 			}
-			return false;
+			return super.attackEntityFrom(source, Math.min(25, par2));
 		}
 	}
 
