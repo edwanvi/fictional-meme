@@ -86,7 +86,7 @@ public class BlockPoisonGas extends BlockBreakable {
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 		if ((worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11 && rand.nextBoolean())
-				|| Randomizer.getRandomBoolean(0.01)) {
+				|| Randomizer.getRandomBoolean(0.75)) {
 			if (!worldIn.isRemote) {
 				worldIn.setBlockToAir(pos);
 			}
