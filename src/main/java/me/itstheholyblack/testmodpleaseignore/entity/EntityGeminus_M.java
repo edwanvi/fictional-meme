@@ -185,10 +185,6 @@ public class EntityGeminus_M extends EntityMob implements IMob, IRangedAttackMob
 		this.applyEntityAI();
 	}
 
-	protected void applyEntityAI() {
-
-	}
-
 	@Override
 	public void onLivingUpdate() {
 		if (this.getHome() == null || this.getHome().equals(BlockPos.ORIGIN)) {
