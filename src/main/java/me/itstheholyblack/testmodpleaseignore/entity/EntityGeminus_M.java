@@ -113,7 +113,6 @@ public class EntityGeminus_M extends EntityMob implements IMob, IRangedAttackMob
 	 * Called when the entity is attacked. Causes blindness and adds the
 	 * attacker to a hit list.
 	 * 
-	 * @author Vazkii
 	 * @author Edwan Vi
 	 */
 	@Override
@@ -278,8 +277,6 @@ public class EntityGeminus_M extends EntityMob implements IMob, IRangedAttackMob
 
 	/**
 	 * Spawns a missile attack.
-	 * 
-	 * @author Vazkii
 	 */
 	private void spawnMissile(EntityLivingBase target) {
 		EntityMissile missile = new EntityMissile(this, target);
@@ -347,7 +344,7 @@ public class EntityGeminus_M extends EntityMob implements IMob, IRangedAttackMob
 	 * Teleport to a random position within 64 blocks.
 	 * 
 	 * @return A boolean indicating whether or not we succeeded.
-	 * @author Notch
+	 * @author Mojang
 	 */
 	private boolean teleportRandomly() {
 		double d0 = posX + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
@@ -359,7 +356,7 @@ public class EntityGeminus_M extends EntityMob implements IMob, IRangedAttackMob
 	/**
 	 * Teleport to another entity
 	 * 
-	 * @author Notch
+	 * @author Mojang
 	 */
 	protected boolean teleportToEntity(Entity p_70816_1_) {
 		Vec3d vec3d = new Vec3d(this.posX - p_70816_1_.posX,
@@ -383,7 +380,7 @@ public class EntityGeminus_M extends EntityMob implements IMob, IRangedAttackMob
 	 * @param z
 	 *            The z coordinate of our destination.
 	 * @return A boolean indicating whether or not we succeeded.
-	 * @author Notch
+	 * @author Mojang
 	 */
 	private boolean teleportTo(double x, double y, double z) {
 		net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(
@@ -436,7 +433,6 @@ public class EntityGeminus_M extends EntityMob implements IMob, IRangedAttackMob
 	 * @return The spawned shulker (or {@code null} if we couldn't spawn it for
 	 *         some reason.)
 	 */
-	// @SideOnly(Side.SERVER)
 	private EntityShulkerMinion shulkerReplace(BlockPos pos) {
 		System.out.println("Spawning Shulker Minion");
 		EntityShulkerMinion shulk = new EntityShulkerMinion(this.world, this);
