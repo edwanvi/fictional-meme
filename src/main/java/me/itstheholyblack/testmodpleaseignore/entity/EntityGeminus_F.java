@@ -13,7 +13,9 @@ import me.itstheholyblack.testmodpleaseignore.util.Randomizer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
@@ -36,7 +38,7 @@ import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.World;
 
-public class EntityGeminus_F extends EntityMob implements IMob {
+public class EntityGeminus_F extends EntityMob implements IMob, IRangedAttackMob {
 	private static final float MAX_HP = 320F;
 	// list of players who attacked the geminus pairing
 	// set to null since sister inherits this from brother
@@ -90,7 +92,8 @@ public class EntityGeminus_F extends EntityMob implements IMob {
 	@Override
 	protected void initEntityAI() {
 		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, TELEPORT_RANGE_INT));
-		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityLiving.class, false, false));
+		this.tasks.addTask(1, new EntityAIAttackRanged(this, 1.25D, 1, 10.0F));
+		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityLiving.class, 10, false, false, LibMisc.PLAYER_SELECTOR));
 		this.applyEntityAI();
 	}
 

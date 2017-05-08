@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
+import me.itstheholyblack.testmodpleaseignore.core.LibMisc;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDetection;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import me.itstheholyblack.testmodpleaseignore.util.Randomizer;
@@ -14,9 +15,13 @@ import me.itstheholyblack.testmodpleaseignore.util.TerribleFate;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -40,7 +45,7 @@ import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
 
-public class EntityGeminus_M extends EntityLiving implements IMob {
+public class EntityGeminus_M extends EntityMob implements IMob, IRangedAttackMob {
 	private static final float MAX_HP = 320F;
 	// list of players who attacked the geminus pairing
 	public final List<UUID> playersWhoAttacked = new ArrayList<>();
@@ -175,6 +180,8 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 	@Override
 	protected void initEntityAI() {
 		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, TELEPORT_RANGE_INT));
+		this.tasks.addTask(1, new EntityAIAttackRanged(this, 1.25D, 1, 64.0F));
+		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityLiving.class, 10, false, false, LibMisc.PLAYER_SELECTOR));
 		this.applyEntityAI();
 	}
 
@@ -220,6 +227,9 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 		if (!spawning && getCooldown() < 1) {
 			spawning = !(Randomizer.getRandomBoolean(this.getHealth() / this.getMaxHealth()));
 		}
+		if (spawning) {
+			this.attackEntityWithRangedAttack(this.closestPlayer, 0);
+		}
 		// shulker spawning code
 		if (getShulkerCooldown() < 1) {
 			boolean shouldSpawnShulker = !(Randomizer.getRandomBoolean(PERCENT_HP / 10)) && shulkerList.size() < 5;
@@ -249,12 +259,6 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 				}
 			}
 		}
-		if (spawning) {
-			for (int i = 0; i < playerCount; i++)
-				spawnMissile();
-			dataManager.set(SPAWNING, false);
-			setCooldown(COOLDOWN);
-		}
 		this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
 		// check if sister is dead
 		if (this.sister.isDead) {
@@ -281,8 +285,8 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 	 * 
 	 * @author Vazkii
 	 */
-	private void spawnMissile() {
-		EntityMissile missile = new EntityMissile(this, this.closestPlayer);
+	private void spawnMissile(EntityLivingBase target) {
+		EntityMissile missile = new EntityMissile(this, target);
 		// set missile position to ours, give or take some random values
 		missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1),
 				posZ + (Math.random() - 0.5 * 0.1));
@@ -491,5 +495,10 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 					interpTargetPitch, loot);
 		}
 		super.dropEquipment(wasRecentlyHit, lootingModifier);
+	}
+
+	@Override
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
+		this.spawnMissile(target);
 	}
 }

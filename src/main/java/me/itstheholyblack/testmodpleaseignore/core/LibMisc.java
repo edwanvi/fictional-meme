@@ -1,10 +1,12 @@
 package me.itstheholyblack.testmodpleaseignore.core;
 
-import java.util.List;
-import java.util.UUID;
+import javax.annotation.Nullable;
+
+import com.google.common.base.Predicate;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
@@ -13,6 +15,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 
 public class LibMisc {
+
+	public static Predicate<Entity> PLAYER_SELECTOR = new Predicate<Entity>() {
+		public boolean apply(@Nullable Entity p_apply_1_) {
+			return p_apply_1_ instanceof EntityPlayer;
+		}
+	};
+
 	public static TileEntity getTileEntitySafely(IBlockAccess blockAccess, BlockPos pos) {
 		if (blockAccess instanceof ChunkCache) {
 			return ((ChunkCache) blockAccess).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
