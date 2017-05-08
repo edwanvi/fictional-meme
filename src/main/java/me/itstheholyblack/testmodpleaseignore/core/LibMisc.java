@@ -1,6 +1,10 @@
 package me.itstheholyblack.testmodpleaseignore.core;
 
+import java.util.List;
+import java.util.UUID;
+
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;

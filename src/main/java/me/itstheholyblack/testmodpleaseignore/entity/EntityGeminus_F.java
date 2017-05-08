@@ -6,24 +6,25 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
-import me.itstheholyblack.testmodpleaseignore.blocks.BlockPoisonGas;
 import me.itstheholyblack.testmodpleaseignore.blocks.ModBlocks;
 import me.itstheholyblack.testmodpleaseignore.core.LibMisc;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDetection;
 import me.itstheholyblack.testmodpleaseignore.util.Randomizer;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -35,7 +36,7 @@ import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.World;
 
-public class EntityGeminus_F extends EntityLiving implements IMob {
+public class EntityGeminus_F extends EntityMob implements IMob {
 	private static final float MAX_HP = 320F;
 	// list of players who attacked the geminus pairing
 	// set to null since sister inherits this from brother
@@ -89,6 +90,7 @@ public class EntityGeminus_F extends EntityLiving implements IMob {
 	@Override
 	protected void initEntityAI() {
 		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, TELEPORT_RANGE_INT));
+		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityLiving.class, false, false));
 		this.applyEntityAI();
 	}
 
@@ -138,18 +140,16 @@ public class EntityGeminus_F extends EntityLiving implements IMob {
 		if (!spawning && getCooldown() < 1) {
 			spawning = !(Randomizer.getRandomBoolean(this.getHealth() / this.getMaxHealth()));
 		}
+		if (spawning) {
+			this.attackEntityWithRangedAttack(this.closestPlayer, 0);
+		}
 		boolean close;
 		try {
 			close = this.getDistanceToEntity(closestPlayer) <= 10.0F;
 		} catch (NullPointerException e) {
 			close = false;
 		}
-		if (spawning) {
-			for (int i = 0; i < playersWhoAttacked.size(); i++)
-				spawnMissile();
-			dataManager.set(SPAWNING, false);
-			setCooldown(COOLDOWN);
-		} else if (close && this.getHealth() < this.getMaxHealth() / 2 && Randomizer.getRandomBoolean(0.1)) {
+		if (close && this.getHealth() < this.getMaxHealth() / 2 && Randomizer.getRandomBoolean(0.1)) {
 			LibMisc.makeSphere(this.getEntityWorld(), this.closestPlayer.getPosition(),
 					ModBlocks.m_fumes.getDefaultState(), 5);
 		}
@@ -202,7 +202,7 @@ public class EntityGeminus_F extends EntityLiving implements IMob {
 					i++;
 				}
 			}
-			return super.attackEntityFrom(source, Math.min(25, par2));
+			return false;
 		}
 	}
 
@@ -210,14 +210,19 @@ public class EntityGeminus_F extends EntityLiving implements IMob {
 	 * Spawns a missile attack.
 	 * 
 	 * @author Vazkii
+	 * @param target
 	 */
-	private void spawnMissile() {
-		EntityMissile missile = new EntityMissile(this);
+	private void spawnMissile(EntityLivingBase target) {
+		EntityMissile missile = new EntityMissile(this, target);
 		// set missile position to ours, give or take some random values
 		missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1),
 				posZ + (Math.random() - 0.5 * 0.1));
 		// add the missile to the world
 		world.spawnEntity(missile);
+	}
+
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
+		this.spawnMissile(target);
 	}
 
 	// setters and getters below this line *only*

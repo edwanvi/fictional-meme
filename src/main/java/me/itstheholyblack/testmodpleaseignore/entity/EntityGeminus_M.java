@@ -7,7 +7,6 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
-import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDetection;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import me.itstheholyblack.testmodpleaseignore.util.Randomizer;
@@ -21,6 +20,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -203,6 +203,7 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 		}
 		if (this.closestPlayer != null && this.closestPlayer.isPotionActive(MobEffects.BLINDNESS)) {
 			this.teleportToEntity(closestPlayer);
+			spawning = true;
 		}
 		// count of players
 		int playerCount = getPlayerCount();
@@ -281,7 +282,7 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 	 * @author Vazkii
 	 */
 	private void spawnMissile() {
-		EntityMissile missile = new EntityMissile(this);
+		EntityMissile missile = new EntityMissile(this, this.closestPlayer);
 		// set missile position to ours, give or take some random values
 		missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1),
 				posZ + (Math.random() - 0.5 * 0.1));
