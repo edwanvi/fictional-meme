@@ -97,10 +97,6 @@ public class EntityGeminus_F extends EntityMob implements IMob, IRangedAttackMob
 		this.applyEntityAI();
 	}
 
-	protected void applyEntityAI() {
-		// no-op
-	}
-
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
@@ -177,7 +173,7 @@ public class EntityGeminus_F extends EntityMob implements IMob, IRangedAttackMob
 	@Override
 	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
 		if (source == DamageSource.OUT_OF_WORLD) {
-			// no-op
+			// respect /kill and falling
 			return super.attackEntityFrom(source, par2);
 		} else {
 			Entity e = source.getEntity();
@@ -185,6 +181,7 @@ public class EntityGeminus_F extends EntityMob implements IMob, IRangedAttackMob
 				EntityPlayer player = (EntityPlayer) e;
 				System.out.println("Attacked by " + e.getName());
 				int i = 0;
+				// Try to teleport 64 times
 				while (!this.teleportToEntity(e) && i < 64) {
 					i++;
 				}
@@ -212,8 +209,7 @@ public class EntityGeminus_F extends EntityMob implements IMob, IRangedAttackMob
 	/**
 	 * Spawns a missile attack.
 	 * 
-	 * @author Vazkii
-	 * @param target
+	 * @param target The entity this missle will follow.
 	 */
 	private void spawnMissile(EntityLivingBase target) {
 		EntityMissile missile = new EntityMissile(this, target);
@@ -284,7 +280,7 @@ public class EntityGeminus_F extends EntityMob implements IMob, IRangedAttackMob
 	 * Teleport to a random position within 64 blocks.
 	 * 
 	 * @return A boolean indicating whether or not we succeeded.
-	 * @author Notch
+	 * @author Mojang
 	 */
 	private boolean teleportRandomly() {
 		double d0 = posX + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
@@ -296,7 +292,7 @@ public class EntityGeminus_F extends EntityMob implements IMob, IRangedAttackMob
 	/**
 	 * Teleport to another entity
 	 * 
-	 * @author Notch
+	 * @author Mojang
 	 */
 	protected boolean teleportToEntity(Entity p_70816_1_) {
 		Vec3d vec3d = new Vec3d(this.posX - p_70816_1_.posX,
@@ -320,7 +316,7 @@ public class EntityGeminus_F extends EntityMob implements IMob, IRangedAttackMob
 	 * @param z
 	 *            The z coordinate of our destination.
 	 * @return A boolean indicating whether or not we succeeded.
-	 * @author Notch
+	 * @author Mojang
 	 */
 	private boolean teleportTo(double x, double y, double z) {
 		net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(
