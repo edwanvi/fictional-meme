@@ -96,6 +96,9 @@ public class EntityGeminus_F extends EntityMob implements IMob, IRangedAttackMob
 		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityLiving.class, 10, false, false, LibMisc.PLAYER_SELECTOR));
 		this.applyEntityAI();
 	}
+	
+	protected void applyEntityAI() {
+	}
 
 	@Override
 	protected void applyEntityAttributes() {

@@ -186,7 +186,6 @@ public class EntityGeminus_M extends EntityMob implements IMob, IRangedAttackMob
 	}
 
 	protected void applyEntityAI() {
-
 	}
 
 	@Override
