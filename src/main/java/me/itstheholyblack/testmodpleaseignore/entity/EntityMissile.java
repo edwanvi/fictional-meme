@@ -53,13 +53,13 @@ public class EntityMissile extends EntityThrowable {
 
 		super.onUpdate();
 
-		if (this.tag == null || this.tag.getDistanceSqToEntity(this) > 64.0D) {
-			this.tag = this.world.getClosestPlayerToEntity(this, 8.0D);
+		if (this.tag == null) {
+			this.tag = this.world.getClosestPlayerToEntity(this, 16.0D);
 		}
 		if (this.tag != null) {
-			double d1 = (this.tag.posX - this.posX) / 8.0D;
-			double d2 = (this.tag.posY + this.tag.getEyeHeight() / 2.0D - this.posY) / 8.0D;
-			double d3 = (this.tag.posZ - this.posZ) / 8.0D;
+			double d1 = (this.tag.posX - this.posX) / 16.0D;
+			double d2 = (this.tag.posY + this.tag.getEyeHeight() / 2.0D - this.posY) / 16.0D;
+			double d3 = (this.tag.posZ - this.posZ) / 16.0D;
 			double d4 = Math.sqrt(d1 * d1 + d2 * d2 + d3 * d3);
 			double d5 = 1.0D - d4;
 
