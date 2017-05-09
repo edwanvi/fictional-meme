@@ -49,7 +49,7 @@ public class EntityGeminus_F extends EntityMob implements IMob, IRangedAttackMob
             DataSerializers.BOOLEAN);
     private static final DataParameter<BlockPos> HOME = EntityDataManager.createKey(EntityGeminus_F.class,
             DataSerializers.BLOCK_POS);
-    private static final double TELEPORT_RANGE_DOUBLE = 32.0D;
+    private static final double TELEPORT_RANGE_DOUBLE = 64.0D;
     private static final int TELEPORT_RANGE_INT = (int) TELEPORT_RANGE_DOUBLE;
     private static final PotionEffect blindness = new PotionEffect(MobEffects.BLINDNESS, 900);
     // boss bar
