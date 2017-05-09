@@ -92,8 +92,8 @@ public class EntityGeminus_F extends EntityMob implements IMob, IRangedAttackMob
 	@Override
 	protected void initEntityAI() {
 		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, TELEPORT_RANGE_INT));
-		this.tasks.addTask(1, new EntityAIAttackRanged(this, 1.25D, 1, 10.0F));
-		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityLiving.class, 10, false, false, LibMisc.PLAYER_SELECTOR));
+		this.tasks.addTask(1, new EntityAIAttackRanged(this, 5D, 1, 10.0F));
+		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 10, false, false, null));
 		this.applyEntityAI();
 	}
 	
@@ -131,9 +131,12 @@ public class EntityGeminus_F extends EntityMob implements IMob, IRangedAttackMob
 		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
 		this.closestPlayer = this.world.getClosestPlayerToEntity(this, TELEPORT_RANGE_DOUBLE);
-		float PERCENT_HP = this.getHealth() / this.getMaxHealth();
+		float PERCENT_HP = this.getHealth() / this.getMaxHealth();		
 		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
 			this.closestPlayer = null;
+		}
+		if (this.closestPlayer != null && this.closestPlayer.getDistanceSqToEntity(this) < 10.0D && !this.closestPlayer.isPotionActive(MobEffects.BLINDNESS)) {
+			this.teleportRandomly();
 		}
 		if (this.closestPlayer != null && this.closestPlayer.isPotionActive(MobEffects.BLINDNESS)) {
 			this.teleportToEntity(closestPlayer);
@@ -161,9 +164,6 @@ public class EntityGeminus_F extends EntityMob implements IMob, IRangedAttackMob
 
 	@Override
 	protected void updateAITasks() {
-		if (this.closestPlayer != null && this.closestPlayer.getDistanceSqToEntity(this) < 2.0D) {
-			this.teleportRandomly();
-		}
 		BlockPos homePos = getHome();
 		// teleport home
 		if (this.getDistance(homePos.getX(), homePos.getY(), homePos.getZ()) > TELEPORT_RANGE_INT + 10

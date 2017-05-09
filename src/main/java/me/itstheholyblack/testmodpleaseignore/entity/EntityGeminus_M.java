@@ -181,7 +181,7 @@ public class EntityGeminus_M extends EntityMob implements IMob, IRangedAttackMob
 	protected void initEntityAI() {
 		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, TELEPORT_RANGE_INT));
 		this.tasks.addTask(1, new EntityAIAttackRanged(this, 1.25D, 1, 64.0F));
-		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityLiving.class, 10, false, false, LibMisc.PLAYER_SELECTOR));
+		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 100, false, false, null));
 		this.applyEntityAI();
 	}
 
