@@ -4,7 +4,11 @@
     "model": "testmodpleaseignore:manafumes"
   },
   "variants": {
-    "normal": [{}],
-    "inventory": [{}]
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {}
+    ]
   }
 }

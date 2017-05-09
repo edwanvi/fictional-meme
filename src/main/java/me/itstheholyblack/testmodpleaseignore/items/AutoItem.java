@@ -9,16 +9,16 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class AutoItem extends Item {
-	public AutoItem(String unlocalizedName) {
-		super();
-		setRegistryName(unlocalizedName);
-		setUnlocalizedName(Reference.MODID + "." + unlocalizedName);
-		setCreativeTab(ModItems.CREATIVETAB);
-		GameRegistry.register(this);
-	}
+    public AutoItem(String unlocalizedName) {
+        super();
+        setRegistryName(unlocalizedName);
+        setUnlocalizedName(Reference.MODID + "." + unlocalizedName);
+        setCreativeTab(ModItems.CREATIVETAB);
+        GameRegistry.register(this);
+    }
 
-	@SideOnly(Side.CLIENT)
-	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
-	}
+    @SideOnly(Side.CLIENT)
+    public void initModel() {
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+    }
 }

@@ -1,109 +1,461 @@
 {
-	"__comment": "Designed by Wire Segal with Cubik Studio - https://cubik.studio",
-	"textures": {
-		"atlas": "testmodpleaseignore:items/sling/atlas"
-	},
-	"elements": [
-		{
-			"__comment": "Cube1",
-			"from": [ 7.5, 7, 6.5 ],
-			"to": [ 8.5, 8, 10.5 ],
-			"faces": {
-				"down": { "uv": [ 0, 8, 2, 16 ], "texture": "#atlas" },
-				"up": { "uv": [ 0, 0, 2, 8 ], "texture": "#atlas" },
-				"north": { "uv": [ 10, 8, 12, 10 ], "texture": "#atlas" },
-				"south": { "uv": [ 8, 8, 10, 10 ], "texture": "#atlas" },
-				"west": { "uv": [ 2, 14, 10, 16 ], "texture": "#atlas" },
-				"east": { "uv": [ 2, 12, 10, 14 ], "texture": "#atlas" }
-			}
-		},
-		{
-			"__comment": "Cube2",
-			"from": [ 7.5, 6, 7 ],
-			"to": [ 8.5, 7, 7.5 ],
-			"faces": {
-				"down": { "uv": [ 6, 8, 8, 10 ], "texture": "#atlas" },
-				"up": { "uv": [ 4, 0, 6, 2 ], "texture": "#atlas" },
-				"north": { "uv": [ 4, 2, 6, 4 ], "texture": "#atlas" },
-				"south": { "uv": [ 4, 4, 6, 6 ], "texture": "#atlas" },
-				"west": { "uv": [ 4, 6, 6, 8 ], "texture": "#atlas" },
-				"east": { "uv": [ 4, 8, 6, 10 ], "texture": "#atlas" }
-			}
-		},
-		{
-			"__comment": "Cube3",
-			"from": [ 7.5, 6, 9 ],
-			"to": [ 8.5, 7, 9.5 ],
-			"faces": {
-				"down": { "uv": [ 14, 10, 16, 12 ], "texture": "#atlas" },
-				"up": { "uv": [ 12, 10, 14, 12 ], "texture": "#atlas" },
-				"north": { "uv": [ 10, 10, 12, 12 ], "texture": "#atlas" },
-				"south": { "uv": [ 8, 10, 10, 12 ], "texture": "#atlas" },
-				"west": { "uv": [ 6, 10, 8, 12 ], "texture": "#atlas" },
-				"east": { "uv": [ 10, 14, 12, 16 ], "texture": "#atlas" }
-			}
-		},
-		{
-			"__comment": "Cube4",
-			"from": [ 7.5, 5.5, 7.5 ],
-			"to": [ 8.5, 6, 9 ],
-			"faces": {
-				"down": { "uv": [ 12, 14, 14, 16 ], "texture": "#atlas" },
-				"up": { "uv": [ 14, 14, 16, 16 ], "texture": "#atlas" },
-				"north": { "uv": [ 10, 12, 12, 14 ], "texture": "#atlas" },
-				"south": { "uv": [ 12, 12, 14, 14 ], "texture": "#atlas" },
-				"west": { "uv": [ 14, 12, 16, 14 ], "texture": "#atlas" },
-				"east": { "uv": [ 2, 10, 4, 12 ], "texture": "#atlas" }
-			}
-		},
-		{
-			"__comment": "Cube3",
-			"from": [ 7.5, 6, 8 ],
-			"to": [ 8.5, 7, 8.5 ],
-			"faces": {
-				"down": { "uv": [ 2, 8, 4, 10 ], "texture": "#atlas" },
-				"up": { "uv": [ 2, 6, 4, 8 ], "texture": "#atlas" },
-				"north": { "uv": [ 2, 4, 4, 6 ], "texture": "#atlas" },
-				"south": { "uv": [ 2, 2, 4, 4 ], "texture": "#atlas" },
-				"west": { "uv": [ 2, 0, 4, 2 ], "texture": "#atlas" },
-				"east": { "uv": [ 4, 10, 6, 12 ], "texture": "#atlas" }
-			}
-		}
-	],
-	"display": {
-		"thirdperson_righthand": {
-			"rotation":  [ 0, 90, 0 ],
-			"translation":  [ 0.425, 1.5, 1 ]
-		},
-		"thirdperson_lefthand": {
-			"rotation":  [ 0, 90, 0 ],
-			"translation":  [ 0.425, 1.5, 1 ]
-		},
-		"firstperson_righthand": {
-			"rotation":  [ 0, -128, 0 ],
-			"translation":  [ 1.625, 2.75, 0 ]
-		},
-		"firstperson_lefthand": {
-			"rotation":  [ 0, -128, 0 ],
-			"translation":  [ 1.625, 2.75, 0 ]
-		},
-		"gui": {
-			"rotation":  [ 25, -45, 0 ],
-			"translation":  [ 1, 1.5, 0 ],
-			"scale":  [ 2, 2, 2 ]
-		},
-		"head": {
-			"rotation":  [ 0, 180, 0 ],
-			"translation":  [ 0, 12, 0 ],
-			"scale":  [ 4, 4, 4 ]
-		},
-		"ground": {
-			"translation":  [ 0, 0, -0.5 ]
-		},
-		"fixed": {
-			"rotation":  [ 0, 90, 0 ],
-			"translation":  [ -1, 1.5, 0 ],
-			"scale":  [ 2, 2, 2 ]
-		}
-	}
+  "__comment": "Designed by Wire Segal with Cubik Studio - https://cubik.studio",
+  "textures": {
+    "atlas": "testmodpleaseignore:items/sling/atlas"
+  },
+  "elements": [
+    {
+      "__comment": "Cube1",
+      "from": [
+        7.5,
+        7,
+        6.5
+      ],
+      "to": [
+        8.5,
+        8,
+        10.5
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            0,
+            8,
+            2,
+            16
+          ],
+          "texture": "#atlas"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            2,
+            8
+          ],
+          "texture": "#atlas"
+        },
+        "north": {
+          "uv": [
+            10,
+            8,
+            12,
+            10
+          ],
+          "texture": "#atlas"
+        },
+        "south": {
+          "uv": [
+            8,
+            8,
+            10,
+            10
+          ],
+          "texture": "#atlas"
+        },
+        "west": {
+          "uv": [
+            2,
+            14,
+            10,
+            16
+          ],
+          "texture": "#atlas"
+        },
+        "east": {
+          "uv": [
+            2,
+            12,
+            10,
+            14
+          ],
+          "texture": "#atlas"
+        }
+      }
+    },
+    {
+      "__comment": "Cube2",
+      "from": [
+        7.5,
+        6,
+        7
+      ],
+      "to": [
+        8.5,
+        7,
+        7.5
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            6,
+            8,
+            8,
+            10
+          ],
+          "texture": "#atlas"
+        },
+        "up": {
+          "uv": [
+            4,
+            0,
+            6,
+            2
+          ],
+          "texture": "#atlas"
+        },
+        "north": {
+          "uv": [
+            4,
+            2,
+            6,
+            4
+          ],
+          "texture": "#atlas"
+        },
+        "south": {
+          "uv": [
+            4,
+            4,
+            6,
+            6
+          ],
+          "texture": "#atlas"
+        },
+        "west": {
+          "uv": [
+            4,
+            6,
+            6,
+            8
+          ],
+          "texture": "#atlas"
+        },
+        "east": {
+          "uv": [
+            4,
+            8,
+            6,
+            10
+          ],
+          "texture": "#atlas"
+        }
+      }
+    },
+    {
+      "__comment": "Cube3",
+      "from": [
+        7.5,
+        6,
+        9
+      ],
+      "to": [
+        8.5,
+        7,
+        9.5
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            14,
+            10,
+            16,
+            12
+          ],
+          "texture": "#atlas"
+        },
+        "up": {
+          "uv": [
+            12,
+            10,
+            14,
+            12
+          ],
+          "texture": "#atlas"
+        },
+        "north": {
+          "uv": [
+            10,
+            10,
+            12,
+            12
+          ],
+          "texture": "#atlas"
+        },
+        "south": {
+          "uv": [
+            8,
+            10,
+            10,
+            12
+          ],
+          "texture": "#atlas"
+        },
+        "west": {
+          "uv": [
+            6,
+            10,
+            8,
+            12
+          ],
+          "texture": "#atlas"
+        },
+        "east": {
+          "uv": [
+            10,
+            14,
+            12,
+            16
+          ],
+          "texture": "#atlas"
+        }
+      }
+    },
+    {
+      "__comment": "Cube4",
+      "from": [
+        7.5,
+        5.5,
+        7.5
+      ],
+      "to": [
+        8.5,
+        6,
+        9
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            12,
+            14,
+            14,
+            16
+          ],
+          "texture": "#atlas"
+        },
+        "up": {
+          "uv": [
+            14,
+            14,
+            16,
+            16
+          ],
+          "texture": "#atlas"
+        },
+        "north": {
+          "uv": [
+            10,
+            12,
+            12,
+            14
+          ],
+          "texture": "#atlas"
+        },
+        "south": {
+          "uv": [
+            12,
+            12,
+            14,
+            14
+          ],
+          "texture": "#atlas"
+        },
+        "west": {
+          "uv": [
+            14,
+            12,
+            16,
+            14
+          ],
+          "texture": "#atlas"
+        },
+        "east": {
+          "uv": [
+            2,
+            10,
+            4,
+            12
+          ],
+          "texture": "#atlas"
+        }
+      }
+    },
+    {
+      "__comment": "Cube3",
+      "from": [
+        7.5,
+        6,
+        8
+      ],
+      "to": [
+        8.5,
+        7,
+        8.5
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            2,
+            8,
+            4,
+            10
+          ],
+          "texture": "#atlas"
+        },
+        "up": {
+          "uv": [
+            2,
+            6,
+            4,
+            8
+          ],
+          "texture": "#atlas"
+        },
+        "north": {
+          "uv": [
+            2,
+            4,
+            4,
+            6
+          ],
+          "texture": "#atlas"
+        },
+        "south": {
+          "uv": [
+            2,
+            2,
+            4,
+            4
+          ],
+          "texture": "#atlas"
+        },
+        "west": {
+          "uv": [
+            2,
+            0,
+            4,
+            2
+          ],
+          "texture": "#atlas"
+        },
+        "east": {
+          "uv": [
+            4,
+            10,
+            6,
+            12
+          ],
+          "texture": "#atlas"
+        }
+      }
+    }
+  ],
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "translation": [
+        0.425,
+        1.5,
+        1
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "translation": [
+        0.425,
+        1.5,
+        1
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        -128,
+        0
+      ],
+      "translation": [
+        1.625,
+        2.75,
+        0
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        -128,
+        0
+      ],
+      "translation": [
+        1.625,
+        2.75,
+        0
+      ]
+    },
+    "gui": {
+      "rotation": [
+        25,
+        -45,
+        0
+      ],
+      "translation": [
+        1,
+        1.5,
+        0
+      ],
+      "scale": [
+        2,
+        2,
+        2
+      ]
+    },
+    "head": {
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "translation": [
+        0,
+        12,
+        0
+      ],
+      "scale": [
+        4,
+        4,
+        4
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        0,
+        -0.5
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "translation": [
+        -1,
+        1.5,
+        0
+      ],
+      "scale": [
+        2,
+        2,
+        2
+      ]
+    }
+  }
 }

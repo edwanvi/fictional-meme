@@ -1,12 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.items.casters;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-
 import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import me.itstheholyblack.testmodpleaseignore.util.NBTHelper;
@@ -32,112 +27,114 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 public class ItemHalfCaster_Main extends ItemSword {
-	// the main hand of the fan-style caster
-	// fast, not too hard hitting
-	public ItemHalfCaster_Main() {
-		super(Item.ToolMaterial.GOLD);
-		this.maxStackSize = 1;
-		setRegistryName("halfCaster_Main");
-		setUnlocalizedName(Reference.MODID + "." + "halfCaster_Main");
-		setCreativeTab(ModItems.CREATIVETAB);
-		// set property for multitexture
-		this.addPropertyOverride(new ResourceLocation("deployed"), new IItemPropertyGetter() {
-			@Override
-			@SideOnly(Side.CLIENT)
-			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-				return entityIn != null && entityIn instanceof EntityPlayer
-						&& NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isActive") ? 1.0F : 0.0F;
-			}
-		});
-		GameRegistry.register(this);
-	}
-	// right click
-	// I :clap: stole :clap: this :clap: code :clap: from :clap: blood :clap:
-	// magic
+    // the main hand of the fan-style caster
+    // fast, not too hard hitting
+    public ItemHalfCaster_Main() {
+        super(Item.ToolMaterial.GOLD);
+        this.maxStackSize = 1;
+        setRegistryName("halfCaster_Main");
+        setUnlocalizedName(Reference.MODID + "." + "halfCaster_Main");
+        setCreativeTab(ModItems.CREATIVETAB);
+        // set property for multitexture
+        this.addPropertyOverride(new ResourceLocation("deployed"), new IItemPropertyGetter() {
+            @Override
+            @SideOnly(Side.CLIENT)
+            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+                return entityIn != null && entityIn instanceof EntityPlayer
+                        && NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isActive") ? 1.0F : 0.0F;
+            }
+        });
+        GameRegistry.register(this);
+    }
+    // right click
+    // I :clap: stole :clap: this :clap: code :clap: from :clap: blood :clap:
+    // magic
 
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
-		ItemStack stack = playerIn.getHeldItem(hand);
-		// this caster will *only* activate in the main hand
-		if (hand == EnumHand.MAIN_HAND) {
-			if (stack.getTagCompound() == null) {
-				stack.setTagCompound(new NBTTagCompound());
-				NBTTagCompound compound = stack.getTagCompound();
-				compound.setBoolean("isActive", false);
-			}
-			NBTTagCompound compound = stack.getTagCompound();
-			if (playerIn.getHeldItemOffhand() == ItemStack.EMPTY
-					|| playerIn.getHeldItemOffhand().getItem() != ModItems.halfCaster_Off) {
-				compound.setBoolean("isActive", !getActivated(stack));
-			} else {
-				return new ActionResult<>(EnumActionResult.PASS, stack);
-			}
-			if (getActivated(stack)) {
-				setFull3D();
-			}
-			return new ActionResult<>(EnumActionResult.SUCCESS, stack);
-		} else {
-			return new ActionResult<>(EnumActionResult.FAIL, stack);
-		}
-	}
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+        ItemStack stack = playerIn.getHeldItem(hand);
+        // this caster will *only* activate in the main hand
+        if (hand == EnumHand.MAIN_HAND) {
+            if (stack.getTagCompound() == null) {
+                stack.setTagCompound(new NBTTagCompound());
+                NBTTagCompound compound = stack.getTagCompound();
+                compound.setBoolean("isActive", false);
+            }
+            NBTTagCompound compound = stack.getTagCompound();
+            if (playerIn.getHeldItemOffhand() == ItemStack.EMPTY
+                    || playerIn.getHeldItemOffhand().getItem() != ModItems.halfCaster_Off) {
+                compound.setBoolean("isActive", !getActivated(stack));
+            } else {
+                return new ActionResult<>(EnumActionResult.PASS, stack);
+            }
+            if (getActivated(stack)) {
+                setFull3D();
+            }
+            return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+        } else {
+            return new ActionResult<>(EnumActionResult.FAIL, stack);
+        }
+    }
 
-	/**
-	 * Gets whether or not stack is active
-	 * 
-	 * @param stack
-	 *            - the ItemStack we want to look at
-	 * @return The boolean stored in key "isActive" for `stack`. False if the
-	 *         stack has no such key.
-	 */
-	boolean getActivated(ItemStack stack) {
-		return stack != null && NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isActive");
-	}
+    /**
+     * Gets whether or not stack is active
+     *
+     * @param stack - the ItemStack we want to look at
+     * @return The boolean stored in key "isActive" for `stack`. False if the
+     * stack has no such key.
+     */
+    boolean getActivated(ItemStack stack) {
+        return stack != null && NBTHelper.checkNBT(stack).getTagCompound().getBoolean("isActive");
+    }
 
-	/**
-	 * Sets caster damage and attack speed. The attack speed is constant and
-	 * damage operates on the return of getActivated.
-	 */
-	@Override
-	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot,
-			ItemStack stack) {
-		Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
-		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
-			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
-					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", getActivated(stack) ? 4 : 0, 0)); // add
-																														// 0
-																														// if
-																														// not
-																														// active
-			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
-					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", 5, 0));
-		}
-		return multimap;
-	}
+    /**
+     * Sets caster damage and attack speed. The attack speed is constant and
+     * damage operates on the return of getActivated.
+     */
+    @Override
+    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot,
+                                                                     ItemStack stack) {
+        Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
+        if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
+                    new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", getActivated(stack) ? 4 : 0, 0)); // add
+            // 0
+            // if
+            // not
+            // active
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
+                    new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", 5, 0));
+        }
+        return multimap;
+    }
 
-	/**
-	 * Causes a re-equip animation when oldStack and newStack have differing
-	 * values for NBT tag isActive.
-	 */
-	@Override
-	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-		return NBTHelper.checkNBT(oldStack).getTagCompound().getBoolean("isActive") != NBTHelper.checkNBT(newStack)
-				.getTagCompound().getBoolean("isActive") | oldStack.getItem() != newStack.getItem();
-	}
+    /**
+     * Causes a re-equip animation when oldStack and newStack have differing
+     * values for NBT tag isActive.
+     */
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return NBTHelper.checkNBT(oldStack).getTagCompound().getBoolean("isActive") != NBTHelper.checkNBT(newStack)
+                .getTagCompound().getBoolean("isActive") | oldStack.getItem() != newStack.getItem();
+    }
 
-	/**
-	 * Initialize the model for this item
-	 */
-	@SideOnly(Side.CLIENT)
-	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
-	}
+    /**
+     * Initialize the model for this item
+     */
+    @SideOnly(Side.CLIENT)
+    public void initModel() {
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+    }
 
-	// add tooltip
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		tooltip.add(I18n.format("mouseovertext.half_caster"));
-		super.addInformation(stack, playerIn, tooltip, advanced);
-	}
+    // add tooltip
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+        tooltip.add(I18n.format("mouseovertext.half_caster"));
+        super.addInformation(stack, playerIn, tooltip, advanced);
+    }
 }

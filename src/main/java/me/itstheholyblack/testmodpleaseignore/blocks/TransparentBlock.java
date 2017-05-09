@@ -15,46 +15,46 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TransparentBlock extends Block {
-	public TransparentBlock(String unlocalizedName, Material material, float hardness, float resistance) {
-		super(material);
-		setUnlocalizedName(unlocalizedName);
-		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-		setHardness(hardness);
-		setResistance(resistance);
-		setRegistryName(unlocalizedName);
-		setSoundType(SoundType.GLASS);
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this), getRegistryName());
-	}
+    public TransparentBlock(String unlocalizedName, Material material, float hardness, float resistance) {
+        super(material);
+        setUnlocalizedName(unlocalizedName);
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setHardness(hardness);
+        setResistance(resistance);
+        setRegistryName(unlocalizedName);
+        setSoundType(SoundType.GLASS);
+        GameRegistry.register(this);
+        GameRegistry.register(new ItemBlock(this), getRegistryName());
+    }
 
-	public TransparentBlock(String unlocalizedName, float hardness, float resistance) {
-		this(unlocalizedName, Material.ICE, hardness, resistance);
-	}
+    public TransparentBlock(String unlocalizedName, float hardness, float resistance) {
+        this(unlocalizedName, Material.ICE, hardness, resistance);
+    }
 
-	public TransparentBlock(String unlocalizedName) {
-		this(unlocalizedName, 2.0f, 10.0f);
-	}
+    public TransparentBlock(String unlocalizedName) {
+        this(unlocalizedName, 2.0f, 10.0f);
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public BlockRenderLayer getBlockLayer() {
-		return BlockRenderLayer.CUTOUT;
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getBlockLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
-	@Override
-	public boolean isFullCube(IBlockState state) {
-		return false;
-	}
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-	// grab the model from our unlocalized name
-	@SideOnly(Side.CLIENT)
-	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0,
-				new ModelResourceLocation(getRegistryName(), "inventory"));
-	}
+    // grab the model from our unlocalized name
+    @SideOnly(Side.CLIENT)
+    public void initModel() {
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0,
+                new ModelResourceLocation(getRegistryName(), "inventory"));
+    }
 
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 }
