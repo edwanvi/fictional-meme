@@ -4,7 +4,11 @@
     "model": "testmodpleaseignore:firstblock"
   },
   "variants": {
-    "normal": [{}],
-    "inventory": [{}]
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {}
+    ]
   }
 }

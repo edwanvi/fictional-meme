@@ -7,10 +7,10 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BasicItem extends Item {
 	public BasicItem() {
 		setRegistryName("firstitem"); // The unique name (within your mod) that
-										// identifies this item
+		// identifies this item
 		setUnlocalizedName(Reference.MODID + ".firstitem"); // Used for
-															// localization
-															// (en_US.lang)
+		// localization
+		// (en_US.lang)
 		GameRegistry.register(this);
 	}
 }

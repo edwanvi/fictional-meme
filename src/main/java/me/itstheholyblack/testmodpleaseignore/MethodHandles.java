@@ -1,22 +1,19 @@
 package me.itstheholyblack.testmodpleaseignore;
 
-import static java.lang.invoke.MethodHandles.publicLookup;
-
-import java.lang.invoke.MethodHandle;
-import java.lang.reflect.Method;
-
-import javax.annotation.Nonnull;
-
-import org.apache.logging.log4j.Level;
-
 import com.google.common.base.Predicate;
 import com.google.common.base.Throwables;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.potion.PotionType;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import org.apache.logging.log4j.Level;
+
+import javax.annotation.Nonnull;
+import java.lang.invoke.MethodHandle;
+import java.lang.reflect.Method;
+
+import static java.lang.invoke.MethodHandles.publicLookup;
 
 public class MethodHandles {
 	public static final String[] POTIONHELPER_REGISTERPOTIONTYPECONVERSION = new String[] { "a", "func_185204_a",

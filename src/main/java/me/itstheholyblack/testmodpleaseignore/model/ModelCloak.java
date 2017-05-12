@@ -5,7 +5,7 @@ import net.minecraft.client.model.ModelRenderer;
 
 /**
  * A cloak model, ripped outta Botania.
- * 
+ *
  * @author wiiv
  */
 public class ModelCloak extends ModelBase {

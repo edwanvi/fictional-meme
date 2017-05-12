@@ -1,20 +1,13 @@
 package me.itstheholyblack.testmodpleaseignore.items.casters;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
-import me.itstheholyblack.testmodpleaseignore.network.MessageDataSync;
-import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
 import me.itstheholyblack.testmodpleaseignore.util.NBTHelper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -28,6 +21,9 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class ItemCasterShield extends Item {
 	public ItemCasterShield() {

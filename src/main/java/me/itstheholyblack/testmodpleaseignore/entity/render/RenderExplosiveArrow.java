@@ -1,12 +1,9 @@
 package me.itstheholyblack.testmodpleaseignore.entity.render;
 
 import me.itstheholyblack.testmodpleaseignore.entity.EntityExplosiveArrow;
-import me.itstheholyblack.testmodpleaseignore.entity.EntityGeminus_F;
-import me.itstheholyblack.testmodpleaseignore.entity.render.RenderGeminus_F.Factory;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderArrow;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.projectile.EntityTippedArrow;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;

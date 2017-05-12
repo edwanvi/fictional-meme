@@ -1,30 +1,24 @@
 package me.itstheholyblack.testmodpleaseignore.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
-
-import javax.annotation.Nonnull;
-
-import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDetection;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import me.itstheholyblack.testmodpleaseignore.util.Randomizer;
 import me.itstheholyblack.testmodpleaseignore.util.TerribleFate;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -32,6 +26,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -40,7 +35,13 @@ import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
 
-public class EntityGeminus_M extends EntityLiving implements IMob {
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
+
+public class EntityGeminus_M extends EntityMob implements IMob, IRangedAttackMob {
 	private static final float MAX_HP = 320F;
 	// list of players who attacked the geminus pairing
 	public final List<UUID> playersWhoAttacked = new ArrayList<>();
@@ -60,8 +61,6 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 	private static final int TELEPORT_RANGE_INT = (int) TELEPORT_RANGE_DOUBLE;
 	// list of shulkers so we don't spawn a billion of them
 	public List<EntityShulkerMinion> shulkerList = new ArrayList<>();
-	// rand gen
-	private static Random rand_gen = new Random();
 	// boss bar
 	private final BossInfoServer bossInfo = (new BossInfoServer(this.getDisplayName(), BossInfo.Color.BLUE,
 			BossInfo.Overlay.NOTCHED_20));
@@ -107,14 +106,12 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 	/**
 	 * Called when the entity is attacked. Causes blindness and adds the
 	 * attacker to a hit list.
-	 * 
-	 * @author Vazkii
+	 *
 	 * @author Edwan Vi
 	 */
 	@Override
 	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
 		if (source == DamageSource.OUT_OF_WORLD) {
-			// no-op
 			return super.attackEntityFrom(source, par2);
 		} else {
 			Entity e = source.getEntity();
@@ -129,8 +126,8 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 					playersWhoAttacked.add(player.getUniqueID());
 					dataManager.set(PLAYER_COUNT, dataManager.get(PLAYER_COUNT) + 1);
 				}
-				if ((!(player.getHeldItemMainhand().getItem() instanceof ItemBow)
-						|| player.getHeldItemMainhand() == ItemStack.EMPTY) && !world.isRemote) {
+				if ((!(source instanceof EntityDamageSourceIndirect) || player.getHeldItemMainhand() == ItemStack.EMPTY)
+						&& !world.isRemote) {
 					player.addPotionEffect(blindness);
 				}
 
@@ -149,7 +146,7 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 	@Override
 	/**
 	 * Called when the mob's health reaches 0.
-	 * 
+	 *
 	 * @author Edwan Vi (based on Vazkii)
 	 */
 	public void onDeath(@Nonnull DamageSource source) {
@@ -175,11 +172,13 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 	@Override
 	protected void initEntityAI() {
 		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, TELEPORT_RANGE_INT));
+		this.tasks.addTask(1, new EntityAIAttackRanged(this, 1.25D, 1, 64.0F));
+		this.targetTasks.addTask(1,
+				new EntityAINearestAttackableTarget(this, EntityPlayer.class, 100, false, false, null));
 		this.applyEntityAI();
 	}
 
 	protected void applyEntityAI() {
-
 	}
 
 	@Override
@@ -203,6 +202,7 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 		}
 		if (this.closestPlayer != null && this.closestPlayer.isPotionActive(MobEffects.BLINDNESS)) {
 			this.teleportToEntity(closestPlayer);
+			spawning = true;
 		}
 		// count of players
 		int playerCount = getPlayerCount();
@@ -218,6 +218,9 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 		}
 		if (!spawning && getCooldown() < 1) {
 			spawning = !(Randomizer.getRandomBoolean(this.getHealth() / this.getMaxHealth()));
+		}
+		if (spawning) {
+			this.attackEntityWithRangedAttack(this.closestPlayer, 0);
 		}
 		// shulker spawning code
 		if (getShulkerCooldown() < 1) {
@@ -248,12 +251,6 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 				}
 			}
 		}
-		if (spawning) {
-			for (int i = 0; i < playerCount; i++)
-				spawnMissile();
-			dataManager.set(SPAWNING, false);
-			setCooldown(COOLDOWN);
-		}
 		this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
 		// check if sister is dead
 		if (this.sister.isDead) {
@@ -277,11 +274,9 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 
 	/**
 	 * Spawns a missile attack.
-	 * 
-	 * @author Vazkii
 	 */
-	private void spawnMissile() {
-		EntityMissile missile = new EntityMissile(this);
+	private void spawnMissile(EntityLivingBase target) {
+		EntityMissile missile = new EntityMissile(this, target);
 		// set missile position to ours, give or take some random values
 		missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1),
 				posZ + (Math.random() - 0.5 * 0.1));
@@ -290,32 +285,45 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 	}
 
 	// setters and getters
-	/** Get the number of players fighting this thing */
+
+	/**
+	 * Get the number of players fighting this thing
+	 */
 	public int getPlayerCount() {
 		return dataManager.get(PLAYER_COUNT);
 	}
 
-	/** Sets the number of players fighting this thing */
+	/**
+	 * Sets the number of players fighting this thing
+	 */
 	public void setPlayerCount(int count) {
 		dataManager.set(PLAYER_COUNT, count);
 	}
 
-	/** Gets the current value of missile cooldown. */
+	/**
+	 * Gets the current value of missile cooldown.
+	 */
 	public int getCooldown() {
 		return dataManager.get(SPAWN_COOLDOWN);
 	}
 
-	/** Sets the current value of missile cooldown. */
+	/**
+	 * Sets the current value of missile cooldown.
+	 */
 	public void setCooldown(int value) {
 		dataManager.set(SPAWN_COOLDOWN, value);
 	}
 
-	/** Gets the current value of shulker cooldown. */
+	/**
+	 * Gets the current value of shulker cooldown.
+	 */
 	public int getShulkerCooldown() {
 		return dataManager.get(SHULKER_COOLDOWN);
 	}
 
-	/** Sets the current value of shulker cooldown. */
+	/**
+	 * Sets the current value of shulker cooldown.
+	 */
 	public void setShulkerCooldown(int value) {
 		dataManager.set(SHULKER_COOLDOWN, value);
 	}
@@ -342,11 +350,12 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 	}
 
 	// ===BEGIN ENTITYENDERMAN CODE===
+
 	/**
 	 * Teleport to a random position within 64 blocks.
-	 * 
+	 *
 	 * @return A boolean indicating whether or not we succeeded.
-	 * @author Notch
+	 * @author Mojang
 	 */
 	private boolean teleportRandomly() {
 		double d0 = posX + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
@@ -357,15 +366,14 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 
 	/**
 	 * Teleport to another entity
-	 * 
-	 * @author Notch
+	 *
+	 * @author Mojang
 	 */
 	protected boolean teleportToEntity(Entity p_70816_1_) {
 		Vec3d vec3d = new Vec3d(this.posX - p_70816_1_.posX,
 				this.getEntityBoundingBox().minY + this.height / 2.0F - p_70816_1_.posY + p_70816_1_.getEyeHeight(),
 				this.posZ - p_70816_1_.posZ);
 		vec3d = vec3d.normalize();
-		double d0 = 16.0D;
 		double d1 = this.posX + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.xCoord * 16.0D;
 		double d2 = this.posY + (this.rand.nextInt(16) - 8) - vec3d.yCoord * 16.0D;
 		double d3 = this.posZ + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.zCoord * 16.0D;
@@ -374,7 +382,7 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 
 	/**
 	 * Teleport to a given position.
-	 * 
+	 *
 	 * @param x
 	 *            The x coordinate of our destination.
 	 * @param y
@@ -382,7 +390,7 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 	 * @param z
 	 *            The z coordinate of our destination.
 	 * @return A boolean indicating whether or not we succeeded.
-	 * @author Notch
+	 * @author Mojang
 	 */
 	private boolean teleportTo(double x, double y, double z) {
 		net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(
@@ -402,6 +410,7 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 
 	// ===END ENTITYENDERMAN CODE===
 	// +++BEGIN ENTITYWITHER CODE+++
+
 	/**
 	 * Add the given player to the list of players tracking this entity. For
 	 * instance, a player may track a boss in order to view its associated boss
@@ -424,18 +433,18 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 	}
 
 	// +++END ENTITYWITHER CODE+++
+
 	/**
 	 * Replace a given block with a shulker because f*ck you. THIS CODE DOESN'T
 	 * GIVE A DAMN ABOUT THE {@code mobGriefing} GAME RULE. DON'T. BE. A. TWIT.
 	 * Fails if the given block pos is bedrock.
-	 * 
-	 * @author Edwan Vi
+	 *
 	 * @param pos
 	 *            Where to place the shulker.
 	 * @return The spawned shulker (or {@code null} if we couldn't spawn it for
 	 *         some reason.)
+	 * @author Edwan Vi
 	 */
-	// @SideOnly(Side.SERVER)
 	private EntityShulkerMinion shulkerReplace(BlockPos pos) {
 		System.out.println("Spawning Shulker Minion");
 		EntityShulkerMinion shulk = new EntityShulkerMinion(this.world, this);
@@ -490,5 +499,10 @@ public class EntityGeminus_M extends EntityLiving implements IMob {
 					interpTargetPitch, loot);
 		}
 		super.dropEquipment(wasRecentlyHit, lootingModifier);
+	}
+
+	@Override
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
+		this.spawnMissile(target);
 	}
 }

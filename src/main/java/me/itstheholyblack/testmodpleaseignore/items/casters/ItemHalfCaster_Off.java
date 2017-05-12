@@ -1,12 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.items.casters;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-
 import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.core.Raycasting;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
@@ -24,16 +19,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class ItemHalfCaster_Off extends ItemSword {
 	// standard constructor
@@ -92,7 +86,7 @@ public class ItemHalfCaster_Off extends ItemSword {
 
 	/**
 	 * Gets whether or not stack is active
-	 * 
+	 *
 	 * @param stack
 	 *            - the ItemStack we want to look at
 	 * @return The boolean stored in key "isactive" for `stack`. False if the
@@ -114,10 +108,10 @@ public class ItemHalfCaster_Off extends ItemSword {
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
 					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", getActivated(stack) ? 4 : 0, 0)); // add
-																														// 0
-																														// if
-																														// not
-																														// active
+			// 0
+			// if
+			// not
+			// active
 			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
 					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", 5, 0));
 		}

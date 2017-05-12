@@ -1,7 +1,5 @@
 package me.itstheholyblack.testmodpleaseignore.blocks;
 
-import me.itstheholyblack.testmodpleaseignore.blocks.tile_entities.TileEntityManaRelay;
-import me.itstheholyblack.testmodpleaseignore.blocks.tile_entities.TileEntitySpellweaver;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

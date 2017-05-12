@@ -2,7 +2,7 @@ package me.itstheholyblack.testmodpleaseignore.core;
 
 /**
  * Interface for mana storage. Derived from IEnergyStorage.
- * 
+ *
  * @author Edwan Vi
  */
 public interface IMana {

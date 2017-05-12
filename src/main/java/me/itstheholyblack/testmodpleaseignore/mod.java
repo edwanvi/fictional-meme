@@ -1,7 +1,5 @@
 package me.itstheholyblack.testmodpleaseignore;
 
-import org.apache.logging.log4j.Level;
-
 import me.itstheholyblack.testmodpleaseignore.proxy.CommonProxy;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Mod;
@@ -11,6 +9,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import org.apache.logging.log4j.Level;
 
 @Mod(modid = Reference.MODID, version = Reference.VERSION, name = Reference.MODNAME, acceptedMinecraftVersions = Reference.ACCPETED_MINECRAFT_VERSION, dependencies = Reference.DEPENDENCIES)
 public class mod {

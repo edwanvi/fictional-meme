@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 /**
  * Class to make the player jump (for double jumping things.)
- * 
+ *
  * @author Vazkii
  */
 public class PacketJump implements IMessage {

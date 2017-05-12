@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * Class for various random operations.
- * 
+ *
  * @author Edwan Vi
  */
 public class Randomizer {
@@ -12,7 +12,7 @@ public class Randomizer {
 
 	/**
 	 * Generate a random boolean, with a bias {@code p} for being {@code true}.
-	 * 
+	 *
 	 * @param d
 	 *            The chance of returning {@code true}. 0.5 = 50%.
 	 * @return A boolean

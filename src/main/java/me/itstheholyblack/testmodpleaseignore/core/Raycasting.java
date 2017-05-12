@@ -1,13 +1,13 @@
 package me.itstheholyblack.testmodpleaseignore.core;
 
-import java.util.List;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**
  * Right, so. Raycasting is hard. As such, this was 100% stolen from PSI. ALL

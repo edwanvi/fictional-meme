@@ -1,17 +1,12 @@
 package me.itstheholyblack.testmodpleaseignore;
 
-import org.apache.logging.log4j.Level;
-
 import baubles.api.BaublesApi;
 import baubles.api.cap.IBaublesItemHandler;
 import me.itstheholyblack.testmodpleaseignore.core.ParticleEffects;
 import me.itstheholyblack.testmodpleaseignore.items.ItemTestCloak;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntityShulkerBullet;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumParticleTypes;
@@ -22,11 +17,12 @@ import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.RandomValueRange;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraftforge.event.LootTableLoadEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.apache.logging.log4j.Level;
 
 public class EventHandles {
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -83,7 +79,7 @@ public class EventHandles {
 						Entity es = e.getSource().getSourceOfDamage();
 						if (es instanceof EntityLiving) {
 							((EntityLiving) es).setHealth(((EntityLiving) es).getHealth() - e.getAmount() / 2); // fucking
-																												// lisp
+							// lisp
 							ParticleEffects.particles(es.world, es.getPosition().getX(), es.getPosition().getY(),
 									es.getPosition().getZ(), EnumParticleTypes.CRIT_MAGIC, 45);
 						}

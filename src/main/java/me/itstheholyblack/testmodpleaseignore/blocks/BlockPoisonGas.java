@@ -1,9 +1,5 @@
 package me.itstheholyblack.testmodpleaseignore.blocks;
 
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
 import me.itstheholyblack.testmodpleaseignore.util.Randomizer;
 import net.minecraft.block.BlockBreakable;
 import net.minecraft.block.material.MapColor;
@@ -25,6 +21,9 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
+import java.util.Random;
 
 public class BlockPoisonGas extends BlockBreakable {
 
@@ -86,7 +85,7 @@ public class BlockPoisonGas extends BlockBreakable {
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 		if ((worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11 && rand.nextBoolean())
-				|| Randomizer.getRandomBoolean(0.75)) {
+				|| Randomizer.getRandomBoolean(1)) {
 			if (!worldIn.isRemote) {
 				worldIn.setBlockToAir(pos);
 			}

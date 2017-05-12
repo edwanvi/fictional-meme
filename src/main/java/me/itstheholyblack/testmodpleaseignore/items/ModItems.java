@@ -1,11 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.items;
 
 import me.itstheholyblack.testmodpleaseignore.items.armor.LeapingBoots;
-import me.itstheholyblack.testmodpleaseignore.items.casters.ItemBladeCaster;
-import me.itstheholyblack.testmodpleaseignore.items.casters.ItemCasterShield;
-import me.itstheholyblack.testmodpleaseignore.items.casters.ItemExplosiveCaster;
-import me.itstheholyblack.testmodpleaseignore.items.casters.ItemHalfCaster_Main;
-import me.itstheholyblack.testmodpleaseignore.items.casters.ItemHalfCaster_Off;
+import me.itstheholyblack.testmodpleaseignore.items.casters.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;

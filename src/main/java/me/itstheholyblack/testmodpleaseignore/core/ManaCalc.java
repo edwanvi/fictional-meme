@@ -16,7 +16,7 @@ public class ManaCalc {
 	/**
 	 * The actual mana calculation. This must happen after all focus
 	 * calculations.
-	 * 
+	 *
 	 * @author Edwan Vi
 	 */
 	@SubscribeEvent

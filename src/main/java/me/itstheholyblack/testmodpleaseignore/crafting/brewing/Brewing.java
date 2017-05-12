@@ -1,17 +1,15 @@
 package me.itstheholyblack.testmodpleaseignore.crafting.brewing;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import com.google.common.base.Predicate;
-
 import me.itstheholyblack.testmodpleaseignore.MethodHandles;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionType;
 import net.minecraftforge.oredict.OreDictionary;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class Brewing {
 	private static Predicate<ItemStack> potionPredicate(ItemStack input) {
@@ -37,8 +35,7 @@ public class Brewing {
 
 	/**
 	 * Method used to make potion recipes since Forge's is borked.
-	 * 
-	 * @author wiresegal
+	 *
 	 * @param predicate
 	 *            The input ingredient, ex. Nether Wart in water -> Awkward.
 	 * @param fromType
@@ -54,6 +51,7 @@ public class Brewing {
 	 * @param strongType
 	 *            The potion type to use if the potion has been strengthened
 	 *            with Glowstone.
+	 * @author wiresegal
 	 */
 	public static void addCompletePotionRecipes(Predicate<ItemStack> predicate, PotionType fromType,
 			PotionType normalType, @Nullable PotionType longType, @Nullable PotionType strongType) {

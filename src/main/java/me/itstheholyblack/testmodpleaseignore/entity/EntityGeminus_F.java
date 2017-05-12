@@ -1,45 +1,42 @@
 package me.itstheholyblack.testmodpleaseignore.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-import javax.annotation.Nonnull;
-
-import me.itstheholyblack.testmodpleaseignore.blocks.BlockPoisonGas;
 import me.itstheholyblack.testmodpleaseignore.blocks.ModBlocks;
 import me.itstheholyblack.testmodpleaseignore.core.LibMisc;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDetection;
 import me.itstheholyblack.testmodpleaseignore.util.Randomizer;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.World;
 
-public class EntityGeminus_F extends EntityLiving implements IMob {
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+public class EntityGeminus_F extends EntityMob implements IMob, IRangedAttackMob {
 	private static final float MAX_HP = 320F;
-	// list of players who attacked the geminus pairing
-	// set to null since sister inherits this from brother
-	private List<UUID> playersWhoAttacked = new ArrayList<>();
 	// player count
 	private static final String TAG_PLAYER_COUNT = "playerCount";
 	private static final DataParameter<Integer> PLAYER_COUNT = EntityDataManager.createKey(EntityGeminus_F.class,
@@ -50,18 +47,21 @@ public class EntityGeminus_F extends EntityLiving implements IMob {
 			DataSerializers.VARINT);
 	private static final DataParameter<Boolean> SPAWNING = EntityDataManager.createKey(EntityGeminus_F.class,
 			DataSerializers.BOOLEAN);
+	private static final DataParameter<BlockPos> HOME = EntityDataManager.createKey(EntityGeminus_F.class,
+			DataSerializers.BLOCK_POS);
+	private static final double TELEPORT_RANGE_DOUBLE = 64.0D;
+	private static final int TELEPORT_RANGE_INT = (int) TELEPORT_RANGE_DOUBLE;
+	private static final PotionEffect blindness = new PotionEffect(MobEffects.BLINDNESS, 900);
 	// boss bar
 	private final BossInfoServer bossInfo = (new BossInfoServer(this.getDisplayName(), BossInfo.Color.PINK,
 			BossInfo.Overlay.NOTCHED_20));
-	private static final DataParameter<BlockPos> HOME = EntityDataManager.createKey(EntityGeminus_F.class,
-			DataSerializers.BLOCK_POS);
+	// list of players who attacked the geminus pairing
+	// set to null since sister inherits this from brother
+	private List<UUID> playersWhoAttacked = new ArrayList<>();
 	// brother geminus, may be null
-	public EntityGeminus_M brother;
+	private EntityGeminus_M brother;
 	// closest player, may be null
 	private EntityPlayer closestPlayer;
-	private static final double TELEPORT_RANGE_DOUBLE = 32.0D;
-	private static final int TELEPORT_RANGE_INT = (int) TELEPORT_RANGE_DOUBLE;
-	public static final PotionEffect blindness = new PotionEffect(MobEffects.BLINDNESS, 900);
 
 	public EntityGeminus_F(World worldIn) {
 		super(worldIn);
@@ -89,11 +89,13 @@ public class EntityGeminus_F extends EntityLiving implements IMob {
 	@Override
 	protected void initEntityAI() {
 		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, TELEPORT_RANGE_INT));
+		this.tasks.addTask(1, new EntityAIAttackRanged(this, 5D, 1, 10.0F));
+		this.targetTasks.addTask(1,
+				new EntityAINearestAttackableTarget(this, EntityPlayer.class, 10, false, false, null));
 		this.applyEntityAI();
 	}
 
 	protected void applyEntityAI() {
-		// no-op
 	}
 
 	@Override
@@ -126,17 +128,26 @@ public class EntityGeminus_F extends EntityLiving implements IMob {
 		// stop limbs swing
 		this.limbSwingAmount = 0.0F;
 		boolean spawning = dataManager.get(SPAWNING);
+		if (!spawning && getCooldown() < 1) {
+			spawning = !(Randomizer.getRandomBoolean(this.getHealth() / this.getMaxHealth()));
+		}
 		this.closestPlayer = this.world.getClosestPlayerToEntity(this, TELEPORT_RANGE_DOUBLE);
 		float PERCENT_HP = this.getHealth() / this.getMaxHealth();
 		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
 			this.closestPlayer = null;
 		}
-		if (this.closestPlayer != null && this.closestPlayer.isPotionActive(MobEffects.BLINDNESS)) {
-			this.teleportToEntity(closestPlayer);
-			spawning = true;
-		}
-		if (!spawning && getCooldown() < 1) {
-			spawning = !(Randomizer.getRandomBoolean(this.getHealth() / this.getMaxHealth()));
+		if (closestPlayer != null) {
+			if (this.closestPlayer.getDistanceSqToEntity(this) < 10.0D
+					&& !this.closestPlayer.isPotionActive(MobEffects.BLINDNESS)) {
+				this.teleportRandomly();
+			}
+			if (this.closestPlayer.isPotionActive(MobEffects.BLINDNESS)) {
+				this.teleportToEntity(closestPlayer);
+				spawning = true;
+			}
+			if (spawning) {
+				this.attackEntityWithRangedAttack(this.closestPlayer, 0);
+			}
 		}
 		boolean close;
 		try {
@@ -144,24 +155,16 @@ public class EntityGeminus_F extends EntityLiving implements IMob {
 		} catch (NullPointerException e) {
 			close = false;
 		}
-		if (spawning) {
-			for (int i = 0; i < playersWhoAttacked.size(); i++)
-				spawnMissile();
-			dataManager.set(SPAWNING, false);
-			setCooldown(COOLDOWN);
-		} else if (close && this.getHealth() < this.getMaxHealth() / 2 && Randomizer.getRandomBoolean(0.1)) {
+		if (close && this.getHealth() < this.getMaxHealth() / 2 && Randomizer.getRandomBoolean(0.1)) {
 			LibMisc.makeSphere(this.getEntityWorld(), this.closestPlayer.getPosition(),
 					ModBlocks.m_fumes.getDefaultState(), 5);
 		}
-		this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
+		this.bossInfo.setPercent(PERCENT_HP);
 		super.onLivingUpdate();
 	}
 
 	@Override
 	protected void updateAITasks() {
-		if (this.closestPlayer != null && this.closestPlayer.getDistanceSqToEntity(this) < 2.0D) {
-			this.teleportRandomly();
-		}
 		BlockPos homePos = getHome();
 		// teleport home
 		if (this.getDistance(homePos.getX(), homePos.getY(), homePos.getZ()) > TELEPORT_RANGE_INT + 10
@@ -174,7 +177,6 @@ public class EntityGeminus_F extends EntityLiving implements IMob {
 	@Override
 	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
 		if (source == DamageSource.OUT_OF_WORLD) {
-			// no-op
 			return super.attackEntityFrom(source, par2);
 		} else {
 			Entity e = source.getEntity();
@@ -182,6 +184,7 @@ public class EntityGeminus_F extends EntityLiving implements IMob {
 				EntityPlayer player = (EntityPlayer) e;
 				System.out.println("Attacked by " + e.getName());
 				int i = 0;
+				// Try to teleport 64 times
 				while (!this.teleportToEntity(e) && i < 64) {
 					i++;
 				}
@@ -189,8 +192,8 @@ public class EntityGeminus_F extends EntityLiving implements IMob {
 					playersWhoAttacked.add(player.getUniqueID());
 					dataManager.set(PLAYER_COUNT, dataManager.get(PLAYER_COUNT) + 1);
 				}
-				if ((!(player.getHeldItemMainhand().getItem() instanceof ItemBow)
-						|| player.getHeldItemMainhand() == ItemStack.EMPTY) && !world.isRemote) {
+				if ((!(source instanceof EntityDamageSourceIndirect) || player.getHeldItemMainhand() == ItemStack.EMPTY)
+						&& !world.isRemote) {
 					player.addPotionEffect(blindness);
 				}
 
@@ -202,17 +205,18 @@ public class EntityGeminus_F extends EntityLiving implements IMob {
 					i++;
 				}
 			}
-			return super.attackEntityFrom(source, Math.min(25, par2));
+			return false;
 		}
 	}
 
 	/**
 	 * Spawns a missile attack.
-	 * 
-	 * @author Vazkii
+	 *
+	 * @param target
+	 *            The entity this missile will follow.
 	 */
-	private void spawnMissile() {
-		EntityMissile missile = new EntityMissile(this);
+	private void spawnMissile(EntityLivingBase target) {
+		EntityMissile missile = new EntityMissile(this, target);
 		// set missile position to ours, give or take some random values
 		missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1),
 				posZ + (Math.random() - 0.5 * 0.1));
@@ -220,27 +224,36 @@ public class EntityGeminus_F extends EntityLiving implements IMob {
 		world.spawnEntity(missile);
 	}
 
-	// setters and getters below this line *only*
-	public void setHome(BlockPos pos) {
-		dataManager.set(HOME, pos);
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
+		this.spawnMissile(target);
 	}
 
 	public BlockPos getHome() {
 		return dataManager.get(HOME);
 	}
 
-	/** Gets the current value of missile cooldown. */
+	// setters and getters below this line *only*
+	public void setHome(BlockPos pos) {
+		dataManager.set(HOME, pos);
+	}
+
+	/**
+	 * Gets the current value of missile cooldown.
+	 */
 	public int getCooldown() {
 		return dataManager.get(SPAWN_COOLDOWN);
 	}
 
-	/** Sets the current value of missile cooldown. */
+	/**
+	 * Sets the current value of missile cooldown.
+	 */
 	public void setCooldown(int value) {
 		dataManager.set(SPAWN_COOLDOWN, value);
 	}
 
 	// setters and getters above this line *only*
 	// +++BEGIN ENTITYWITHER CODE+++
+
 	/**
 	 * Add the given player to the list of players tracking this entity. For
 	 * instance, a player may track a boss in order to view its associated boss
@@ -272,11 +285,12 @@ public class EntityGeminus_F extends EntityLiving implements IMob {
 
 	// +++END ENTITYWITHER CODE+++
 	// ===BEGIN ENTITYENDERMAN CODE===
+
 	/**
 	 * Teleport to a random position within 64 blocks.
-	 * 
+	 *
 	 * @return A boolean indicating whether or not we succeeded.
-	 * @author Notch
+	 * @author Mojang
 	 */
 	private boolean teleportRandomly() {
 		double d0 = posX + (rand.nextDouble() - 0.5D) * TELEPORT_RANGE_DOUBLE;
@@ -287,15 +301,14 @@ public class EntityGeminus_F extends EntityLiving implements IMob {
 
 	/**
 	 * Teleport to another entity
-	 * 
-	 * @author Notch
+	 *
+	 * @author Mojang
 	 */
 	protected boolean teleportToEntity(Entity p_70816_1_) {
 		Vec3d vec3d = new Vec3d(this.posX - p_70816_1_.posX,
 				this.getEntityBoundingBox().minY + this.height / 2.0F - p_70816_1_.posY + p_70816_1_.getEyeHeight(),
 				this.posZ - p_70816_1_.posZ);
 		vec3d = vec3d.normalize();
-		double d0 = 16.0D;
 		double d1 = this.posX + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.xCoord * 16.0D;
 		double d2 = this.posY + (this.rand.nextInt(16) - 8) - vec3d.yCoord * 16.0D;
 		double d3 = this.posZ + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.zCoord * 16.0D;
@@ -304,7 +317,7 @@ public class EntityGeminus_F extends EntityLiving implements IMob {
 
 	/**
 	 * Teleport to a given position.
-	 * 
+	 *
 	 * @param x
 	 *            The x coordinate of our destination.
 	 * @param y
@@ -312,7 +325,7 @@ public class EntityGeminus_F extends EntityLiving implements IMob {
 	 * @param z
 	 *            The z coordinate of our destination.
 	 * @return A boolean indicating whether or not we succeeded.
-	 * @author Notch
+	 * @author Mojang
 	 */
 	private boolean teleportTo(double x, double y, double z) {
 		net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(

@@ -1,9 +1,5 @@
 package me.itstheholyblack.testmodpleaseignore.blocks.tile_entities;
 
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
 import me.itstheholyblack.testmodpleaseignore.core.ParticleEffects;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.effect.EntityLightningBolt;
@@ -22,6 +18,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+
+import javax.annotation.Nullable;
+import java.util.Random;
 
 public class TileEntitySpellweaver extends TileEntity implements ITickable {
 	private ItemStackHandler inventory = new ItemStackHandler(1);
