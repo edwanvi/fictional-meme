@@ -46,7 +46,14 @@ mouseovertext.half_caster_off=The offhand component of the Half-Blade Caster. Hi
 
 item.testmodpleaseignore.explosivecaster.name=Explosive Caster
 
+item.testmodpleaseignore.shield_caster.name=Shield Caster
+mouseovertext.shieldcaster=The world bends to sorcery first, and the rest second. Except where projectiles are involved, screw those.
+
 item.testmodpleaseignore.introspective_mirror.name=Introspective Mirror
 item.testmodpleaseignore.manawaste.name=Manawaste
 tile.testmodpleaseignore.spellweaver.name=Spellweaver
 
+item.testmodpleaseignore.earrow.name=Explosive Arrow
+
+death.attack.testmodpleaseignore.t_fate=%1$s suffered a terrible fate
+death.attack.testmodpleaseignore.t_fate.player=%1$s suffered a terrible fate thanks to %2$s

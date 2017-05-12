@@ -1,7 +1,6 @@
 package me.itstheholyblack.testmodpleaseignore.crafting.brewing;
 
 import com.google.common.base.Predicate;
-
 import me.itstheholyblack.testmodpleaseignore.effect.ModEffects;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import net.minecraft.init.PotionTypes;

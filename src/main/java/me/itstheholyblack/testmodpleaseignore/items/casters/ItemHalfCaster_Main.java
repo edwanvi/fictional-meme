@@ -1,15 +1,10 @@
 package me.itstheholyblack.testmodpleaseignore.items.casters;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-
 import me.itstheholyblack.testmodpleaseignore.Reference;
-import me.itstheholyblack.testmodpleaseignore.core.NBTHelper;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
+import me.itstheholyblack.testmodpleaseignore.util.NBTHelper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
@@ -31,6 +26,9 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class ItemHalfCaster_Main extends ItemSword {
 	// the main hand of the fan-style caster
@@ -84,7 +82,7 @@ public class ItemHalfCaster_Main extends ItemSword {
 
 	/**
 	 * Gets whether or not stack is active
-	 * 
+	 *
 	 * @param stack
 	 *            - the ItemStack we want to look at
 	 * @return The boolean stored in key "isActive" for `stack`. False if the
@@ -105,10 +103,10 @@ public class ItemHalfCaster_Main extends ItemSword {
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
 					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", getActivated(stack) ? 4 : 0, 0)); // add
-																														// 0
-																														// if
-																														// not
-																														// active
+			// 0
+			// if
+			// not
+			// active
 			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
 					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", 5, 0));
 		}

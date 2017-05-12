@@ -1,4 +1,4 @@
-package me.itstheholyblack.testmodpleaseignore.core;
+package me.itstheholyblack.testmodpleaseignore.util;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

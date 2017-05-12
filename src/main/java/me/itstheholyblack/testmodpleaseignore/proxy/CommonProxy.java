@@ -1,7 +1,5 @@
 package me.itstheholyblack.testmodpleaseignore.proxy;
 
-import org.apache.logging.log4j.Level;
-
 import me.itstheholyblack.testmodpleaseignore.EventHandles;
 import me.itstheholyblack.testmodpleaseignore.blocks.ModBlocks;
 import me.itstheholyblack.testmodpleaseignore.core.ManaCalc;
@@ -21,6 +19,7 @@ import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import org.apache.logging.log4j.Level;
 
 public class CommonProxy {
 	public void preInit(FMLPreInitializationEvent e) {

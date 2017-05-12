@@ -1,7 +1,5 @@
 package me.itstheholyblack.testmodpleaseignore.core;
 
-import org.apache.logging.log4j.Level;
-
 import me.itstheholyblack.testmodpleaseignore.network.MessageDataSync;
 import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,10 +13,11 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.apache.logging.log4j.Level;
 
 /**
  * Class for managing player data.
- * 
+ *
  * @author Edwan Vi
  */
 public class PlayerDataMan {
@@ -122,8 +121,7 @@ public class PlayerDataMan {
 	/**
 	 * Adds {@code value} mana to {@code player}'s mana pool. Also takes care of
 	 * the data desync issue that might arise from that.
-	 * 
-	 * @author Edwan Vi
+	 *
 	 * @param player
 	 *            The {@code EntityPlayer} to add mana to.
 	 * @param value
@@ -131,6 +129,7 @@ public class PlayerDataMan {
 	 *            amounts subtract.
 	 * @param sync
 	 *            Whether or not to sync the player's mana after adding it.
+	 * @author Edwan Vi
 	 */
 	public static void addMana(EntityPlayer player, double value, boolean sync) {
 		NBTTagCompound data = player.getEntityData();
@@ -139,7 +138,7 @@ public class PlayerDataMan {
 		}
 		NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 		addMana(persist, value);
-		if (sync) {
+		if (sync && !player.world.isRemote) {
 			PacketHandler.sendToPlayer(new MessageDataSync(persist.getDouble(ManaPool)), (EntityPlayerMP) player);
 		}
 	}

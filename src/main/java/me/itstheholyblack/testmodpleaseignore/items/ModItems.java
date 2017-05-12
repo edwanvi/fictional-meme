@@ -1,10 +1,7 @@
 package me.itstheholyblack.testmodpleaseignore.items;
 
 import me.itstheholyblack.testmodpleaseignore.items.armor.LeapingBoots;
-import me.itstheholyblack.testmodpleaseignore.items.casters.ItemBladeCaster;
-import me.itstheholyblack.testmodpleaseignore.items.casters.ItemExplosiveCaster;
-import me.itstheholyblack.testmodpleaseignore.items.casters.ItemHalfCaster_Main;
-import me.itstheholyblack.testmodpleaseignore.items.casters.ItemHalfCaster_Off;
+import me.itstheholyblack.testmodpleaseignore.items.casters.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -25,6 +22,9 @@ public final class ModItems {
 	public static ItemExplosiveCaster explosivecaster;
 	public static ItemIntrospectiveMirror introMirror;
 	public static ItemEdibleHat ediblehat;
+	public static ItemCasterShield shieldCast;
+	public static ExplosiveArrow eArrow;
+
 	public static final CreativeTabs CREATIVETAB = new CreativeTabs("testModPleaseIgnore") {
 		@Override
 		public ItemStack getTabIconItem() {
@@ -45,6 +45,8 @@ public final class ModItems {
 		explosivecaster = new ItemExplosiveCaster();
 		introMirror = new ItemIntrospectiveMirror();
 		ediblehat = new ItemEdibleHat();
+		shieldCast = new ItemCasterShield();
+		eArrow = new ExplosiveArrow();
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -62,5 +64,7 @@ public final class ModItems {
 		explosivecaster.initModel();
 		introMirror.initModel();
 		ediblehat.initModel();
+		shieldCast.initModel();
+		eArrow.initModel();
 	}
 }

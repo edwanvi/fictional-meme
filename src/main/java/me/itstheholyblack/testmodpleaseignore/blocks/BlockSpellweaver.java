@@ -1,13 +1,11 @@
 package me.itstheholyblack.testmodpleaseignore.blocks;
 
-import java.util.Random;
-
 import me.itstheholyblack.testmodpleaseignore.Reference;
-import me.itstheholyblack.testmodpleaseignore.mod;
 import me.itstheholyblack.testmodpleaseignore.blocks.tile_entities.TileEntitySpellweaver;
 import me.itstheholyblack.testmodpleaseignore.core.ParticleEffects;
 import me.itstheholyblack.testmodpleaseignore.core.PlayerDataMan;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
+import me.itstheholyblack.testmodpleaseignore.mod;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -20,11 +18,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
@@ -38,6 +32,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
+
+import java.util.Random;
 
 public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 
@@ -77,22 +73,27 @@ public class BlockSpellweaver extends BlockTileEntity<TileEntitySpellweaver> {
 					ItemStack stack = itemHandler.getStackInSlot(0);
 					if (stack.getItem() == Items.DIAMOND) {
 						PlayerDataMan.addMana(player, -10.0D, true);
-						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.bladeCaster, 1));
+						((IItemHandlerModifiable) itemHandler).setStackInSlot(0,
+								new ItemStack(ModItems.bladeCaster, 1));
 					} else if (stack.getItem() == Items.FLINT) {
 						Random rand = new Random();
 						boolean main = rand.nextBoolean();
 						if (main) {
-							((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.halfCaster_Main, 1));
+							((IItemHandlerModifiable) itemHandler).setStackInSlot(0,
+									new ItemStack(ModItems.halfCaster_Main, 1));
 						} else {
-							((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.halfCaster_Off, 1));
+							((IItemHandlerModifiable) itemHandler).setStackInSlot(0,
+									new ItemStack(ModItems.halfCaster_Off, 1));
 						}
 						PlayerDataMan.addMana(player, -15.0D, true);
 					} else if (stack.getItem().equals(Item.getItemFromBlock(Blocks.TNT))) {
-						ParticleEffects.particles(world, pos.getX(), pos.getY(), pos.getZ(), EnumParticleTypes.EXPLOSION_HUGE, 100);
-						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, new ItemStack(ModItems.explosivecaster, 1));
+						ParticleEffects.particles(world, pos.getX(), pos.getY(), pos.getZ(),
+								EnumParticleTypes.EXPLOSION_HUGE, 100);
+						((IItemHandlerModifiable) itemHandler).setStackInSlot(0,
+								new ItemStack(ModItems.explosivecaster, 1));
 						PlayerDataMan.addMana(player, -20.0D, true);
 					} else if (stack.getItem().equals(ModItems.manaWaste)) {
-						this.getTileEntity(world, pos).wrathOfGod();
+						this.getTileEntity(world, pos).wrathOfGod(stack.getCount());
 						((IItemHandlerModifiable) itemHandler).setStackInSlot(0, ItemStack.EMPTY);
 					} else if (!stack.isEmpty()) {
 						PlayerDataMan.addMana(player, -15.0D, true);

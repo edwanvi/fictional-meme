@@ -42,8 +42,7 @@ public class ItemIntrospectiveMirror extends Item {
 		playerIn.sendStatusMessage(
 				new TextComponentString(TextFormatting.BLUE + "Mana: " + Double.toString(persist.getDouble(ManaPool))),
 				true);
-		ItemStack stack = playerIn.getHeldItem(hand);
-		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+		return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand));
 	}
 
 	@SideOnly(Side.CLIENT)

@@ -18,7 +18,9 @@ import net.minecraftforge.items.ItemStackHandler;
 
 @SideOnly(Side.CLIENT)
 public class TileEntitySpellweaverRenderer extends TileEntitySpecialRenderer<TileEntitySpellweaver> {
-	/** The texture for the book above the enchantment table. */
+	/**
+	 * The texture for the book above the enchantment table.
+	 */
 	private static final ResourceLocation TEXTURE_BOOK = new ResourceLocation(
 			"textures/entity/enchanting_table_book.png");
 	private final ModelBook modelBook = new ModelBook();

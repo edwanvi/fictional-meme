@@ -3,13 +3,13 @@ package me.itstheholyblack.testmodpleaseignore.entity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.MoverType;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
@@ -18,29 +18,30 @@ import net.minecraft.world.World;
  */
 public class EntityMissile extends EntityThrowable {
 	// variable to store the target of this missile
-	private static final DataParameter<Integer> TARGET = EntityDataManager.createKey(EntityMissile.class,
-			DataSerializers.VARINT);
+	private static final DataParameter<BlockPos> TARGET = EntityDataManager.createKey(EntityMissile.class,
+			DataSerializers.BLOCK_POS);
 	// time alive
 	int time = 0;
 	// nbt key for time alive
 	private static final String TAG_TIME = "time";
 	// homing variables
 	double lockX, lockY = -1, lockZ;
-	private EntityPlayer closestPlayer;
+	private Entity tag;
 
 	public EntityMissile(World worldIn) {
 		super(worldIn);
 		// set our size to *nothing*
-		setSize(0.5F, 0.1F);
+		setSize(0.1F, 0.1F);
 	}
 
 	@Override
 	protected void entityInit() {
-		dataManager.register(TARGET, 0);
+		dataManager.register(TARGET, BlockPos.ORIGIN);
 	}
 
-	public EntityMissile(EntityLivingBase thrower) {
+	public EntityMissile(EntityLivingBase thrower, Entity t) {
 		this(thrower.world);
+		this.tag = t;
 	}
 
 	@Override
@@ -51,17 +52,13 @@ public class EntityMissile extends EntityThrowable {
 
 		super.onUpdate();
 
-		if (this.closestPlayer == null || this.closestPlayer.getDistanceSqToEntity(this) > 64.0D) {
-			this.closestPlayer = this.world.getClosestPlayerToEntity(this, 8.0D);
+		if (this.tag == null) {
+			this.tag = this.world.getClosestPlayerToEntity(this, 16.0D);
 		}
-		// don't go for specators
-		if (this.closestPlayer != null && this.closestPlayer.isSpectator()) {
-			this.closestPlayer = null;
-		}
-		if (this.closestPlayer != null) {
-			double d1 = (this.closestPlayer.posX - this.posX) / 8.0D;
-			double d2 = (this.closestPlayer.posY + this.closestPlayer.getEyeHeight() / 2.0D - this.posY) / 8.0D;
-			double d3 = (this.closestPlayer.posZ - this.posZ) / 8.0D;
+		if (this.tag != null) {
+			double d1 = (this.tag.posX - this.posX) / 16.0D;
+			double d2 = (this.tag.posY + this.tag.getEyeHeight() / 2.0D - this.posY) / 16.0D;
+			double d3 = (this.tag.posZ - this.posZ) / 16.0D;
 			double d4 = Math.sqrt(d1 * d1 + d2 * d2 + d3 * d3);
 			double d5 = 1.0D - d4;
 
@@ -75,7 +72,7 @@ public class EntityMissile extends EntityThrowable {
 
 		this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
 		if (time > 40)
-			this.kill();
+			this.setDead();
 		// increment tick counter
 		time++;
 	}
@@ -100,9 +97,9 @@ public class EntityMissile extends EntityThrowable {
 			if (e instanceof EntityMissile || e instanceof EntityGeminus_M || e instanceof EntityGeminus_F) {
 				// no-op
 			} else {
-				e.attackEntityFrom(DamageSource.MAGIC, 1.0F);
+				e.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this.getThrower()), 1.0F);
 			}
-			this.kill();
+			this.setDead();
 		}
 	}
 

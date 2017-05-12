@@ -1,8 +1,5 @@
 package me.itstheholyblack.testmodpleaseignore.items.armor;
 
-import java.util.List;
-import java.util.UUID;
-
 import me.itstheholyblack.testmodpleaseignore.Reference;
 import me.itstheholyblack.testmodpleaseignore.items.ModItems;
 import me.itstheholyblack.testmodpleaseignore.network.PacketHandler;
@@ -20,6 +17,9 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
+import java.util.UUID;
 
 public class LeapingBoots extends ItemArmor {
 

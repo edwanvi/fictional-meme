@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 public class ParticleEffects {
 	/**
 	 * Spawns some particles server side.
-	 * 
+	 *
 	 * @param worldIn
 	 *            The world to spawn the particles in.
 	 * @param X

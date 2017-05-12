@@ -2,9 +2,14 @@ package me.itstheholyblack.testmodpleaseignore;
 
 import baubles.api.BaublesApi;
 import baubles.api.cap.IBaublesItemHandler;
+import me.itstheholyblack.testmodpleaseignore.core.ParticleEffects;
 import me.itstheholyblack.testmodpleaseignore.items.ItemTestCloak;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootEntryTable;
@@ -13,8 +18,11 @@ import net.minecraft.world.storage.loot.RandomValueRange;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.apache.logging.log4j.Level;
 
 public class EventHandles {
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -44,6 +52,42 @@ public class EventHandles {
 			} else if (file.equals("stronghold_library")) {
 				evt.getTable().addPool(getInjectPool("simple_dungeon"));
 			}
+		}
+	}
+
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public void onDMG(LivingHurtEvent e) {
+		String key = "TMPIData.shielded";
+		if (e.getEntity() instanceof EntityPlayer) {
+			System.out.println("Intercepting player damage");
+			EntityPlayer player = (EntityPlayer) e.getEntity();
+			if (!e.getEntity().world.isRemote) {
+				NBTTagCompound data = player.getEntityData();
+				// detect if player has NBT saved
+				// if they don't, remedy the situation
+				if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
+					data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
+				}
+				// save into variable
+				NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+				if (!persist.hasKey("TMPIData.shielded")) {
+					persist.setBoolean("TMPIData.shielded", false);
+				} else {
+					if (persist.getBoolean("TMPIData.shielded")) {
+						e.setCanceled(true);
+						FMLLog.log(Level.DEBUG, "Returning package to sender...");
+						Entity es = e.getSource().getSourceOfDamage();
+						if (es instanceof EntityLiving) {
+							((EntityLiving) es).setHealth(((EntityLiving) es).getHealth() - e.getAmount() / 2); // fucking
+							// lisp
+							ParticleEffects.particles(es.world, es.getPosition().getX(), es.getPosition().getY(),
+									es.getPosition().getZ(), EnumParticleTypes.CRIT_MAGIC, 45);
+						}
+					}
+				}
+			}
+		} else {
+			FMLLog.log(Level.DEBUG, "Did not intercept damage - was not player");
 		}
 	}
 

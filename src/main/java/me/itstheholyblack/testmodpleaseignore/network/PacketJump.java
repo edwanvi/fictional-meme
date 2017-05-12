@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 /**
  * Class to make the player jump (for double jumping things.)
- * 
+ *
  * @author Vazkii
  */
 public class PacketJump implements IMessage {
@@ -28,7 +28,7 @@ public class PacketJump implements IMessage {
 		@Override
 		public IMessage onMessage(PacketJump message, MessageContext ctx) {
 			// Get the player so we can mess them up
-			EntityPlayerMP player = ctx.getServerHandler().playerEntity;
+			EntityPlayerMP player = ctx.getServerHandler().player;
 			player.mcServer.addScheduledTask(() -> {
 				if (player.inventory.armorItemInSlot(0) != null
 						&& player.inventory.armorItemInSlot(0).getItem() instanceof LeapingBoots) {
