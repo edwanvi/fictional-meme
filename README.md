@@ -1,4 +1,7 @@
-# fictional-meme
+fictional-meme
+---
+
+[![some downloads](http://cf.way2muchnoise.eu/253920.svg)](https://minecraft.curseforge.com/projects/test-mod-please-ignore)
 
 (Better known as Test Mod Please Ignore.)
 
