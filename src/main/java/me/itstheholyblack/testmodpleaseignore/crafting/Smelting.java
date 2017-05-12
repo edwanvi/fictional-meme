@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class Smelting {
-    public static void initRecipies() {
-        GameRegistry.addSmelting(new ItemStack(Items.SKULL, 1, 1), new ItemStack(ModItems.testingItem, 2), 0);
-    }
+	public static void initRecipies() {
+		GameRegistry.addSmelting(new ItemStack(Items.SKULL, 1, 1), new ItemStack(ModItems.testingItem, 2), 0);
+	}
 }

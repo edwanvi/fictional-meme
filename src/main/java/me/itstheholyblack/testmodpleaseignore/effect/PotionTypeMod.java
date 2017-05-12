@@ -9,13 +9,15 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 /**
  * Class to make new potion types, NOT new effects
  *
- * @param name          The unlocalized name of the potion
- * @param potionEffects The PotionEffect this potion gives
+ * @param name
+ *            The unlocalized name of the potion
+ * @param potionEffects
+ *            The PotionEffect this potion gives
  * @author wiresegal
  */
 public class PotionTypeMod extends PotionType {
-    public PotionTypeMod(String name, PotionEffect... potionEffects) {
-        super(name, potionEffects);
-        GameRegistry.register(this, new ResourceLocation(Reference.MODID, name));
-    }
+	public PotionTypeMod(String name, PotionEffect... potionEffects) {
+		super(name, potionEffects);
+		GameRegistry.register(this, new ResourceLocation(Reference.MODID, name));
+	}
 }

@@ -5,13 +5,13 @@ import net.minecraft.util.DamageSource;
 
 public class TerribleFate extends DamageSource {
 
-    public static final TerribleFate FATE = new TerribleFate();
+	public static final TerribleFate FATE = new TerribleFate();
 
-    public TerribleFate() {
-        super(Reference.MODID + ".t_fate");
-        setDamageBypassesArmor();
-        setMagicDamage();
-        setDamageAllowedInCreativeMode();
-    }
+	public TerribleFate() {
+		super(Reference.MODID + ".t_fate");
+		setDamageBypassesArmor();
+		setMagicDamage();
+		setDamageAllowedInCreativeMode();
+	}
 
 }
