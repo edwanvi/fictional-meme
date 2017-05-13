@@ -23,31 +23,31 @@ import java.util.List;
  */
 public class ItemEdibleHat extends ItemFood {
 
-	public ItemEdibleHat() {
-		super(1, false);
-		setRegistryName("hat");
-		setUnlocalizedName(Reference.MODID + ".hat");
-		setCreativeTab(ModItems.CREATIVETAB);
-		GameRegistry.register(this);
-	}
+    public ItemEdibleHat() {
+        super(1, false);
+        setRegistryName("hat");
+        setUnlocalizedName(Reference.MODID + ".hat");
+        setCreativeTab(ModItems.CREATIVETAB);
+        GameRegistry.register(this);
+    }
 
-	@Override
-	protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
-		if (!worldIn.isRemote) {
-			player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 2400, 0));
-			player.addPotionEffect(new PotionEffect(MobEffects.POISON, 100, 1));
-		}
-	}
+    @Override
+    protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
+        if (!worldIn.isRemote) {
+            player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 2400, 0));
+            player.addPotionEffect(new PotionEffect(MobEffects.POISON, 100, 1));
+        }
+    }
 
-	@SideOnly(Side.CLIENT)
-	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
-	}
+    @SideOnly(Side.CLIENT)
+    public void initModel() {
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+    }
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		tooltip.add(I18n.format("mouseovertext.hat"));
-		super.addInformation(stack, playerIn, tooltip, advanced);
-	}
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+        tooltip.add(I18n.format("mouseovertext.hat"));
+        super.addInformation(stack, playerIn, tooltip, advanced);
+    }
 }

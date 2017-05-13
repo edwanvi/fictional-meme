@@ -18,35 +18,35 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemIntrospectiveMirror extends Item {
-	public static final String DataTag = "TMPIData.";
-	public static final String FocusTag = DataTag + "focusLevel";
-	public static final String ManaPool = DataTag + "manaPool";
+    public static final String DataTag = "TMPIData.";
+    public static final String FocusTag = DataTag + "focusLevel";
+    public static final String ManaPool = DataTag + "manaPool";
 
-	public ItemIntrospectiveMirror() {
-		super();
-		String unlocalizedName = "introspective_mirror";
-		setRegistryName(unlocalizedName);
-		setUnlocalizedName(Reference.MODID + "." + unlocalizedName);
-		setCreativeTab(ModItems.CREATIVETAB);
-		setMaxStackSize(1);
-		GameRegistry.register(this);
-	}
+    public ItemIntrospectiveMirror() {
+        super();
+        String unlocalizedName = "introspective_mirror";
+        setRegistryName(unlocalizedName);
+        setUnlocalizedName(Reference.MODID + "." + unlocalizedName);
+        setCreativeTab(ModItems.CREATIVETAB);
+        setMaxStackSize(1);
+        GameRegistry.register(this);
+    }
 
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
-		NBTTagCompound data = playerIn.getEntityData();
-		if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
-			data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
-		}
-		NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-		playerIn.sendStatusMessage(
-				new TextComponentString(TextFormatting.BLUE + "Mana: " + Double.toString(persist.getDouble(ManaPool))),
-				true);
-		return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand));
-	}
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+        NBTTagCompound data = playerIn.getEntityData();
+        if (!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
+            data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
+        }
+        NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+        playerIn.sendStatusMessage(
+                new TextComponentString(TextFormatting.BLUE + "Mana: " + Double.toString(persist.getDouble(ManaPool))),
+                true);
+        return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand));
+    }
 
-	@SideOnly(Side.CLIENT)
-	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
-	}
+    @SideOnly(Side.CLIENT)
+    public void initModel() {
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+    }
 }

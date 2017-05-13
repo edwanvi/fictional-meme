@@ -16,22 +16,22 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 // because fuck you, that's why
 public class ExplosiveArrow extends ItemArrow {
 
-	public ExplosiveArrow() {
-		super();
-		setRegistryName("earrow");
-		setUnlocalizedName(Reference.MODID + ".earrow");
-		setCreativeTab(ModItems.CREATIVETAB);
-		GameRegistry.register(this);
-	}
+    public ExplosiveArrow() {
+        super();
+        setRegistryName("earrow");
+        setUnlocalizedName(Reference.MODID + ".earrow");
+        setCreativeTab(ModItems.CREATIVETAB);
+        GameRegistry.register(this);
+    }
 
-	public EntityExplosiveArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
-		EntityExplosiveArrow entitytippedarrow = new EntityExplosiveArrow(worldIn, shooter);
-		return entitytippedarrow;
-	}
+    public EntityExplosiveArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
+        EntityExplosiveArrow entitytippedarrow = new EntityExplosiveArrow(worldIn, shooter);
+        return entitytippedarrow;
+    }
 
-	@SideOnly(Side.CLIENT)
-	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(this, 0,
-				new ModelResourceLocation(Items.ARROW.getRegistryName(), "inventory"));
-	}
+    @SideOnly(Side.CLIENT)
+    public void initModel() {
+        ModelLoader.setCustomModelResourceLocation(this, 0,
+                new ModelResourceLocation(Items.ARROW.getRegistryName(), "inventory"));
+    }
 }
