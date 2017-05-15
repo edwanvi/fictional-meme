@@ -20,6 +20,7 @@ public class EntityMissile extends EntityThrowable {
     // variable to store the target of this missile
     private static final DataParameter<BlockPos> TARGET = EntityDataManager.createKey(EntityMissile.class,
             DataSerializers.BLOCK_POS);
+    private static final double RANGE = 10.0D;
     // time alive
     int time = 0;
     // nbt key for time alive
@@ -56,9 +57,9 @@ public class EntityMissile extends EntityThrowable {
             this.tag = this.world.getClosestPlayerToEntity(this, 16.0D);
         }
         if (this.tag != null) {
-            double d1 = (this.tag.posX - this.posX) / 16.0D;
-            double d2 = (this.tag.posY + this.tag.getEyeHeight() / 2.0D - this.posY) / 16.0D;
-            double d3 = (this.tag.posZ - this.posZ) / 16.0D;
+            double d1 = (this.tag.posX - this.posX) / RANGE;
+            double d2 = (this.tag.posY + this.tag.getEyeHeight() / 2.0D - this.posY) / RANGE;
+            double d3 = (this.tag.posZ - this.posZ) / RANGE;
             double d4 = Math.sqrt(d1 * d1 + d2 * d2 + d3 * d3);
             double d5 = 1.0D - d4;
 
@@ -97,7 +98,7 @@ public class EntityMissile extends EntityThrowable {
             if (e instanceof EntityMissile || e instanceof EntityGeminus_M || e instanceof EntityGeminus_F) {
                 // no-op
             } else {
-                e.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this.getThrower()), 1.0F);
+                e.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this.getThrower()), 2.0F);
             }
             this.setDead();
         }
