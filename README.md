@@ -1,7 +1,7 @@
 fictional-meme
 ---
 
-[![some downloads](http://cf.way2muchnoise.eu/253920.svg)](https://minecraft.curseforge.com/projects/test-mod-please-ignore)
+[![some downloads](http://cf.way2muchnoise.eu/253920.svg)](https://minecraft.curseforge.com/projects/test-mod-please-ignore)[![Discord](https://img.shields.io/discord/256916979951206400.svg?style=flat-square)](https://discord.gg/62ue8K7)
 
 (Better known as Test Mod Please Ignore.)
 
